@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     tools:context="com.doubletapp.hermitage.hermitage.ui.map.MapFragment">
 
-    <ImageView
+    <com.github.chrisbanes.photoview.PhotoView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
