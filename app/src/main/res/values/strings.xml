@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Hermitage</string>
+    <string name="tab_activity_exhibit_tab">Экспонаты</string>
+    <string name="tab_activity_home_tab">Главная</string>
+    <string name="tab_activity_map_tab">Карта</string>
+    <string name="tab_activity_nav_tab">Туры</string>
+    <string name="tab_activity_ticket_tab">Билеты</string>
+
 </resources>
