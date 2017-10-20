@@ -17,4 +17,11 @@ public class Pass {
     public List<Room> getRooms() {
         return mRooms;
     }
+
+    public double getDistanceTo(Pass anotherPath) {
+        int xDistance = mPosition.getX() - anotherPath.getPosition().getX();
+        int yDistance = mPosition.getY() - anotherPath.getPosition().getY();
+
+        return Math.sqrt(xDistance * xDistance + yDistance * yDistance);
+    }
 }
