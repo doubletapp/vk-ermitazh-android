@@ -9,15 +9,15 @@ import android.view.ViewGroup;
 
 import com.doubletapp.hermitage.hermitage.R;
 
-public class TickeFragment extends Fragment {
+public class BuyTicketFragment extends Fragment {
 
-    public static final String TAG = "TickeFragment";
+    public static final String TAG = "BuyTicketFragment";
 
-    public static TickeFragment newInstance() {
+    public static BuyTicketFragment newInstance() {
 
         Bundle args = new Bundle();
 
-        TickeFragment fragment = new TickeFragment();
+        BuyTicketFragment fragment = new BuyTicketFragment();
         fragment.setArguments(args);
         return fragment;
     }
@@ -26,7 +26,7 @@ public class TickeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_ticke, container, false);
+        return inflater.inflate(R.layout.fragment_buy_ticket, container, false);
     }
 
 }
