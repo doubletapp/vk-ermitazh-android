@@ -10,10 +10,20 @@ import java.util.List;
 public class Map {
     private List<Room> mRooms;
     private List<Pass> mPasses;
+    private User mUser;
 
     public Map() {
         mRooms = new ArrayList<>();
         mPasses = new ArrayList<>();
+        mUser = new User();
+    }
+
+    public void setUserRoom(Room room) {
+        mUser.setRoom(room);
+    }
+
+    public User getUser() {
+        return mUser;
     }
 
     public Map addRoom(Room room) {
