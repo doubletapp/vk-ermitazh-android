@@ -1,5 +1,7 @@
 package com.doubletapp.hermitage.hermitage.model;
 
+import com.doubletapp.hermitage.hermitage.model.map.Room;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -14,6 +16,7 @@ public class Hall {
     private List<Art> mArts;
     private Intensity mIntensity;
     private Image mImage = Image.createDefault();
+    private Room mRoom;
 
     public Hall() {
         mIntensity = Intensity.LOW;
@@ -37,6 +40,14 @@ public class Hall {
 
     public Intensity getIntensity() {
         return mIntensity;
+    }
+
+    public Room getRoom() {
+        return mRoom;
+    }
+
+    public void setRoom(Room room) {
+        mRoom = room;
     }
 
     public static class Builder {
@@ -68,6 +79,11 @@ public class Hall {
 
         public Builder setImage(Image image) {
             hall.mImage = image;
+            return this;
+        }
+
+        public Builder setRoom(Room room) {
+            hall.mRoom = room;
             return this;
         }
 
