@@ -5,4 +5,5 @@ package com.doubletapp.hermitage.hermitage.model.map;
  */
 
 public class Checkpoint {
+    private Position mPosition;
 }
