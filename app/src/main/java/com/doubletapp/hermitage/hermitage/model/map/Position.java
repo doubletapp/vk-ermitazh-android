@@ -24,4 +24,15 @@ public class Position {
     public int getY() {
         return y;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null || !(obj instanceof Position)) {
+            return false;
+        }
+
+        Position position = (Position) obj;
+
+        return position.getX() == x && position.y == position.getY();
+    }
 }
