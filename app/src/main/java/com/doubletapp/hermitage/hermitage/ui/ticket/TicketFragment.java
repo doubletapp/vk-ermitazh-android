@@ -2,6 +2,7 @@ package com.doubletapp.hermitage.hermitage.ui.ticket;
 
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,9 +19,12 @@ import butterknife.Unbinder;
 public class TicketFragment extends Fragment {
 
     public static final String TAG = "TicketFragment";
+
+    @Nullable
+    Unbinder unbinder;
+
     @BindView(R.id.buy)
     TextView mBuyButton;
-    Unbinder unbinder;
 
     public static TicketFragment newInstance() {
 

@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="150dp">
+
+    <TextView
+        android:id="@+id/day0"
+        style="@style/timePickerMainText"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="@+id/chunk0"
+        app:layout_constraintRight_toRightOf="@+id/chunk0"
+        android:text="ВТ"/>
+
+    <TextView
+        android:id="@+id/timeStart0"
+        style="@style/timePickerMainText"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="@+id/chunk0"
+        app:layout_constraintRight_toRightOf="@+id/chunk0"
+        android:text="10:30"/>
+
+    <TextView
+        android:id="@+id/timeEnd0"
+        style="@style/timePickerSecondaryText"
+        app:layout_constraintLeft_toLeftOf="@+id/timeStart0"
+        app:layout_constraintRight_toRightOf="@+id/timeStart0"
+        app:layout_constraintTop_toBottomOf="@+id/timeStart0"
+        android:text="12:00"/>
+
+    <View
+        android:id="@+id/chunk0_fill"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/column_gray"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="@+id/chunk0"
+        app:layout_constraintRight_toRightOf="@+id/chunk0"/>
+
+    <View
+        android:id="@+id/chunk0"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:clickable="true"
+        android:background="?android:attr/selectableItemBackground"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/chunk1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_weight="1"/>
+
+    <View
+        android:layout_width="1dp"
+        android:layout_height="0dp"
+        app:layout_constraintLeft_toRightOf="@+id/chunk0"
+        app:layout_constraintRight_toLeftOf="@+id/chunk1"
+        android:background="@color/line_separator"/>
+
+    <TextView
+        android:id="@+id/day1"
+        style="@style/timePickerMainText"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="@+id/chunk1"
+        app:layout_constraintRight_toRightOf="@+id/chunk1"
+        android:text="СР"/>
+
+    <TextView
+        android:id="@+id/timeStart1"
+        style="@style/timePickerMainText"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="@+id/chunk1"
+        app:layout_constraintRight_toRightOf="@+id/chunk1"
+        android:text="12:00"/>
+
+    <TextView
+        android:id="@+id/timeEnd1"
+        style="@style/timePickerSecondaryText"
+        app:layout_constraintLeft_toLeftOf="@+id/timeStart1"
+        app:layout_constraintRight_toRightOf="@+id/timeStart1"
+        app:layout_constraintTop_toBottomOf="@+id/timeStart1"
+        android:text="14:00"/>
+
+    <View
+        android:id="@+id/chunk1_fill"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/column_gray"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="@+id/chunk1"
+        app:layout_constraintRight_toRightOf="@+id/chunk1"/>
+
+    <View
+        android:id="@+id/chunk1"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:clickable="true"
+        android:background="?android:attr/selectableItemBackground"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/chunk0"
+        app:layout_constraintRight_toRightOf="@+id/chunk2"
+        app:layout_constraintHorizontal_weight="1"/>
+
+    <View
+        android:layout_width="1dp"
+        android:layout_height="0dp"
+        app:layout_constraintLeft_toRightOf="@+id/chunk1"
+        app:layout_constraintRight_toLeftOf="@+id/chunk2"
+        android:background="@color/line_separator"/>
+
+    <TextView
+        android:id="@+id/day2"
+        style="@style/timePickerMainText"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="@+id/chunk2"
+        app:layout_constraintRight_toRightOf="@+id/chunk2"
+        android:text="ЧТ"/>
+
+    <TextView
+        android:id="@+id/timeStart2"
+        style="@style/timePickerMainText"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="@+id/chunk2"
+        app:layout_constraintRight_toRightOf="@+id/chunk2"
+        android:text="14:00"/>
+
+    <TextView
+        android:id="@+id/timeEnd2"
+        style="@style/timePickerSecondaryText"
+        app:layout_constraintLeft_toLeftOf="@+id/timeStart2"
+        app:layout_constraintRight_toRightOf="@+id/timeStart2"
+        app:layout_constraintTop_toBottomOf="@+id/timeStart2"
+        android:text="16:00"/>
+
+    <View
+        android:id="@+id/chunk2_fill"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/column_gray"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="@+id/chunk2"
+        app:layout_constraintRight_toRightOf="@+id/chunk2"/>
+
+    <View
+        android:id="@+id/chunk2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:clickable="true"
+        android:background="?android:attr/selectableItemBackground"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/chunk1"
+        app:layout_constraintRight_toLeftOf="@+id/chunk3"
+        app:layout_constraintHorizontal_weight="1"/>
+
+    <View
+        android:layout_width="1dp"
+        android:layout_height="0dp"
+        app:layout_constraintLeft_toRightOf="@+id/chunk2"
+        app:layout_constraintRight_toLeftOf="@+id/chunk3"
+        android:background="@color/line_separator"/>
+
+    <TextView
+        android:id="@+id/day3"
+        style="@style/timePickerMainText"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="@+id/chunk3"
+        app:layout_constraintRight_toRightOf="@+id/chunk3"
+        android:text="ПТ"/>
+
+    <TextView
+        android:id="@+id/timeStart3"
+        style="@style/timePickerMainText"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="@+id/chunk3"
+        app:layout_constraintRight_toRightOf="@+id/chunk3"
+        android:text="16:00"/>
+
+    <TextView
+        android:id="@+id/timeEnd3"
+        style="@style/timePickerSecondaryText"
+        app:layout_constraintLeft_toLeftOf="@+id/timeStart3"
+        app:layout_constraintRight_toRightOf="@+id/timeStart3"
+        app:layout_constraintTop_toBottomOf="@+id/timeStart3"
+        android:text="18:00"/>
+
+    <View
+        android:id="@+id/chunk3_fill"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/column_gray"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="@+id/chunk3"
+        app:layout_constraintRight_toRightOf="@+id/chunk3"/>
+
+    <View
+        android:id="@+id/chunk3"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:clickable="true"
+        android:background="?android:attr/selectableItemBackground"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/chunk2"
+        app:layout_constraintRight_toLeftOf="@+id/chunk4"
+        app:layout_constraintHorizontal_weight="1"/>
+
+    <View
+        android:layout_width="1dp"
+        android:layout_height="0dp"
+        app:layout_constraintLeft_toRightOf="@+id/chunk3"
+        app:layout_constraintRight_toLeftOf="@+id/chunk4"
+        android:background="@color/line_separator"/>
+
+    <TextView
+        android:id="@+id/day4"
+        style="@style/timePickerMainText"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="@+id/chunk4"
+        app:layout_constraintRight_toRightOf="@+id/chunk4"
+        android:text="СБ"/>
+
+    <TextView
+        android:id="@+id/timeStart4"
+        style="@style/timePickerMainText"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="@+id/chunk4"
+        app:layout_constraintRight_toRightOf="@+id/chunk4"
+        android:text="18:00"/>
+
+    <TextView
+        android:id="@+id/timeEnd4"
+        style="@style/timePickerSecondaryText"
+        app:layout_constraintLeft_toLeftOf="@+id/timeStart4"
+        app:layout_constraintRight_toRightOf="@+id/timeStart4"
+        app:layout_constraintTop_toBottomOf="@+id/timeStart4"
+        android:text="20:00"/>
+
+    <View
+        android:id="@+id/chunk4_fill"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/column_gray"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="@+id/chunk4"
+        app:layout_constraintRight_toRightOf="@+id/chunk4"/>
+
+    <View
+        android:id="@+id/chunk4"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:clickable="true"
+        android:background="?android:attr/selectableItemBackground"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/chunk3"
+        app:layout_constraintRight_toLeftOf="@+id/chunk5"
+        app:layout_constraintHorizontal_weight="1"/>
+
+    <View
+        android:layout_width="1dp"
+        android:layout_height="0dp"
+        app:layout_constraintLeft_toRightOf="@+id/chunk4"
+        app:layout_constraintRight_toLeftOf="@+id/chunk5"
+        android:background="@color/line_separator"/>
+
+    <TextView
+        android:id="@+id/day5"
+        style="@style/timePickerMainText"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="@+id/chunk5"
+        app:layout_constraintRight_toRightOf="@+id/chunk5"
+        android:text="ВС"/>
+
+    <TextView
+        android:id="@+id/timeStart5"
+        style="@style/timePickerMainText"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="@+id/chunk5"
+        app:layout_constraintRight_toRightOf="@+id/chunk5"
+        android:text="20:00"/>
+
+    <TextView
+        android:id="@+id/timeEnd5"
+        style="@style/timePickerSecondaryText"
+        app:layout_constraintLeft_toLeftOf="@+id/timeStart5"
+        app:layout_constraintRight_toRightOf="@+id/timeStart5"
+        app:layout_constraintTop_toBottomOf="@+id/timeStart5"
+        android:text="21:00"/>
+
+    <View
+        android:id="@+id/chunk5_fill"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/column_gray"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="@+id/chunk5"
+        app:layout_constraintRight_toRightOf="@+id/chunk5"/>
+
+    <View
+        android:id="@+id/chunk5"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:clickable="true"
+        android:background="?android:attr/selectableItemBackground"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/chunk4"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintHorizontal_weight="1"/>
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:background="@color/line_separator"/>
+
+</android.support.constraint.ConstraintLayout>

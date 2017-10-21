@@ -19,8 +19,9 @@ public class BuyTicketActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_buy_ticket);
         ActivityUtils.replaceFragment(getSupportFragmentManager(),
-                android.R.id.content,
+                R.id.fragment_container,
                 BuyTicketFragment.newInstance(),
                 BuyTicketFragment.TAG,
                 false);

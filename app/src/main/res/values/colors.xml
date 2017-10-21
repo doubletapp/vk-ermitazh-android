@@ -7,4 +7,10 @@
 
     <color name="tab_inactive">#72858C</color>
     <color name="tab_active">#244855</color>
+
+    <color name="line_separator">#dddddd</color>
+
+    <color name="gray">#b6bcc8</color>
+    <color name="column_gray">#f0f0f2</color>
+    <color name="column_blue">#0294de</color>
 </resources>

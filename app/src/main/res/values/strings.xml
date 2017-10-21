@@ -9,4 +9,13 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
+    <string name="buy_ticket_title">Купить билеты</string>
+    <string name="buy_ticket_count_text">Количество билетов</string>
+    <string name="buy_ticket_day_text">День посещения</string>
+    <string name="buy_ticket_time_text">Время посещения</string>
+    <string name="buy_ticket_calendar_add">Добавить в календарь</string>
+    <string name="buy_ticket_price_text">Стоимость</string>
+    <string name="buy_ticket_price">₽%1$s</string>
+    <string name="buy_ticket_button">Купить билеты</string>
+
 </resources>
