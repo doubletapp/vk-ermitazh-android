@@ -19,7 +19,7 @@ public class Room {
     @Nullable
     private Hall hall;
 
-    public Room(int x, int y, Pass... passes) {
+    public Room(double x, double y, Pass... passes) {
         mPosition = new Position(x, y);
         mPasses = Arrays.asList(passes);
 

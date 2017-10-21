@@ -5,23 +5,23 @@ package com.doubletapp.hermitage.hermitage.model.map;
  */
 
 public class Position {
-    private int x;
-    private int y;
+    private double x;
+    private double y;
 
     public Position() {
         this(0, 0);
     }
 
-    public Position(int x, int y) {
+    public Position(double x, double y) {
         this.x = x;
         this.y = y;
     }
 
-    public int getX() {
+    public double getX() {
         return x;
     }
 
-    public int getY() {
+    public double getY() {
         return y;
     }
 
@@ -33,6 +33,8 @@ public class Position {
 
         Position position = (Position) obj;
 
-        return position.getX() == x && position.getY() == y;
+        Double eps = 0.000001;
+
+        return  Math.abs(position.getX() - x) < eps && Math.abs(position.getY() - y) < eps;
     }
 }

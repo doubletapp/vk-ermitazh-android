@@ -59,7 +59,7 @@ public class PathBuilder {
     public @NonNull Path getPath(Hall fromHall, List<Hall> halls, Position fromPosition) {
 
         double minDistance = Double.MAX_VALUE;
-        List<Pass> minDistancePlasses = null;
+        List<Pass> minDistancePasses = null;
 
         for (Pass pass: fromHall.getRoom().getPasses()) {
             List<Pass> listOfPasses = pathFromPass(pass, halls);
@@ -69,12 +69,12 @@ public class PathBuilder {
             }
             if (distance < minDistance) {
                 minDistance = distance;
-                minDistancePlasses = listOfPasses;
+                minDistancePasses = listOfPasses;
             }
         }
 
         Path path = new Path();
-        path.addPasses(minDistancePlasses);
+        path.addPasses(minDistancePasses);
 
         return path;
     }

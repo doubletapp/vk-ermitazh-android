@@ -1,0 +1,71 @@
+var documentName = context.document.displayName();
+
+var selectedLayers = context.selection;
+var selectedCount = selectedLayers.count();
+
+var rectanglesLayer;
+var pointsLayer;
+
+for(var i = 0; i < selectedCount; i++) {
+  if (selectedLayers[i].name() == 'rectangles') {
+    rectanglesLayer = selectedLayers[i];
+  }
+  if (selectedLayers[i].name() == 'points') {
+    pointsLayer = selectedLayers[i];
+  }
+}
+
+var pointsSublayers = pointsLayer.layers()
+for(var i = 0; i < pointsSublayers.count(); i++) {
+    log('Pass point' + i + ' = new Pass(' + pointsSublayers[i].center().x + ', ' + pointsSublayers[i].center().y + ');')
+}
+
+function frameContainsPoint(frame, point) {
+    var cnst = 5;
+    var points = [
+        {
+            "x": point.x - cnst,
+            "y": point.y - cnst
+        },
+        {
+            "x": point.x - cnst,
+            "y": point.y + cnst
+        },
+        {
+            "x": point.x + cnst,
+            "y": point.y - cnst
+        },
+        {
+            "x": point.x + cnst,
+            "y": point.y + cnst
+        }
+    ];
+    for(var i = 0; i < 4; i++) {
+        var p = points[i];
+        if (p.x > frame.x() && p.x < frame.x() + frame.width() && p.y > frame.y() && p.y < frame.y() + frame.height()) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+var rectangleSublayers = rectanglesLayer.layers()
+for (var i = 0; i < rectangleSublayers.count(); i++) {
+    var rectangleFrame = rectangleSublayers[i].frame();
+    var rectanglePoints = [];
+    for (var j = 0; j < pointsSublayers.count(); j++) {
+        var point = pointsSublayers[j].center();
+
+        if (frameContainsPoint(rectangleFrame, point)) {
+            rectanglePoints.push("point" + j);
+        }
+    }
+
+    if (rectanglePoints.length > 0) {
+        var points = rectanglePoints.join(", ");
+        log('Room room' + i + ' = new Room(' + rectangleSublayers[i].center().x + ', ' + rectangleSublayers[i].center().y + ', ' + points + ');')
+    }
+}
+
+

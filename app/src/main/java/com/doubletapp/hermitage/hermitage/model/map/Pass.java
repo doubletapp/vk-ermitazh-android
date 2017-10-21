@@ -11,7 +11,7 @@ public class Pass {
     private Position mPosition;
     private List<Room> mRooms;
 
-    public Pass(int x, int y) {
+    public Pass(double x, double y) {
         mPosition = new Position(x, y);
         mRooms = new ArrayList<>();
     }
@@ -30,8 +30,8 @@ public class Pass {
 
 
     public double getDistanceTo(Pass anotherPath) {
-        int xDistance = mPosition.getX() - anotherPath.getPosition().getX();
-        int yDistance = mPosition.getY() - anotherPath.getPosition().getY();
+        double xDistance = mPosition.getX() - anotherPath.getPosition().getX();
+        double yDistance = mPosition.getY() - anotherPath.getPosition().getY();
 
         return Math.sqrt(xDistance * xDistance + yDistance * yDistance);
     }

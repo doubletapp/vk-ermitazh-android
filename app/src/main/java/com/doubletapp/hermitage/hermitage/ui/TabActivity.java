@@ -18,7 +18,6 @@ import com.doubletapp.hermitage.hermitage.ui.exhibit.ExhibitFragment;
 import com.doubletapp.hermitage.hermitage.ui.home.HomeFragment;
 import com.doubletapp.hermitage.hermitage.ui.map.MapFragment;
 import com.doubletapp.hermitage.hermitage.ui.nav.NavFragment;
-import com.doubletapp.hermitage.hermitage.ui.ticket.TicketFragment;
 import com.doubletapp.hermitage.hermitage.ui.ticket.TicketsEmptyFragment;
 import com.doubletapp.hermitage.hermitage.utils.ActivityUtils;
 import com.roughike.bottombar.BottomBar;
@@ -50,7 +49,7 @@ public class TabActivity extends AppCompatActivity implements OnTabSelectListene
         ButterKnife.bind(this);
         init();
 
-        test();
+//        test();
     }
 
     private void init() {
