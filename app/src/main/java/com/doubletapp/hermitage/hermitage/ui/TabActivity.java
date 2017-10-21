@@ -14,8 +14,6 @@ import com.doubletapp.hermitage.hermitage.model.PathBuilder;
 import com.doubletapp.hermitage.hermitage.model.map.Pass;
 import com.doubletapp.hermitage.hermitage.model.map.Path;
 import com.doubletapp.hermitage.hermitage.model.map.Room;
-
-import java.util.Arrays;
 import com.doubletapp.hermitage.hermitage.ui.exhibit.ExhibitFragment;
 import com.doubletapp.hermitage.hermitage.ui.home.HomeFragment;
 import com.doubletapp.hermitage.hermitage.ui.map.MapFragment;
@@ -24,6 +22,8 @@ import com.doubletapp.hermitage.hermitage.ui.ticket.TicketFragment;
 import com.doubletapp.hermitage.hermitage.utils.ActivityUtils;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnTabSelectListener;
+
+import java.util.Arrays;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -49,7 +49,7 @@ public class TabActivity extends AppCompatActivity implements OnTabSelectListene
         ButterKnife.bind(this);
         init();
 
-        test()
+        test();
     }
 
     private void init() {
