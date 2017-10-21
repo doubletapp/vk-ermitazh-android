@@ -19,6 +19,13 @@ public class Path {
         return this;
     }
 
+    public Path addPasses(List<Pass> passes) {
+        if (passes != null) {
+            mPasses.addAll(passes);
+        }
+        return this;
+    }
+
     public List<Pass> getPasses() {
         return mPasses;
     }
