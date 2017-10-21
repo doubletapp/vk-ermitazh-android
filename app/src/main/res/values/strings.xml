@@ -21,4 +21,25 @@
     <string name="tickets_empty_text">У вас пока нет купленных билетов</string>
     <string name="tickets_empty_button">Купить билеты</string>
 
+    <string name="item_feed_title_0">Нефертари и Долина цариц</string>
+    <string name="item_feed_description_0">Из коллекции Египетского музея в Турине</string>
+    <string name="item_feed_title_1">В фокусе</string>
+    <string name="item_feed_description_1">Новый интернет-проект Государственного Эрмитажа</string>
+    <string name="item_feed_title_2">Искусство Италии XVII века</string>
+    <string name="item_feed_description_2">Образовательная музейная онлайн-программа</string>
+    <string name="item_feed_title_3">Пальмира</string>
+    <string name="item_feed_description_3">Памятники Пальмиры в Эрмитаже</string>
+    <string name="item_feed_title_4">Сирия</string>
+    <string name="item_feed_description_4">Памятники Сирии в Эрмитаже</string>
+    <string name="item_feed_title_5">Иорданская лестница</string>
+    <string name="item_feed_description_5">Зимний дворец, этаж 1</string>
+    <string name="item_feed_title_6">Малахитовая гостиная</string>
+    <string name="item_feed_description_6">Зимний дворец, этаж 2, зал 189</string>
+    <string name="item_feed_title_7">Георгиевский зал</string>
+    <string name="item_feed_description_7">Зимний дворец, этаж 2, зал 198</string>
+    <string name="item_feed_title_8">Зал Рафаэля</string>
+    <string name="item_feed_description_8">Новый Эрмитаж, этаж 2, зал 229</string>
+    <string name="item_feed_title_9">Большой итальянский просвет</string>
+    <string name="item_feed_description_9">Новый Эрмитаж, этаж 2, зал 238</string>
+
 </resources>
