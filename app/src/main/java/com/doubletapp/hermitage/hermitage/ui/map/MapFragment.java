@@ -26,6 +26,8 @@ public class MapFragment extends Fragment {
 
     public static final String TAG = "MapFragment";
 
+    private static final int USER_SIZE_PX = 20;
+
     @BindView(R.id.map)
     PhotoView mMapView;
 
@@ -48,18 +50,18 @@ public class MapFragment extends Fragment {
 //        int width = MetricsConverter.convertDpToPixel(1127, getActivity());
 //        int height = MetricsConverter.convertDpToPixel(542, getActivity());
 
-        int width = 1127;
-        int height = 542;
+        int width = 12900;
+        int height = 6676;
 
         tileView.setSize(width, height);
-        tileView.setScaleLimits(0, 12);
+        tileView.setScaleLimits(0, 2);
         tileView.setScale(0);
         tileView.setShouldRenderWhilePanning(true);
 
-        tileView.addDetailLevel(1f, "tiles/1000/tile-%d-%d.png", 32, 32);
+//        tileView.addDetailLevel(1f, "tiles/1000/tile-%d-%d.png", 32, 32);
         tileView.addDetailLevel(0.500f, "tiles/500/tile-%d-%d.png", 64, 64);
         tileView.addDetailLevel(0.250f, "tiles/250/tile-%d-%d.png", 128, 128);
-        tileView.addDetailLevel(0.125f, "tiles/125/tile-%d-%d.png");
+        tileView.addDetailLevel(0.125f, "tiles/125O/tile-%d-%d.png");
 
 
         return tileView;
@@ -93,6 +95,5 @@ public class MapFragment extends Fragment {
         ImageView imageView = new ImageView(getActivity());
         imageView.setImageResource(R.drawable.ic_user_blue_20px);
         tileView.addMarker(imageView, x, y, null, null);
-
     }
 }
