@@ -23,7 +23,7 @@ for(var i = 0; i < pointsSublayers.count(); i++) {
 }
 
 function frameContainsPoint(frame, point) {
-    var cnst = 3;
+    var cnst = 10;
     var points = [
         {
             "x": point.x - cnst,
