@@ -46,18 +46,15 @@ public class MapFragment extends Fragment {
 //        int width = MetricsConverter.convertDpToPixel(1127, getActivity());
 //        int height = MetricsConverter.convertDpToPixel(542, getActivity());
 
-        int width = 12900;
-        int height = 6676;
+        int width = 4972;
+        int height = 2568;
 
         tileView.setSize(width, height);
-        tileView.setScaleLimits(0, 2);
+        tileView.setScaleLimits(0, 4);
         tileView.setScale(0);
         tileView.setShouldRenderWhilePanning(true);
 
-//        tileView.addDetailLevel(1f, "tiles/1000/tile-%d-%d.png", 32, 32);
-        tileView.addDetailLevel(0.500f, "tiles/500/tile-%d-%d.png", 64, 64);
-        tileView.addDetailLevel(0.250f, "tiles/250/tile-%d-%d.png", 128, 128);
-        tileView.addDetailLevel(0.125f, "tiles/125O/tile-%d-%d.png");
+        tileView.addDetailLevel(1f, "tiles/125/tile-%d-%d.png");
 
 
         initData();
