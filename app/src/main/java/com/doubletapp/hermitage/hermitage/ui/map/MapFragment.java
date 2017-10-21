@@ -1,18 +1,12 @@
 package com.doubletapp.hermitage.hermitage.ui.map;
 
 
-import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.graphics.drawable.DrawableCompat;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -116,9 +110,9 @@ public class MapFragment extends Fragment {
     private void addPasses() {
         for(Pass pass: allPasses) {
             ImageView imageView = new ImageView(getActivity());
-            imageView.setImageResource(R.drawable.ic_user_blue_20px);
+            imageView.setImageBitmap(Bitmap.createScaledBitmap(getBitmapFromVectorDrawable(R.drawable.ic_user_blue_20px), 30, 30, false));
 
-            tileView.addMarker(imageView, pass.getPosition().getX(), pass.getPosition().getY(), null, null);
+            tileView.addMarker(imageView, pass.getPosition().getX(), pass.getPosition().getY(), (float) -0.5, (float) -0.5);
         }
     }
 
