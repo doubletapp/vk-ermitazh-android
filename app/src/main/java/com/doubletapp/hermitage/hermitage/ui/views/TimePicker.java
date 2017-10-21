@@ -79,6 +79,7 @@ public class TimePicker extends ConstraintLayout {
     int mBlueColor;
     @BindColor(R.color.column_gray)
     int mGrayColor;
+    int mSelectedPosition;
 
     public TimePicker(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
@@ -195,7 +196,7 @@ public class TimePicker extends ConstraintLayout {
         timeEnd4.setText(endTimes.get(4));
         timeStart4.setText(startTimes.get(4));
         LayoutParams params4 = (LayoutParams) chunk4Fill.getLayoutParams();
-        params0.height = (int)(absoleteHeight * percentages.get(0));
+        params4.height = (int)(absoleteHeight * percentages.get(4));
 
         day5.setVisibility(GONE);
         timeEnd5.setText(endTimes.get(5));
@@ -231,32 +232,77 @@ public class TimePicker extends ConstraintLayout {
         }
     }
 
+    private void select(int index) {
+        chunk0Fill.setBackgroundColor(mGrayColor);
+        chunk1Fill.setBackgroundColor(mGrayColor);
+        chunk2Fill.setBackgroundColor(mGrayColor);
+        chunk3Fill.setBackgroundColor(mGrayColor);
+        chunk4Fill.setBackgroundColor(mGrayColor);
+        chunk5Fill.setBackgroundColor(mGrayColor);
+        switch (index) {
+            case 0:
+                chunk0Fill.setBackgroundColor(mBlueColor);
+                mSelectedPosition = 1;
+                break;
+            case 1:
+                chunk1Fill.setBackgroundColor(mBlueColor);
+                mSelectedPosition = 2;
+                break;
+            case 2:
+                chunk2Fill.setBackgroundColor(mBlueColor);
+                mSelectedPosition = 3;
+                break;
+            case 3:
+                chunk3Fill.setBackgroundColor(mBlueColor);
+                mSelectedPosition = 4;
+                break;
+            case 4:
+                chunk4Fill.setBackgroundColor(mBlueColor);
+                mSelectedPosition = 5;
+                break;
+            case 5:
+                chunk5Fill.setBackgroundColor(mBlueColor);
+                mSelectedPosition = 6;
+                break;
+        }
+    }
+
     public void swapData(@NonNull TimePickerData data) {
         mData = data;
         refresh();
     }
 
+    public int getSelectedPosition() {
+        return mSelectedPosition;
+    }
+
     @OnClick(R.id.chunk0)
     public void onChunk0Clicked() {
+        select(0);
     }
 
     @OnClick(R.id.chunk1)
     public void onChunk1Clicked() {
+        select(1);
     }
 
     @OnClick(R.id.chunk2)
     public void onChunk2Clicked() {
+        select(2);
     }
 
     @OnClick(R.id.chunk3)
     public void onChunk3Clicked() {
+        select(3);
     }
 
     @OnClick(R.id.chunk4)
     public void onChunk4Clicked() {
+        select(4);
     }
 
     @OnClick(R.id.chunk5)
     public void onChunk5Clicked() {
+        select(5);
     }
 }

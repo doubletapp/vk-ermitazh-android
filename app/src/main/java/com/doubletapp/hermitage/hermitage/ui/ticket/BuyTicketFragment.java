@@ -86,7 +86,7 @@ public class BuyTicketFragment extends Fragment {
         percentages2.add(0.88f);
         percentages2.add(0.10f);
         percentages2.add(0.38f);
-        percentages2.add(0.20f);
+        percentages2.add(0.21f);
         percentages2.add(0.50f);
         mTimePicker.swapData(new TimePickerData(timesStart, timesEnd, percentages2));
     }

@@ -38,7 +38,7 @@
         android:background="@color/column_gray"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="@+id/chunk0"
-        app:layout_constraintRight_toRightOf="@+id/chunk0"/>
+        app:layout_constraintRight_toLeftOf="@+id/separator1"/>
 
     <View
         android:id="@+id/chunk0"
@@ -53,6 +53,7 @@
         app:layout_constraintHorizontal_weight="1"/>
 
     <View
+        android:id="@+id/separator1"
         android:layout_width="1dp"
         android:layout_height="0dp"
         app:layout_constraintLeft_toRightOf="@+id/chunk0"
@@ -89,8 +90,8 @@
         android:layout_height="0dp"
         android:background="@color/column_gray"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="@+id/chunk1"
-        app:layout_constraintRight_toRightOf="@+id/chunk1"/>
+        app:layout_constraintLeft_toRightOf="@+id/separator1"
+        app:layout_constraintRight_toLeftOf="@+id/separator2"/>
 
     <View
         android:id="@+id/chunk1"
@@ -105,6 +106,7 @@
         app:layout_constraintHorizontal_weight="1"/>
 
     <View
+        android:id="@+id/separator2"
         android:layout_width="1dp"
         android:layout_height="0dp"
         app:layout_constraintLeft_toRightOf="@+id/chunk1"
@@ -141,8 +143,8 @@
         android:layout_height="0dp"
         android:background="@color/column_gray"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="@+id/chunk2"
-        app:layout_constraintRight_toRightOf="@+id/chunk2"/>
+        app:layout_constraintLeft_toRightOf="@+id/separator2"
+        app:layout_constraintRight_toLeftOf="@+id/separator3"/>
 
     <View
         android:id="@+id/chunk2"
@@ -157,6 +159,7 @@
         app:layout_constraintHorizontal_weight="1"/>
 
     <View
+        android:id="@+id/separator3"
         android:layout_width="1dp"
         android:layout_height="0dp"
         app:layout_constraintLeft_toRightOf="@+id/chunk2"
@@ -193,8 +196,8 @@
         android:layout_height="0dp"
         android:background="@color/column_gray"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="@+id/chunk3"
-        app:layout_constraintRight_toRightOf="@+id/chunk3"/>
+        app:layout_constraintLeft_toRightOf="@+id/separator3"
+        app:layout_constraintRight_toLeftOf="@+id/separator4"/>
 
     <View
         android:id="@+id/chunk3"
@@ -209,6 +212,7 @@
         app:layout_constraintHorizontal_weight="1"/>
 
     <View
+        android:id="@+id/separator4"
         android:layout_width="1dp"
         android:layout_height="0dp"
         app:layout_constraintLeft_toRightOf="@+id/chunk3"
@@ -245,8 +249,8 @@
         android:layout_height="0dp"
         android:background="@color/column_gray"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="@+id/chunk4"
-        app:layout_constraintRight_toRightOf="@+id/chunk4"/>
+        app:layout_constraintLeft_toRightOf="@+id/separator4"
+        app:layout_constraintRight_toLeftOf="@+id/separator5"/>
 
     <View
         android:id="@+id/chunk4"
@@ -261,6 +265,7 @@
         app:layout_constraintHorizontal_weight="1"/>
 
     <View
+        android:id="@+id/separator5"
         android:layout_width="1dp"
         android:layout_height="0dp"
         app:layout_constraintLeft_toRightOf="@+id/chunk4"
@@ -297,7 +302,7 @@
         android:layout_height="0dp"
         android:background="@color/column_gray"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="@+id/chunk5"
+        app:layout_constraintLeft_toRightOf="@+id/separator5"
         app:layout_constraintRight_toRightOf="@+id/chunk5"/>
 
     <View
