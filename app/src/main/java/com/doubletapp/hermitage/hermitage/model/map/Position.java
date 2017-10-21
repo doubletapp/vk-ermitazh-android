@@ -25,6 +25,13 @@ public class Position {
         return y;
     }
 
+    public double getDistanceTo(Position anotherPosition) {
+        double xDistance = getX() - anotherPosition.getX();
+        double yDistance = getY() - anotherPosition.getY();
+
+        return Math.sqrt(xDistance * xDistance + yDistance * yDistance);
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (obj == null || !(obj instanceof Position)) {

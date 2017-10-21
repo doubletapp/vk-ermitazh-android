@@ -37,6 +37,7 @@ public class Pass {
 
         return Math.sqrt(xDistance * xDistance + yDistance * yDistance);
     }
+
     public Room getCommonRoom(Pass anotherPass) {
         Set<Room> ownRooms = new HashSet<>(getRooms());
         Set<Room> anotherRooms = new HashSet<>(anotherPass.getRooms());
