@@ -17,8 +17,8 @@ for(var i = 0; i < selectedCount; i++) {
 
 var pointsSublayers = pointsLayer.layers();
 for(var i = 0; i < pointsSublayers.count(); i++) {
-    var x = pointsSublayers[i].frame().x() + pointsLayer.frame().x();
-    var y = pointsSublayers[i].frame().y() + pointsLayer.frame().y();
+    var x = pointsSublayers[i].center().x + pointsLayer.frame().x();
+    var y = pointsSublayers[i].center().y + pointsLayer.frame().y();
     log('Pass point' + i + ' = new Pass(' + x + ', ' + y + '); // ' + pointsSublayers[i].name())
 }
 
