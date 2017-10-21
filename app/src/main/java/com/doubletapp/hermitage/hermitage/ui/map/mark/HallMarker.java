@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import com.doubletapp.hermitage.hermitage.R;
 import com.doubletapp.hermitage.hermitage.model.Hall;
 import com.doubletapp.hermitage.hermitage.model.map.Position;
+import com.qozix.tileview.TileView;
 
 /**
  * Created by navi9 on 22.10.2017.
@@ -22,20 +23,21 @@ public class HallMarker extends MapMark {
     private Hall hall;
 
     public HallMarker(Context context, Hall hall) {
-        super(context, R.drawable.ic_user_blue_20px, 120);
+        super(context, R.drawable.ic_user_blue_20px, 40);
 
         this.hall = hall;
     }
 
     @Override
-    protected void onInvalidate() {
-
+    protected void onInvalidate(TileView tileView) {
+        Bitmap bitmap = Bitmap.createScaledBitmap(getBitmapFromVectorDrawable(getRes()), getScaledSize(), getScaledSize(), false);
+        ((ImageView) getView()).setImageBitmap(bitmap);
     }
 
     @Override
-    public View getView() {
+    public View createView() {
         ImageView imageView = new ImageView(getContext());
-        imageView.setImageBitmap(Bitmap.createScaledBitmap(getBitmapFromVectorDrawable(getRes()), getSize(), getSize(), false));
+        imageView.setImageBitmap(Bitmap.createScaledBitmap(getBitmapFromVectorDrawable(getRes()), getScaledSize(), getScaledSize(), false));
 
         return imageView;
     }

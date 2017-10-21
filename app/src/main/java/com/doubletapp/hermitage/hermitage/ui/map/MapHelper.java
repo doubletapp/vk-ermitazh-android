@@ -35,7 +35,6 @@ public class MapHelper implements ZoomPanLayout.ZoomPanListener {
     private PublishSubject<Float> mScaleSubject;
     private PublishSubject<Position> mPositionSubject;
 
-
     public MapHelper(TileView tileView, int mapWidth, int mapHeight) {
         this.tileView = tileView;
         this.mapWidth = mapWidth;
@@ -50,7 +49,7 @@ public class MapHelper implements ZoomPanLayout.ZoomPanListener {
         mPositionSubject = PublishSubject.create();
         mUpdateSubject = PublishSubject.create();
 
-        mScaleSubject.onBackpressureBuffer().debounce(150, TimeUnit.MILLISECONDS).subscribe(new Subscriber<Float>() {
+        mScaleSubject.onBackpressureBuffer().subscribe(new Subscriber<Float>() {
             @Override
             public void onCompleted() {
 
@@ -92,7 +91,7 @@ public class MapHelper implements ZoomPanLayout.ZoomPanListener {
     }
 
     public Observable<Boolean> getUpdateObservable() {
-        return mUpdateSubject.onBackpressureBuffer().debounce(150, TimeUnit.MILLISECONDS).observeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
+        return mUpdateSubject.onBackpressureBuffer().debounce(50, TimeUnit.MILLISECONDS).observeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
     }
 
     @Override

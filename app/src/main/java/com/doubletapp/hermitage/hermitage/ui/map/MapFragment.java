@@ -19,18 +19,20 @@ import com.doubletapp.hermitage.hermitage.model.Intensity;
 import com.doubletapp.hermitage.hermitage.model.PathBuilder;
 import com.doubletapp.hermitage.hermitage.model.map.Pass;
 import com.doubletapp.hermitage.hermitage.model.map.Path;
+import com.doubletapp.hermitage.hermitage.model.map.Position;
 import com.doubletapp.hermitage.hermitage.model.map.Room;
 import com.doubletapp.hermitage.hermitage.ui.map.mark.HallMarker;
 import com.doubletapp.hermitage.hermitage.ui.map.mark.MapMark;
 import com.doubletapp.hermitage.hermitage.ui.map.mark.RoomMarker;
 import com.qozix.tileview.TileView;
+import com.qozix.tileview.markers.MarkerLayout;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import rx.Subscriber;
 
-public class MapFragment extends Fragment {
+public class MapFragment extends Fragment implements MarkerLayout.MarkerTapListener {
 
     public static final String TAG = "MapFragment";
     Pass[] allPasses;
@@ -119,6 +121,18 @@ public class MapFragment extends Fragment {
                 }
             }
         });
+
+        tileView.setMarkerTapListener(this);
+    }
+
+    @Override
+    public void onMarkerTap(View view, int x, int y) {
+
+        for (HallMarker hallMark : hallMarks) {
+            if (hallMark.getView() != null && hallMark.getView().equals(view)) {
+                Log.d("event_trace", "Click by " + hallMark.getHall().getId());
+            }
+        }
     }
 
     private void updateMapMarkAttachment(MapMark mark) {
@@ -126,6 +140,8 @@ public class MapFragment extends Fragment {
             mark.attachMark(tileView);
         } else if (!helper.isPositionVisible(mark.getMarkPosition()) && mark.isAttached()) {
             mark.detachMark(tileView);
+        } else {
+            mark.invalidate(tileView);
         }
     }
 
