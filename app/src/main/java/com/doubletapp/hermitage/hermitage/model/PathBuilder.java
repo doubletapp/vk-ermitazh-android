@@ -56,13 +56,12 @@ public class PathBuilder {
         roomRelations.get(passKey).add(passRelation);
     }
 
-    public @NonNull Path getPath(Hall fromHall, List<Hall> halls, Position fromPosition) {
-
+    public @NonNull Path getPath(Room fromRoom, List<Room> rooms, Position fromPosition) {
         double minDistance = Double.MAX_VALUE;
         List<Pass> minDistancePasses = null;
 
-        for (Pass pass: fromHall.getRooms().get(0).getPasses()) {
-            List<Pass> listOfPasses = pathFromPass(pass, halls);
+        for (Pass pass: fromRoom.getPasses()) {
+            List<Pass> listOfPasses = pathFromPass(pass, rooms);
             double distance = 0;
             for(int i = 0; i < listOfPasses.size() - 1; i++) {
                 distance += listOfPasses.get(i).getDistanceTo(listOfPasses.get(i + 1));
@@ -79,7 +78,7 @@ public class PathBuilder {
         return path;
     }
 
-    private List<Pass> pathFromPass(Pass rootPass, List<Hall> halls) {
+    private List<Pass> pathFromPass(Pass rootPass, List<Room> rooms) {
         Set<Pass> keyset = pathRelations.keySet();
         Pass[] passes = keyset.toArray(new Pass[keyset.size()]);
         int[] previousPasses = getPreviouses(rootPass, passes);
@@ -89,8 +88,8 @@ public class PathBuilder {
         Pass minPass = null;
         double minDistance = Double.MAX_VALUE;
 
-        for (Hall hall: halls) {
-            for (Pass pass: hall.getRooms().get(0).getPasses()) {
+        for (Room room: rooms) {
+            for (Pass pass: room.getPasses()) {
 
                 double distance = getDistance(pass, listOfPasses, previousPasses);
 
