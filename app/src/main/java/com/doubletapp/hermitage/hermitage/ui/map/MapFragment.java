@@ -21,12 +21,12 @@ import com.doubletapp.hermitage.hermitage.model.Intensity;
 import com.doubletapp.hermitage.hermitage.model.PathBuilder;
 import com.doubletapp.hermitage.hermitage.model.map.Pass;
 import com.doubletapp.hermitage.hermitage.model.map.Path;
-import com.doubletapp.hermitage.hermitage.model.map.Position;
 import com.doubletapp.hermitage.hermitage.model.map.Room;
 import com.doubletapp.hermitage.hermitage.ui.map.mark.HallMarker;
 import com.doubletapp.hermitage.hermitage.ui.map.mark.MapMark;
 import com.doubletapp.hermitage.hermitage.ui.map.mark.RoomMarker;
 import com.qozix.tileview.TileView;
+import com.qozix.tileview.markers.MarkerLayout;
 import com.qozix.tileview.paths.CompositePathView;
 
 import java.util.ArrayList;
