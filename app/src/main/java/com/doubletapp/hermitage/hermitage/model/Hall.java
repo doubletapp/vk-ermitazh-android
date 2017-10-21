@@ -55,6 +55,7 @@ public class Hall {
     public void addRoom(Room room) {
         if (!mRooms.contains(room)) {
             mRooms.add(room);
+            room.setHall(this);
         }
     }
 

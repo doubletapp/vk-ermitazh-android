@@ -75,6 +75,14 @@ public class Room {
         return mPosition.equals(room.getPosition());
     }
 
+    public void setHall(Hall hall) {
+        this.hall = hall;
+    }
+
+    public Hall getHall() {
+        return hall;
+    }
+
     public static Builder build(int x, int y) {
         return new Builder(x, y);
     }
