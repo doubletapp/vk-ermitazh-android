@@ -3,10 +3,13 @@ package com.doubletapp.hermitage.hermitage.ui.map;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.res.ResourcesCompat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +24,9 @@ import com.doubletapp.hermitage.hermitage.model.map.Path;
 import com.doubletapp.hermitage.hermitage.model.map.Room;
 import com.github.chrisbanes.photoview.PhotoView;
 import com.qozix.tileview.TileView;
+import com.qozix.tileview.paths.CompositePathView;
 
+import java.util.Collections;
 import java.util.List;
 
 import butterknife.BindView;
@@ -69,8 +74,8 @@ public class MapFragment extends Fragment {
 
 
         initData();
-        drawRooms();
-//        addPasses();
+//        drawRooms();
+        addPasses();
 
         return tileView;
     }
@@ -142,20 +147,64 @@ public class MapFragment extends Fragment {
             }
         }
 
-//        drawPath(pathBuilder.getPath(startRoom, Collections.singletonList(destinationRoom), null);
+        drawPath(pathBuilder.getPath(startRoom, Collections.singletonList(destinationRoom), null));
     }
 
     private void drawPath(Path path) {
         List<Pass> passes = path.getPasses();
-        for (int i = 0; i < passes.size() - 1; i++) {
+        android.graphics.Path pathForDrawing = new android.graphics.Path();
+        Paint paint = new Paint();
 
+        paint.setStrokeWidth(9);
+        paint.setStyle(Paint.Style.STROKE);
+        paint.setColor(ResourcesCompat.getColor(getResources(), R.color.column_blue, null));
+
+        Pass previousPass = passes.get(0);
+
+        if (passes.size() > 0) {
+            pathForDrawing.moveTo((float) previousPass.getPosition().getX(), (float) previousPass.getPosition().getY());
         }
-//        for(Pass pass: passes) {
-//            ImageView imageView = new ImageView(getActivity());
-//            imageView.setImageBitmap(Bitmap.createScaledBitmap(getBitmapFromVectorDrawable(R.drawable.ic_user_blue_20px), 30, 30, false));
-//
-//            tileView.addMarker(imageView, pass.getPosition().getX(), pass.getPosition().getY(), (float) -0.5, (float) -0.5);
-//        }
+
+        for (int i = 1; i < passes.size(); i++) {
+            Pass pass = passes.get(i);
+            makeLineBetweenPasses(pathForDrawing, previousPass, pass);
+            previousPass = pass;
+        }
+
+        CompositePathView.DrawablePath drawablePath = new CompositePathView.DrawablePath();
+        drawablePath.path = pathForDrawing;
+        drawablePath.paint = paint;
+        tileView.drawPath(drawablePath);
+    }
+
+    private void makeLineBetweenPasses(android.graphics.Path pathForDrawing, Pass previousPass, Pass nextPass) {
+        Room room = previousPass.getCommonRoom(nextPass);
+        if (room != null) {
+            // Если противоположные стены, то расстояние до центра комнаты должно приблизительно совпадать
+            // Точки должны быть по разные стороны от центра
+            Double eps = 10.0;
+
+            if (Math.abs(Math.abs(room.getPosition().getX() - previousPass.getPosition().getX()) - Math.abs(room.getPosition().getX() - nextPass.getPosition().getX())) < eps
+                    && Math.abs(Math.abs(room.getPosition().getX() - previousPass.getPosition().getX())
+                        + Math.abs(room.getPosition().getX() - nextPass.getPosition().getX()))
+                            - Math.abs(previousPass.getPosition().getX() - nextPass.getPosition().getX()) < eps) {
+                Log.i("DRAWING LINE", "Противоположные стены горизонтально");
+            } else if (Math.abs(Math.abs(room.getPosition().getY() - previousPass.getPosition().getY()) - Math.abs(room.getPosition().getY() - nextPass.getPosition().getY())) < eps
+                    && Math.abs(Math.abs(room.getPosition().getY() - previousPass.getPosition().getY())
+                        + Math.abs(room.getPosition().getY() - nextPass.getPosition().getY()))
+                            - Math.abs(previousPass.getPosition().getY() - nextPass.getPosition().getY()) < eps) {
+                Log.i("DRAWING LINE", "Противоположные стены вертикально");
+            } else if (Math.abs(previousPass.getPosition().getX() - nextPass.getPosition().getX()) < 10) {
+                Log.i("DRAWING LINE", "На одной стене вертикально");
+            } else if (Math.abs(previousPass.getPosition().getY() - nextPass.getPosition().getY()) < 10) {
+                Log.i("DRAWING LINE", "На одной стене горизонтально");
+            } else {
+                Log.i("DRAWING LINE", "На смежных стенах");
+            }
+            pathForDrawing.lineTo((float) nextPass.getPosition().getX(), (float) nextPass.getPosition().getY());
+        } else {
+            pathForDrawing.lineTo((float) nextPass.getPosition().getX(), (float) nextPass.getPosition().getY());
+        }
     }
 
     private void initData() {
