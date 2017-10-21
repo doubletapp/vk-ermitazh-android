@@ -10,6 +10,7 @@ import com.doubletapp.hermitage.hermitage.model.map.Room;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -56,16 +57,15 @@ public class PathBuilder {
         roomRelations.get(passKey).add(passRelation);
     }
 
-    public @NonNull Path getPath(Hall fromHall, List<Hall> halls, Position fromPosition) {
-
+    public @NonNull Path getPath(Room fromRoom, List<Room> rooms, Position fromPosition) {
         double minDistance = Double.MAX_VALUE;
         List<Pass> minDistancePasses = null;
 
-        for (Pass pass: fromHall.getRoom().getPasses()) {
-            List<Pass> listOfPasses = pathFromPass(pass, halls);
+        for (Pass pass: fromRoom.getPasses()) {
+            List<Pass> listOfPasses = pathFromPass(pass, rooms);
             double distance = 0;
             for(int i = 0; i < listOfPasses.size() - 1; i++) {
-                distance += listOfPasses.get(i).getDistanceTo(listOfPasses.get(i + 1));
+                distance += distanceBetweenPasses(listOfPasses.get(i), listOfPasses.get(i + 1));
             }
             if (distance < minDistance) {
                 minDistance = distance;
@@ -79,7 +79,7 @@ public class PathBuilder {
         return path;
     }
 
-    private List<Pass> pathFromPass(Pass rootPass, List<Hall> halls) {
+    private List<Pass> pathFromPass(Pass rootPass, List<Room> rooms) {
         Set<Pass> keyset = pathRelations.keySet();
         Pass[] passes = keyset.toArray(new Pass[keyset.size()]);
         int[] previousPasses = getPreviouses(rootPass, passes);
@@ -89,8 +89,8 @@ public class PathBuilder {
         Pass minPass = null;
         double minDistance = Double.MAX_VALUE;
 
-        for (Hall hall: halls) {
-            for (Pass pass: hall.getRoom().getPasses()) {
+        for (Room room: rooms) {
+            for (Pass pass: room.getPasses()) {
 
                 double distance = getDistance(pass, listOfPasses, previousPasses);
 
@@ -121,7 +121,7 @@ public class PathBuilder {
         double distance = 0.0;
 
         while (previousPasses[indexOfPass] != -1) {
-            distance += listOfPasses.get(indexOfPass).getDistanceTo(listOfPasses.get(previousPasses[indexOfPass]));
+            distance += distanceBetweenPasses(listOfPasses.get(indexOfPass), listOfPasses.get(previousPasses[indexOfPass]));
             indexOfPass = previousPasses[indexOfPass];
         }
 
@@ -139,7 +139,7 @@ public class PathBuilder {
             List<Pass> connectedPasses = pathRelations.get(pass);
             for (int j = 0; j < capacity; j++) {
                 if(connectedPasses.contains(passes[j])) {
-                    connections[i][j] = pass.getDistanceTo(passes[j]);
+                    connections[i][j] = distanceBetweenPasses(pass, passes[j]);
                 } else {
                     connections[i][j] = Double.MAX_VALUE;
                 }
@@ -189,5 +189,19 @@ public class PathBuilder {
         } while (minIndex != -1);
 
         return previous;
+    }
+
+    private double distanceBetweenPasses(Pass pass1, Pass pass2) {
+        double distance = pass1.getDistanceTo(pass2);
+        Set<Room> rooms1 = new HashSet<>(pass1.getRooms());
+        Set<Room> rooms2 = new HashSet<>(pass2.getRooms());
+        rooms1.retainAll(rooms2);
+        if (rooms1.isEmpty()) {
+            return distance;
+        } else {
+            List<Room> rooms = new ArrayList<>();
+            rooms.addAll(rooms1);
+            return distance * rooms.get(0).getIntensityСoefficient();
+        }
     }
 }

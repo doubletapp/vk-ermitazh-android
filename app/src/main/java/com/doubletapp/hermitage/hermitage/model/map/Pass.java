@@ -1,7 +1,9 @@
 package com.doubletapp.hermitage.hermitage.model.map;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by navi9 on 20.10.2017.
@@ -34,6 +36,21 @@ public class Pass {
         double yDistance = mPosition.getY() - anotherPath.getPosition().getY();
 
         return Math.sqrt(xDistance * xDistance + yDistance * yDistance);
+    }
+
+    public Room getCommonRoom(Pass anotherPass) {
+        Set<Room> ownRooms = new HashSet<>(getRooms());
+        Set<Room> anotherRooms = new HashSet<>(anotherPass.getRooms());
+
+        ownRooms.retainAll(anotherRooms);
+
+        if (ownRooms.isEmpty()) {
+            return null;
+        } else {
+            List<Room> rooms = new ArrayList<>();
+            rooms.addAll(ownRooms);
+            return rooms.get(0);
+        }
     }
 
     @Override

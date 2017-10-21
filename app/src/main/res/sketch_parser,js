@@ -59,8 +59,15 @@ function frameContainsPoint(frame, point) {
 }
 
 var rectangleSublayers = rectanglesLayer.layers();
+var halls = {};
+
+function isHall(layer) {
+   return layer.name().startsWith("Hall");
+}
+
 for (var i = 0; i < rectangleSublayers.count(); i++) {
-    var rectangleFrame = rectangleSublayers[i].frame();
+    var rectangleLayer = rectangleSublayers[i];
+    var rectangleFrame = rectangleLayer.frame();
     var rectanglePoints = [];
     for (var j = 0; j < pointsSublayers.count(); j++) {
         var point = pointsSublayers[j].center();
@@ -70,11 +77,28 @@ for (var i = 0; i < rectangleSublayers.count(); i++) {
         }
     }
 
+    var roomName = 'room' + i;
+
+    var roomCenterX = rectanglesLayer.frame().x() + rectangleSublayers[i].center().x;
+    var roomCenterY = rectanglesLayer.frame().y() + rectangleSublayers[i].center().y;
+
     if (rectanglePoints.length > 0) {
         var points = rectanglePoints.join(", ");
-        log('Room room' + i + ' = new Room(' + rectangleSublayers[i].center().x + ', ' + rectangleSublayers[i].center().y + ', ' + points + '); // ' + rectangleSublayers[i].name());
+        log('Room ' + roomName + ' = new Room(' + roomCenterX + ', ' + roomCenterY + ', ' + points + '); // ' + rectangleSublayers[i].name());
     } else {
-        log('Room room' + i + ' = new Room(' + rectangleSublayers[i].center().x + ', ' + rectangleSublayers[i].center().y + '); // ' + rectangleSublayers[i].name());
+        log('Room ' + roomName + ' = new Room(' + roomCenterX + ', ' + roomCenterY + '); // ' + rectangleSublayers[i].name());
+    }
+
+    if (isHall(rectangleLayer)) {
+        var hallId = rectangleLayer.name().split(" ")[1];
+        var hallName = 'hall' + hallId;
+        if (!(hallId in halls)) {
+            log('Hall ' + hallName + ' = new Hall();');
+            log(hallName + '.setId("' + hallId + '");');
+            halls[hallId] = hallName;
+        }
+
+        log(hallName + '.addRoom('+ roomName + ');');
     }
 }
 
@@ -91,4 +115,11 @@ for(var i = 0; i < rectangleSublayers.count(); i++) {
 
 log('Pass[] allPasses = new Pass[] {' + allPoints.join(", ") + '};');
 log('Room[] allRooms = new Room[] {' + allRooms.join(", ") + '};');
+
+var hallNames = [];
+for (var hallId in halls) {
+    hallNames.push(halls[hallId]);
+}
+
+log('Hall[] allHalls = new Hall[] {' + hallNames.join(", ") + '};');
 
