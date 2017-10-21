@@ -79,11 +79,14 @@ for (var i = 0; i < rectangleSublayers.count(); i++) {
 
     var roomName = 'room' + i;
 
+    var roomCenterX = rectanglesLayer.frame().x() + rectangleSublayers[i].center().x;
+    var roomCenterY = rectanglesLayer.frame().y() + rectangleSublayers[i].center().y;
+
     if (rectanglePoints.length > 0) {
         var points = rectanglePoints.join(", ");
-        log('Room ' + roomName + ' = new Room(' + rectangleSublayers[i].center().x + ', ' + rectangleSublayers[i].center().y + ', ' + points + '); // ' + rectangleSublayers[i].name());
+        log('Room ' + roomName + ' = new Room(' + roomCenterX + ', ' + roomCenterY + ', ' + points + '); // ' + rectangleSublayers[i].name());
     } else {
-        log('Room ' + roomName + ' = new Room(' + rectangleSublayers[i].center().x + ', ' + rectangleSublayers[i].center().y + '); // ' + rectangleSublayers[i].name());
+        log('Room ' + roomName + ' = new Room(' + roomCenterX + ', ' + roomCenterY + '); // ' + rectangleSublayers[i].name());
     }
 
     if (isHall(rectangleLayer)) {
