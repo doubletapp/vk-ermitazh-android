@@ -2,8 +2,10 @@ package com.doubletapp.hermitage.hermitage.ui.home;
 
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +19,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements HomeAdapter.OnItemClick {
 
     public static final String TAG = "HomeFragment";
     @BindView(R.id.home_recycler)
@@ -41,7 +43,7 @@ public class HomeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         unbinder = ButterKnife.bind(this, view);
         if (mAdapter == null) {
-            mAdapter = new HomeAdapter();
+            mAdapter = new HomeAdapter(this);
         }
         mRecycler.setAdapter(mAdapter);
         mAdapter.swap(makeFakeFeed());
@@ -87,5 +89,10 @@ public class HomeFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+    }
+
+    @Override
+    public void onClick(@NonNull HomeItem item) {
+        HomeItemActivity.start(getContext(), item);
     }
 }

@@ -14,6 +14,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by onthecrow on 21.10.2017.
@@ -22,6 +23,13 @@ import butterknife.ButterKnife;
 public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder> {
 
     List<HomeItem> mItems;
+
+    @NonNull
+    OnItemClick mListener;
+
+    public HomeAdapter(@NonNull OnItemClick listener) {
+        mListener = listener;
+    }
 
     @Override
     public HomeViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -44,6 +52,10 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder
         return mItems.size();
     }
 
+    interface OnItemClick {
+        void onClick(@NonNull HomeItem item);
+    }
+
     class HomeViewHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.item_feed_title)
@@ -62,6 +74,11 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder
             mTitle.setText(item.mTitle);
             mDescription.setText(item.mDescription);
             mImage.setImageResource(item.mImage);
+        }
+
+        @OnClick(R.id.click_frame)
+        void onItemClick() {
+            mListener.onClick(mItems.get(getAdapterPosition()));
         }
     }
 }

@@ -29,4 +29,16 @@
         <item name="android:layout_marginTop">1dp</item>
     </style>
 
+    <style name="collapsedTextAppearence" parent="Base.TextAppearance.AppCompat.Title">
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+
+    <style name="expandedTextAppearence" parent="Base.TextAppearance.AppCompat.Title">
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">32sp</item>
+        <item name="android:fontFamily">sans-serif-light</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:lineSpacingExtra">0sp</item>
+    </style>
+
 </resources>
