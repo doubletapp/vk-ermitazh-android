@@ -2,8 +2,12 @@ package com.doubletapp.hermitage.hermitage.model.map;
 
 import android.support.annotation.Nullable;
 import com.doubletapp.hermitage.hermitage.model.Hall;
+
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by navi9 on 20.10.2017.
@@ -30,6 +34,17 @@ public class Room {
 
     public List<Pass> getPasses() {
         return mPasses;
+    }
+
+    public List<Room> getNeighbors() {
+        Set<Room> rooms = new HashSet<>();
+
+        for (Pass pass : mPasses) {
+            rooms.addAll(pass.getRooms());
+        }
+        rooms.remove(this);
+
+        return new ArrayList<>(rooms);
     }
 
     public double getIntensityСoefficient() {

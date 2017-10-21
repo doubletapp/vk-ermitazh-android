@@ -5,17 +5,17 @@ package com.doubletapp.hermitage.hermitage.model.map;
  */
 
 public class User {
-    private Position mPosition;
+    private Room mRoom;
 
     public User() {
-        mPosition = new Position(0, 0);
+
     }
 
-    public void setPosition(Position position) {
-        mPosition = position;
+    public void setRoom(Room room) {
+        mRoom = room;
     }
 
-    public Position getPosition() {
-        return mPosition;
+    public Room getRoom() {
+        return mRoom;
     }
 }

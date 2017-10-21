@@ -2,8 +2,11 @@ package com.doubletapp.hermitage.hermitage.ui;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.annotation.IdRes;
+import android.support.v7.app.AppCompatActivity;
+import android.widget.ImageView;
+import android.widget.Toolbar;
 
 import com.doubletapp.hermitage.hermitage.R;
 import com.doubletapp.hermitage.hermitage.model.Hall;
@@ -13,8 +16,26 @@ import com.doubletapp.hermitage.hermitage.model.map.Path;
 import com.doubletapp.hermitage.hermitage.model.map.Room;
 
 import java.util.Arrays;
+import com.doubletapp.hermitage.hermitage.ui.exhibit.ExhibitFragment;
+import com.doubletapp.hermitage.hermitage.ui.home.HomeFragment;
+import com.doubletapp.hermitage.hermitage.ui.map.MapFragment;
+import com.doubletapp.hermitage.hermitage.ui.nav.NavFragment;
+import com.doubletapp.hermitage.hermitage.ui.ticket.TicketFragment;
+import com.doubletapp.hermitage.hermitage.utils.ActivityUtils;
+import com.roughike.bottombar.BottomBar;
+import com.roughike.bottombar.OnTabSelectListener;
 
-public class TabActivity extends AppCompatActivity {
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
+public class TabActivity extends AppCompatActivity implements OnTabSelectListener {
+
+    @BindView(R.id.title_logo)
+    ImageView mToolbarLogo;
+    @BindView(R.id.toolbar)
+    Toolbar mToolbar;
+    @BindView(R.id.bottom_bar)
+    BottomBar mBottomBar;
 
     public static void start(Context context) {
         Intent starter = new Intent(context, TabActivity.class);
@@ -25,9 +46,67 @@ public class TabActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tab);
+        ButterKnife.bind(this);
+        init();
 
-        test();
+        test()
     }
+
+    private void init() {
+        mBottomBar.setOnTabSelectListener(this);
+    }
+
+    @Override
+    public void onTabSelected(@IdRes int tabId) {
+        switch (tabId) {
+            case R.id.tab_home:
+                if (getSupportFragmentManager().findFragmentByTag(HomeFragment.TAG) == null) {
+                    ActivityUtils.replaceFragment(getSupportFragmentManager(),
+                            R.id.fragment_container,
+                            HomeFragment.newInstance(),
+                            HomeFragment.TAG,
+                            false);
+                }
+                break;
+            case R.id.tab_exhibit:
+                if (getSupportFragmentManager().findFragmentByTag(ExhibitFragment.TAG) == null) {
+                    ActivityUtils.replaceFragment(getSupportFragmentManager(),
+                            R.id.fragment_container,
+                            ExhibitFragment.newInstance(),
+                            ExhibitFragment.TAG,
+                            false);
+                }
+                break;
+            case R.id.tab_map:
+                if (getSupportFragmentManager().findFragmentByTag(MapFragment.TAG) == null) {
+                    ActivityUtils.replaceFragment(getSupportFragmentManager(),
+                            R.id.fragment_container,
+                            MapFragment.newInstance(),
+                            MapFragment.TAG,
+                            false);
+                }
+                break;
+            case R.id.tab_nav:
+                if (getSupportFragmentManager().findFragmentByTag(NavFragment.TAG) == null) {
+                    ActivityUtils.replaceFragment(getSupportFragmentManager(),
+                            R.id.fragment_container,
+                            NavFragment.newInstance(),
+                            NavFragment.TAG,
+                            false);
+                }
+                break;
+            case R.id.tab_ticket:
+                if (getSupportFragmentManager().findFragmentByTag(TicketFragment.TAG) == null) {
+                    ActivityUtils.replaceFragment(getSupportFragmentManager(),
+                            R.id.fragment_container,
+                            TicketFragment.newInstance(),
+                            TicketFragment.TAG,
+                            false);
+                }
+                break;
+        }
+    }
+
 
     private void test() {
         Pass p1 = new Pass(2, 1);
