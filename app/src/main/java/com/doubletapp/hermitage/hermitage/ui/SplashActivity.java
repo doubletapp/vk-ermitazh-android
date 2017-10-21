@@ -33,7 +33,8 @@ public class SplashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
     }
 
-    private void initData() {Pass point0 = new Pass(184, 68); // Oval
+    private void initData() {
+        Pass point0 = new Pass(184, 68); // Oval
         Pass point1 = new Pass(200, 104); // Oval Copy 11
         Pass point2 = new Pass(216, 104); // Oval Copy 12
         Pass point3 = new Pass(349, 124); // Oval Copy 16
