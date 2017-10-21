@@ -17,13 +17,13 @@ for(var i = 0; i < selectedCount; i++) {
 
 var pointsSublayers = pointsLayer.layers();
 for(var i = 0; i < pointsSublayers.count(); i++) {
-    var x = pointsSublayers[i].frame().x() + pointsLayer.frame().x();
-    var y = pointsSublayers[i].frame().y() + pointsLayer.frame().y();
+    var x = pointsSublayers[i].center().x + pointsLayer.frame().x();
+    var y = pointsSublayers[i].center().y + pointsLayer.frame().y();
     log('Pass point' + i + ' = new Pass(' + x + ', ' + y + '); // ' + pointsSublayers[i].name())
 }
 
 function frameContainsPoint(frame, point) {
-    var cnst = 3;
+    var cnst = 10;
     var points = [
         {
             "x": point.x - cnst,
@@ -73,7 +73,22 @@ for (var i = 0; i < rectangleSublayers.count(); i++) {
     if (rectanglePoints.length > 0) {
         var points = rectanglePoints.join(", ");
         log('Room room' + i + ' = new Room(' + rectangleSublayers[i].center().x + ', ' + rectangleSublayers[i].center().y + ', ' + points + '); // ' + rectangleSublayers[i].name());
+    } else {
+        log('Room room' + i + ' = new Room(' + rectangleSublayers[i].center().x + ', ' + rectangleSublayers[i].center().y + '); // ' + rectangleSublayers[i].name());
     }
 }
 
+
+var allPoints = [];
+for(var i = 0; i < pointsSublayers.count(); i++) {
+    allPoints.push("point" + i);
+}
+
+var allRooms = [];
+for(var i = 0; i < rectangleSublayers.count(); i++) {
+    allRooms.push("room" + i);
+}
+
+log('Pass[] allPasses = new Pass[] {' + allPoints.join(", ") + '};');
+log('Room[] allRooms = new Room[] {' + allRooms.join(", ") + '};');
 
