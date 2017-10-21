@@ -18,4 +18,7 @@
     <string name="buy_ticket_price">₽%1$s</string>
     <string name="buy_ticket_button">Купить билеты</string>
 
+    <string name="tickets_empty_text">У вас пока нет купленных билетов</string>
+    <string name="tickets_empty_button">Купить билеты</string>
+
 </resources>
