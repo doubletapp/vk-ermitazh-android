@@ -15,9 +15,11 @@ for(var i = 0; i < selectedCount; i++) {
   }
 }
 
-var pointsSublayers = pointsLayer.layers()
+var pointsSublayers = pointsLayer.layers();
 for(var i = 0; i < pointsSublayers.count(); i++) {
-    log('Pass point' + i + ' = new Pass(' + pointsSublayers[i].center().x + ', ' + pointsSublayers[i].center().y + ');')
+    var x = pointsSublayers[i].frame().x() + pointsLayer.frame().x();
+    var y = pointsSublayers[i].frame().y() + pointsLayer.frame().y();
+    log('Pass point' + i + ' = new Pass(' + x + ', ' + y + '); // ' + pointsSublayers[i].name())
 }
 
 function frameContainsPoint(frame, point) {
@@ -42,7 +44,13 @@ function frameContainsPoint(frame, point) {
     ];
     for(var i = 0; i < 4; i++) {
         var p = points[i];
-        if (p.x > frame.x() && p.x < frame.x() + frame.width() && p.y > frame.y() && p.y < frame.y() + frame.height()) {
+        var frameX = frame.x() + rectanglesLayer.frame().x();
+        var frameY = frame.y() + rectanglesLayer.frame().y();
+        var frameWidth = frame.width();
+        var frameHeight = frame.height();
+        var pointX = p.x + pointsLayer.frame().x();
+        var pointY = p.y + pointsLayer.frame().y();
+        if (pointX > frameX && pointX < frameX + frameWidth && pointY > frameY && pointY < frameY + frameHeight) {
             return true;
         }
     }
@@ -50,7 +58,7 @@ function frameContainsPoint(frame, point) {
     return false;
 }
 
-var rectangleSublayers = rectanglesLayer.layers()
+var rectangleSublayers = rectanglesLayer.layers();
 for (var i = 0; i < rectangleSublayers.count(); i++) {
     var rectangleFrame = rectangleSublayers[i].frame();
     var rectanglePoints = [];
@@ -64,7 +72,7 @@ for (var i = 0; i < rectangleSublayers.count(); i++) {
 
     if (rectanglePoints.length > 0) {
         var points = rectanglePoints.join(", ");
-        log('Room room' + i + ' = new Room(' + rectangleSublayers[i].center().x + ', ' + rectangleSublayers[i].center().y + ', ' + points + ');')
+        log('Room room' + i + ' = new Room(' + rectangleSublayers[i].center().x + ', ' + rectangleSublayers[i].center().y + ', ' + points + '); // ' + rectangleSublayers[i].name());
     }
 }
 
