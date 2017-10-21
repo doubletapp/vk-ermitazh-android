@@ -18,7 +18,8 @@
         </activity>
         <activity android:name=".ui.TabActivity" />
         <activity android:name=".ui.ticket.BuyTicketActivity" />
-        <activity android:name=".MainActivity"/>
+        <activity android:name=".MainActivity" />
+        <activity android:name=".ui.home.HomeItemActivity"></activity>
     </application>
 
 </manifest>

@@ -2,9 +2,11 @@ package com.doubletapp.hermitage.hermitage.ui.nav;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -16,6 +18,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by onthecrow on 21.10.2017.
@@ -23,7 +26,16 @@ import butterknife.ButterKnife;
 
 public class NavAdapter extends RecyclerView.Adapter<NavAdapter.NavViewHolder> {
 
+    private static final String TAG = "NavAdapter";
+
     List<NavItem> mItems;
+
+    @NonNull
+    OnItemClick mInterface;
+
+    NavAdapter(@NonNull OnItemClick inter) {
+        mInterface = inter;
+    }
 
     @Override
     public NavViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -46,6 +58,10 @@ public class NavAdapter extends RecyclerView.Adapter<NavAdapter.NavViewHolder> {
         return mItems.size();
     }
 
+    interface OnItemClick {
+        void onClick(@NonNull NavItem item);
+    }
+
     class NavViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.item_nav_description)
         TextView mDescription;
@@ -63,6 +79,11 @@ public class NavAdapter extends RecyclerView.Adapter<NavAdapter.NavViewHolder> {
             mDescription.setText(item.getDescription());
             mTitle.setText(item.getTitle());
             mImage.setImageResource(item.getImage());
+        }
+
+        @OnClick(R.id.click_frame)
+        void onItemClick() {
+            mInterface.onClick(mItems.get(getAdapterPosition()));
         }
     }
 }

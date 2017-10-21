@@ -2,8 +2,10 @@ package com.doubletapp.hermitage.hermitage.ui.nav;
 
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +19,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
-public class NavFragment extends Fragment {
+public class NavFragment extends Fragment implements NavAdapter.OnItemClick {
 
     public static final String TAG = "NavFragment";
     @BindView(R.id.nav_recycler)
@@ -41,7 +43,7 @@ public class NavFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_nav, container, false);
         unbinder = ButterKnife.bind(this, v);
         if (mAdapter == null) {
-            mAdapter = new NavAdapter();
+            mAdapter = new NavAdapter(this);
         }
         mRecycler.setAdapter(mAdapter);
         mAdapter.swap(makeFakeData());
@@ -66,5 +68,10 @@ public class NavFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+    }
+
+    @Override
+    public void onClick(@NonNull NavItem item) {
+        Log.d(TAG, "onClick: " + item.getTitle());
     }
 }

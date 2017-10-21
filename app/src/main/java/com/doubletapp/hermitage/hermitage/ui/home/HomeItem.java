@@ -1,10 +1,12 @@
 package com.doubletapp.hermitage.hermitage.ui.home;
 
+import java.io.Serializable;
+
 /**
  * Created by onthecrow on 21.10.2017.
  */
 
-public class HomeItem {
+public class HomeItem implements Serializable {
     String mTitle;
     String mDescription;
     String mLongDescription;
