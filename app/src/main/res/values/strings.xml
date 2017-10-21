@@ -42,4 +42,11 @@
     <string name="item_feed_title_9">Большой итальянский просвет</string>
     <string name="item_feed_description_9">Новый Эрмитаж, этаж 2, зал 238</string>
 
+    <string name="item_nav_title_1">Базовый</string>
+    <string name="item_nav_description_1">120 экспонатов Эрмитажа за 2 часа</string>
+    <string name="item_nav_title_2">Основной</string>
+    <string name="item_nav_description_2">240 экспонатов Эрмитажа за 3 часа</string>
+    <string name="item_nav_title_3">Расширенный</string>
+    <string name="item_nav_description_3">320 экспонатов Эрмитажа за 4 часа</string>
+
 </resources>
