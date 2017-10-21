@@ -54,33 +54,43 @@ public class HomeFragment extends Fragment implements HomeAdapter.OnItemClick {
         List<HomeItem> list = new ArrayList<>();
         list.add(new HomeItem(getString(R.string.item_feed_title_0),
                 getString(R.string.item_feed_description_0),
+                getString(R.string.item_feed_description_long_0),
                 R.drawable.feed_1));
         list.add(new HomeItem(getString(R.string.item_feed_title_1),
                 getString(R.string.item_feed_description_1),
+                getString(R.string.item_feed_description_long_1),
                 R.drawable.feed_2));
         list.add(new HomeItem(getString(R.string.item_feed_title_2),
                 getString(R.string.item_feed_description_2),
+                null,
                 R.drawable.feed_3));
         list.add(new HomeItem(getString(R.string.item_feed_title_3),
                 getString(R.string.item_feed_description_3),
+                null,
                 R.drawable.feed_4));
         list.add(new HomeItem(getString(R.string.item_feed_title_4),
                 getString(R.string.item_feed_description_4),
+                null,
                 R.drawable.feed_5));
         list.add(new HomeItem(getString(R.string.item_feed_title_5),
                 getString(R.string.item_feed_description_5),
+                null,
                 R.drawable.feed_6));
         list.add(new HomeItem(getString(R.string.item_feed_title_6),
                 getString(R.string.item_feed_description_6),
+                null,
                 R.drawable.feed_7));
         list.add(new HomeItem(getString(R.string.item_feed_title_7),
                 getString(R.string.item_feed_description_7),
+                null,
                 R.drawable.feed_8));
         list.add(new HomeItem(getString(R.string.item_feed_title_8),
                 getString(R.string.item_feed_description_8),
+                null,
                 R.drawable.feed_9));
         list.add(new HomeItem(getString(R.string.item_feed_title_9),
                 getString(R.string.item_feed_description_9),
+                null,
                 R.drawable.feed_10));
         return list;
     }

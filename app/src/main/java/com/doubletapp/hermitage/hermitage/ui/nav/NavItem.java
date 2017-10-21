@@ -9,12 +9,14 @@ import java.io.Serializable;
 public class NavItem implements Serializable {
     String mTitle;
     String mDescription;
+    String mLongDescription;
     int mImage;
 
-    public NavItem(String mTitle, String mDescription, int mImage) {
+    public NavItem(String mTitle, String mDescription, String mLongDescription, int mImage) {
         this.mTitle = mTitle;
         this.mDescription = mDescription;
         this.mImage = mImage;
+        this.mLongDescription = mLongDescription;
     }
 
     public String getTitle() {
@@ -27,5 +29,9 @@ public class NavItem implements Serializable {
 
     public int getImage() {
         return mImage;
+    }
+
+    public String getmLongDescription() {
+        return mLongDescription;
     }
 }
