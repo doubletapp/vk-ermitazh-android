@@ -73,7 +73,22 @@ for (var i = 0; i < rectangleSublayers.count(); i++) {
     if (rectanglePoints.length > 0) {
         var points = rectanglePoints.join(", ");
         log('Room room' + i + ' = new Room(' + rectangleSublayers[i].center().x + ', ' + rectangleSublayers[i].center().y + ', ' + points + '); // ' + rectangleSublayers[i].name());
+    } else {
+        log('Room room' + i + ' = new Room(' + rectangleSublayers[i].center().x + ', ' + rectangleSublayers[i].center().y + '); // ' + rectangleSublayers[i].name());
     }
 }
 
+
+var allPoints = [];
+for(var i = 0; i < pointsSublayers.count(); i++) {
+    allPoints.push("point" + i);
+}
+
+var allRooms = [];
+for(var i = 0; i < rectangleSublayers.count(); i++) {
+    allRooms.push("room" + i);
+}
+
+log('Pass[] allPasses = new Pass[] {' + allPoints.join(", ") + '};');
+log('Room[] allRooms = new Room[] {' + allRooms.join(", ") + '};');
 
