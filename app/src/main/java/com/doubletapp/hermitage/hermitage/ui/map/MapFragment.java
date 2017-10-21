@@ -83,7 +83,7 @@ public class MapFragment extends Fragment implements MarkerLayout.MarkerTapListe
 
         initData();
 //        drawRooms();
-        addPasses();
+//        addPasses();
 
         return tileView;
     }
