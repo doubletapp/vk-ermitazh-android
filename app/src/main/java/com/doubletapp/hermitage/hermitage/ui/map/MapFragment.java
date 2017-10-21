@@ -1,12 +1,17 @@
 package com.doubletapp.hermitage.hermitage.ui.map;
 
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.graphics.drawable.DrawableCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -69,8 +74,6 @@ public class MapFragment extends Fragment {
         super.onResume();
 
         tileView.resume();
-
-
     }
 
     @Override
@@ -90,7 +93,19 @@ public class MapFragment extends Fragment {
 
     private void addUser(double x, double y) {
         ImageView imageView = new ImageView(getActivity());
-        imageView.setImageResource(R.drawable.ic_user_blue_20px);
+        imageView.setImageBitmap(Bitmap.createScaledBitmap(getBitmapFromVectorDrawable(R.drawable.ic_user_blue_20px), 20, 20, false));
         tileView.addMarker(imageView, x, y, null, null);
+    }
+
+    private Bitmap getBitmapFromVectorDrawable( int drawableId) {
+        Drawable drawable = ContextCompat.getDrawable(getActivity(), drawableId);
+
+        Bitmap bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(),
+                drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
+        drawable.draw(canvas);
+
+        return bitmap;
     }
 }
