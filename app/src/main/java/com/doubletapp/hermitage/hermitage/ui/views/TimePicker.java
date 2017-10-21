@@ -79,6 +79,10 @@ public class TimePicker extends ConstraintLayout {
     int mBlueColor;
     @BindColor(R.color.column_gray)
     int mGrayColor;
+    @BindColor(android.R.color.black)
+    int mBlackColor;
+    @BindColor(R.color.gray)
+    int mGrayTextColor;
     int mSelectedPosition;
 
     public TimePicker(Context context, @Nullable AttributeSet attrs) {
@@ -210,26 +214,7 @@ public class TimePicker extends ConstraintLayout {
     private void selectMin() {
         Float min = Collections.min(mData.getPercentages());
         int minIndex = mData.getPercentages().indexOf(min);
-        switch (minIndex) {
-            case 0:
-                chunk0Fill.setBackgroundColor(mBlueColor);
-                break;
-            case 1:
-                chunk1Fill.setBackgroundColor(mBlueColor);
-                break;
-            case 2:
-                chunk2Fill.setBackgroundColor(mBlueColor);
-                break;
-            case 3:
-                chunk3Fill.setBackgroundColor(mBlueColor);
-                break;
-            case 4:
-                chunk4Fill.setBackgroundColor(mBlueColor);
-                break;
-            case 5:
-                chunk5Fill.setBackgroundColor(mBlueColor);
-                break;
-        }
+        select(minIndex);
     }
 
     private void select(int index) {
@@ -239,29 +224,65 @@ public class TimePicker extends ConstraintLayout {
         chunk3Fill.setBackgroundColor(mGrayColor);
         chunk4Fill.setBackgroundColor(mGrayColor);
         chunk5Fill.setBackgroundColor(mGrayColor);
+        day0.setTextColor(mBlackColor);
+        day1.setTextColor(mBlackColor);
+        day2.setTextColor(mBlackColor);
+        day3.setTextColor(mBlackColor);
+        day4.setTextColor(mBlackColor);
+        day5.setTextColor(mBlackColor);
+        timeStart0.setTextColor(mBlackColor);
+        timeStart1.setTextColor(mBlackColor);
+        timeStart2.setTextColor(mBlackColor);
+        timeStart3.setTextColor(mBlackColor);
+        timeStart4.setTextColor(mBlackColor);
+        timeStart5.setTextColor(mBlackColor);
+        timeEnd0.setTextColor(mGrayTextColor);
+        timeEnd1.setTextColor(mGrayTextColor);
+        timeEnd2.setTextColor(mGrayTextColor);
+        timeEnd3.setTextColor(mGrayTextColor);
+        timeEnd4.setTextColor(mGrayTextColor);
+        timeEnd5.setTextColor(mGrayTextColor);
         switch (index) {
             case 0:
                 chunk0Fill.setBackgroundColor(mBlueColor);
+                day0.setTextColor(mBlueColor);
+                timeStart0.setTextColor(mBlueColor);
+                timeEnd0.setTextColor(mBlueColor);
                 mSelectedPosition = 1;
                 break;
             case 1:
                 chunk1Fill.setBackgroundColor(mBlueColor);
+                day1.setTextColor(mBlueColor);
+                timeStart1.setTextColor(mBlueColor);
+                timeEnd1.setTextColor(mBlueColor);
                 mSelectedPosition = 2;
                 break;
             case 2:
                 chunk2Fill.setBackgroundColor(mBlueColor);
+                day2.setTextColor(mBlueColor);
+                timeStart2.setTextColor(mBlueColor);
+                timeEnd2.setTextColor(mBlueColor);
                 mSelectedPosition = 3;
                 break;
             case 3:
                 chunk3Fill.setBackgroundColor(mBlueColor);
+                day3.setTextColor(mBlueColor);
+                timeStart3.setTextColor(mBlueColor);
+                timeEnd3.setTextColor(mBlueColor);
                 mSelectedPosition = 4;
                 break;
             case 4:
                 chunk4Fill.setBackgroundColor(mBlueColor);
+                day4.setTextColor(mBlueColor);
+                timeStart4.setTextColor(mBlueColor);
+                timeEnd4.setTextColor(mBlueColor);
                 mSelectedPosition = 5;
                 break;
             case 5:
                 chunk5Fill.setBackgroundColor(mBlueColor);
+                day5.setTextColor(mBlueColor);
+                timeStart5.setTextColor(mBlueColor);
+                timeEnd5.setTextColor(mBlueColor);
                 mSelectedPosition = 6;
                 break;
         }

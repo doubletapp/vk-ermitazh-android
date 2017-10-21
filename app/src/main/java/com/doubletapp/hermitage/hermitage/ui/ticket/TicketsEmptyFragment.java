@@ -9,9 +9,14 @@ import android.view.ViewGroup;
 
 import com.doubletapp.hermitage.hermitage.R;
 
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.Unbinder;
+
 public class TicketsEmptyFragment extends Fragment {
 
     public static final String TAG = "TicketsEmptyFragment";
+    Unbinder unbinder;
 
     public static TicketsEmptyFragment newInstance() {
 
@@ -26,7 +31,19 @@ public class TicketsEmptyFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_tickets_empty, container, false);
+        View view = inflater.inflate(R.layout.fragment_tickets_empty, container, false);
+        unbinder = ButterKnife.bind(this, view);
+        return view;
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
+    }
+
+    @OnClick(R.id.tickets_empty_button)
+    public void onViewClicked() {
+        BuyTicketActivity.start(getContext());
+    }
 }
