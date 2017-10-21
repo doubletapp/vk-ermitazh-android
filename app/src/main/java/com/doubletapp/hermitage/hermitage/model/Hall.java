@@ -52,6 +52,10 @@ public class Hall {
         return mRooms;
     }
 
+    public Room getMainRoom() {
+        return mRooms.get(0);
+    }
+
     public void addRoom(Room room) {
         if (!mRooms.contains(room)) {
             mRooms.add(room);

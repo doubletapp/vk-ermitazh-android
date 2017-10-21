@@ -7,6 +7,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,12 +20,15 @@ import com.doubletapp.hermitage.hermitage.model.PathBuilder;
 import com.doubletapp.hermitage.hermitage.model.map.Pass;
 import com.doubletapp.hermitage.hermitage.model.map.Path;
 import com.doubletapp.hermitage.hermitage.model.map.Room;
-import com.github.chrisbanes.photoview.PhotoView;
+import com.doubletapp.hermitage.hermitage.ui.map.mark.HallMarker;
+import com.doubletapp.hermitage.hermitage.ui.map.mark.MapMark;
+import com.doubletapp.hermitage.hermitage.ui.map.mark.RoomMarker;
 import com.qozix.tileview.TileView;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.BindView;
+import rx.Subscriber;
 
 public class MapFragment extends Fragment {
 
@@ -33,12 +37,16 @@ public class MapFragment extends Fragment {
     Room[] allRooms;
     Hall[] allHalls;
 
+    List<RoomMarker> roomMarkers = new ArrayList<>();
+    List<HallMarker> hallMarks = new ArrayList<>();
+
     private static final int USER_SIZE_PX = 20;
 
-    @BindView(R.id.map)
-    PhotoView mMapView;
+    int width = 4972;
+    int height = 2568;
 
     private TileView tileView;
+    private MapHelper helper;
 
     public static MapFragment newInstance() {
 
@@ -69,7 +77,7 @@ public class MapFragment extends Fragment {
 
 
         initData();
-        drawRooms();
+//        drawRooms();
 //        addPasses();
 
         return tileView;
@@ -78,8 +86,47 @@ public class MapFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-
         tileView.resume();
+
+        tileView.post(new Runnable() {
+            @Override
+            public void run() {
+                initHelper();
+            }
+        });
+    }
+
+    private void initHelper() {
+        helper = new MapHelper(tileView, width, height);
+
+        helper.getUpdateObservable().subscribe(new Subscriber<Boolean>() {
+            @Override
+            public void onCompleted() {
+                Log.d("event_trace", "compete");
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                Log.d("event_trace", "error");
+            }
+
+            @Override
+            public void onNext(Boolean aVoid) {
+                Log.d("event_trace", "update");
+
+                for (HallMarker hallMark : hallMarks) {
+                    updateMapMarkAttachment(hallMark);
+                }
+            }
+        });
+    }
+
+    private void updateMapMarkAttachment(MapMark mark) {
+        if (helper.isPositionVisible(mark.getMarkPosition()) && !mark.isAttached()) {
+            mark.attachMark(tileView);
+        } else if (!helper.isPositionVisible(mark.getMarkPosition()) && mark.isAttached()) {
+            mark.detachMark(tileView);
+        }
     }
 
     @Override
@@ -98,7 +145,7 @@ public class MapFragment extends Fragment {
     }
 
     private void drawRooms() {
-        for(Room room: allRooms) {
+        for (Room room : allRooms) {
             ImageView imageView = new ImageView(getActivity());
             imageView.setImageBitmap(Bitmap.createScaledBitmap(getBitmapFromVectorDrawable(R.drawable.ic_user_blue_20px), 20, 20, false));
             tileView.addMarker(imageView, room.getPosition().getX(), room.getPosition().getY(), (float) -0.5, (float) -0.5);
@@ -111,7 +158,7 @@ public class MapFragment extends Fragment {
         tileView.addMarker(imageView, x, y, null, null);
     }
 
-    private Bitmap getBitmapFromVectorDrawable( int drawableId) {
+    private Bitmap getBitmapFromVectorDrawable(int drawableId) {
         Drawable drawable = ContextCompat.getDrawable(getActivity(), drawableId);
 
         Bitmap bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(),
@@ -127,7 +174,7 @@ public class MapFragment extends Fragment {
         PathBuilder pathBuilder = new PathBuilder(allRooms);
 
         Room startRoom = allRooms[0];
-        for (Hall hall: allHalls) {
+        for (Hall hall : allHalls) {
             if (hall.getId().equals("14")) {
                 startRoom = hall.getRooms().get(0);
                 break;
@@ -135,7 +182,7 @@ public class MapFragment extends Fragment {
         }
 
         Room destinationRoom = null;
-        for (Hall hall: allHalls) {
+        for (Hall hall : allHalls) {
             if (hall.getId().equals("68")) {
                 destinationRoom = hall.getRooms().get(0);
                 break;
@@ -427,9 +474,9 @@ public class MapFragment extends Fragment {
         hall23.setId("23");
         hall23.addRoom(room62);
         Room room63 = new Room(584, 1014, point65); // Rectangle 2 Copy 20
-        Pass[] allPasses = new Pass[] {point0, point1, point2, point3, point4, point5, point6, point7, point8, point9, point10, point11, point12, point13, point14, point15, point16, point17, point18, point19, point20, point21, point22, point23, point24, point25, point26, point27, point28, point29, point30, point31, point32, point33, point34, point35, point36, point37, point38, point39, point40, point41, point42, point43, point44, point45, point46, point47, point48, point49, point50, point51, point52, point53, point54, point55, point56, point57, point58, point59, point60, point61, point62, point63, point64, point65};
-        Room[] allRooms = new Room[] {room0, room1, room2, room3, room4, room5, room6, room7, room8, room9, room10, room11, room12, room13, room14, room15, room16, room17, room18, room19, room20, room21, room22, room23, room24, room25, room26, room27, room28, room29, room30, room31, room32, room33, room34, room35, room36, room37, room38, room39, room40, room41, room42, room43, room44, room45, room46, room47, room48, room49, room50, room51, room52, room53, room54, room55, room56, room57, room58, room59, room60, room61, room62, room63};
-        Hall[] allHalls = new Hall[] {hall11, hall12, hall13, hall14, hall15, hall16, hall17, hall18, hall19, hall20, hall21, hall22, hall23, hall24, hall26, hall27, hall28, hall29, hall30, hall32, hall33, hall34, hall38, hall39, hall40, hall46, hall47, hall48, hall49, hall50, hall51, hall52, hall53, hall54, hall55, hall56, hall57, hall58, hall59, hall60, hall61, hall62, hall63, hall68, hall69};
+        Pass[] allPasses = new Pass[]{point0, point1, point2, point3, point4, point5, point6, point7, point8, point9, point10, point11, point12, point13, point14, point15, point16, point17, point18, point19, point20, point21, point22, point23, point24, point25, point26, point27, point28, point29, point30, point31, point32, point33, point34, point35, point36, point37, point38, point39, point40, point41, point42, point43, point44, point45, point46, point47, point48, point49, point50, point51, point52, point53, point54, point55, point56, point57, point58, point59, point60, point61, point62, point63, point64, point65};
+        Room[] allRooms = new Room[]{room0, room1, room2, room3, room4, room5, room6, room7, room8, room9, room10, room11, room12, room13, room14, room15, room16, room17, room18, room19, room20, room21, room22, room23, room24, room25, room26, room27, room28, room29, room30, room31, room32, room33, room34, room35, room36, room37, room38, room39, room40, room41, room42, room43, room44, room45, room46, room47, room48, room49, room50, room51, room52, room53, room54, room55, room56, room57, room58, room59, room60, room61, room62, room63};
+        Hall[] allHalls = new Hall[]{hall11, hall12, hall13, hall14, hall15, hall16, hall17, hall18, hall19, hall20, hall21, hall22, hall23, hall24, hall26, hall27, hall28, hall29, hall30, hall32, hall33, hall34, hall38, hall39, hall40, hall46, hall47, hall48, hall49, hall50, hall51, hall52, hall53, hall54, hall55, hall56, hall57, hall58, hall59, hall60, hall61, hall62, hall63, hall68, hall69};
 
         hall15.setIntensity(Intensity.HIGH);
         hall16.setIntensity(Intensity.HIGH);
@@ -443,5 +490,13 @@ public class MapFragment extends Fragment {
         this.allHalls = allHalls;
         this.allPasses = allPasses;
         this.allRooms = allRooms;
+
+        for (Room room : allRooms) {
+            roomMarkers.add(new RoomMarker(getActivity(), room));
+        }
+
+        for (Hall hall : allHalls) {
+            hallMarks.add(new HallMarker(getActivity(), hall));
+        }
     }
 }
