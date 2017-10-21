@@ -13,6 +13,7 @@ import com.doubletapp.hermitage.hermitage.model.map.Pass;
 import com.doubletapp.hermitage.hermitage.model.map.Room;
 import com.github.chrisbanes.photoview.PhotoView;
 import com.qozix.tileview.TileView;
+import com.qozix.tileview.widgets.ZoomPanLayout;
 
 import butterknife.BindView;
 
@@ -47,17 +48,16 @@ public class MapFragment extends Fragment {
         int width = 1127;
         int height = 542;
 
-        tileView.setScaleLimits(0, 2);
         tileView.setSize(width, height);
-//        tileView.setScale(0);
+        tileView.setScaleLimits(0, 12);
+        tileView.setScale(0);
+        tileView.setShouldRenderWhilePanning(true);
 
-        tileView.addDetailLevel(1f, "map.png", width, height);
-//        tileView.addDetailLevel(1f, "tiles/125/tile-%d-%d.png", 256, 256);
-//        tileView.addDetailLevel(0.125f, "tiles/125/tile-%d-%d.png");
-//        tileView.addDetailLevel(0.250f, "tiles/125/tile-%d-%d.png");
-//        tileView.addDetailLevel(0.500f, "tiles/125/tile-%d-%d.png");
+        tileView.addDetailLevel(1f, "tiles/1000/tile-%d-%d.png", 32, 32);
+        tileView.addDetailLevel(0.500f, "tiles/500/tile-%d-%d.png", 64, 64);
+        tileView.addDetailLevel(0.250f, "tiles/250/tile-%d-%d.png", 128, 128);
+        tileView.addDetailLevel(0.125f, "tiles/125/tile-%d-%d.png");
 
-//        addUser(100, 100);
 
         initData();
         addPasses();
@@ -93,6 +93,7 @@ public class MapFragment extends Fragment {
         ImageView imageView = new ImageView(getActivity());
         imageView.setImageResource(R.drawable.ic_user_blue_20px);
         tileView.addMarker(imageView, x, y, null, null);
+
     }
 
     private void addPasses() {
