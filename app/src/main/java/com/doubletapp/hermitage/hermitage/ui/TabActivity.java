@@ -139,10 +139,10 @@ public class TabActivity extends AppCompatActivity implements OnTabSelectListene
         PathBuilder builder = new PathBuilder(r1,r2,r3,r4,r5,r6,r7,r8,r9,r10,r11,r12);
 
         Hall h1 = new Hall();
-        h1.setRoom(r1);
+        h1.addRoom(r1);
 
         Hall h2 = new Hall();
-        h2.setRoom(r12);
+        h2.addRoom(r12);
 
         Hall[] halls = new Hall[]{h2};
 

@@ -2,6 +2,7 @@ package com.doubletapp.hermitage.hermitage.model;
 
 import com.doubletapp.hermitage.hermitage.model.map.Room;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -16,14 +17,19 @@ public class Hall {
     private List<Art> mArts;
     private Intensity mIntensity;
     private Image mImage = Image.createDefault();
-    private Room mRoom;
+    private List<Room> mRooms;
 
     public Hall() {
         mIntensity = Intensity.LOW;
+        mRooms = new ArrayList<Room>();
     }
 
     public String getId() {
         return mId;
+    }
+
+    public void setId(String id) {
+        mId = id;
     }
 
     public List<Exhibit> getExhibits() {
@@ -42,12 +48,14 @@ public class Hall {
         return mIntensity;
     }
 
-    public Room getRoom() {
-        return mRoom;
+    public List<Room> getRooms() {
+        return mRooms;
     }
 
-    public void setRoom(Room room) {
-        mRoom = room;
+    public void addRoom(Room room) {
+        if (!mRooms.contains(room)) {
+            mRooms.add(room);
+        }
     }
 
     public static class Builder {
@@ -82,8 +90,8 @@ public class Hall {
             return this;
         }
 
-        public Builder setRoom(Room room) {
-            hall.mRoom = room;
+        public Builder addRoom(Room room) {
+            hall.addRoom(room);
             return this;
         }
 

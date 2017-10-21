@@ -61,7 +61,7 @@ public class PathBuilder {
         double minDistance = Double.MAX_VALUE;
         List<Pass> minDistancePasses = null;
 
-        for (Pass pass: fromHall.getRoom().getPasses()) {
+        for (Pass pass: fromHall.getRooms().get(0).getPasses()) {
             List<Pass> listOfPasses = pathFromPass(pass, halls);
             double distance = 0;
             for(int i = 0; i < listOfPasses.size() - 1; i++) {
@@ -90,7 +90,7 @@ public class PathBuilder {
         double minDistance = Double.MAX_VALUE;
 
         for (Hall hall: halls) {
-            for (Pass pass: hall.getRoom().getPasses()) {
+            for (Pass pass: hall.getRooms().get(0).getPasses()) {
 
                 double distance = getDistance(pass, listOfPasses, previousPasses);
 
