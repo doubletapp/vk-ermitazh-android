@@ -57,29 +57,49 @@ public class PathBuilder {
         roomRelations.get(passKey).add(passRelation);
     }
 
-    public @NonNull Path getPath(Room fromRoom, List<Room> rooms, Position fromPosition) {
+    public @NonNull List<Path> getPaths(Room fromRoom, List<Room> rooms, Position fromPosition) {
+        if (rooms.isEmpty()) {
+            return new ArrayList<>();
+        }
+
         double minDistance = Double.MAX_VALUE;
         List<Pass> minDistancePasses = null;
+        Room closetRoom = null;
 
         for (Pass pass: fromRoom.getPasses()) {
-            List<Pass> listOfPasses = pathFromPass(pass, rooms);
-            double distance = 0;
-            for(int i = 0; i < listOfPasses.size() - 1; i++) {
-                distance += distanceBetweenPasses(listOfPasses.get(i), listOfPasses.get(i + 1));
-            }
-            if (distance < minDistance) {
-                minDistance = distance;
-                minDistancePasses = listOfPasses;
+            for (Room room: rooms) {
+                List<Pass> listOfPasses = pathFromPass(pass, room);
+                double distance = 0;
+                for(int i = 0; i < listOfPasses.size() - 1; i++) {
+                    distance += distanceBetweenPasses(listOfPasses.get(i), listOfPasses.get(i + 1));
+                }
+                if (distance < minDistance) {
+                    minDistance = distance;
+                    minDistancePasses = listOfPasses;
+                    closetRoom = room;
+                }
             }
         }
 
         Path path = new Path();
         path.addPasses(minDistancePasses);
 
-        return path;
+        List<Room> newRooms = new ArrayList<>();
+        for(Room room: rooms) {
+            if (room != closetRoom) {
+                newRooms.add(room);
+            }
+        }
+
+        List<Path> result = new ArrayList<>();
+
+        result.add(path);
+        result.addAll(getPaths(closetRoom, newRooms, null));
+
+        return result;
     }
 
-    private List<Pass> pathFromPass(Pass rootPass, List<Room> rooms) {
+    private List<Pass> pathFromPass(Pass rootPass, Room room) {
         Set<Pass> keyset = pathRelations.keySet();
         Pass[] passes = keyset.toArray(new Pass[keyset.size()]);
         int[] previousPasses = getPreviouses(rootPass, passes);
@@ -89,15 +109,13 @@ public class PathBuilder {
         Pass minPass = null;
         double minDistance = Double.MAX_VALUE;
 
-        for (Room room: rooms) {
-            for (Pass pass: room.getPasses()) {
+        for (Pass pass: room.getPasses()) {
 
-                double distance = getDistance(pass, listOfPasses, previousPasses);
+            double distance = getDistance(pass, listOfPasses, previousPasses);
 
-                if (distance < minDistance) {
-                    minDistance = distance;
-                    minPass = pass;
-                }
+            if (distance < minDistance) {
+                minDistance = distance;
+                minPass = pass;
             }
         }
 
