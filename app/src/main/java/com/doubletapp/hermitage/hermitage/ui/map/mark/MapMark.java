@@ -36,8 +36,8 @@ public abstract class MapMark {
     public View createView() {
         ImageView imageView = new ImageView(getContext());
         imageView.setImageBitmap(Bitmap.createScaledBitmap(getBitmapFromVectorDrawable(mRes),
-                (int) (scale * mSize),
-                (int) (scale * mSize),
+                getScaledSize(),
+                getScaledSize(),
                 false));
 
         return imageView;
@@ -64,14 +64,14 @@ public abstract class MapMark {
 
     protected abstract void onInvalidate(TileView tileView);
 
-    public synchronized void attachMark(TileView tileView) {
+    public void attachMark(TileView tileView) {
         scale = tileView.getScale();
         isAttached = true;
         view = createView();
         tileView.addMarker(view, getMarkPosition().getX(), getMarkPosition().getY(), -0.5f, -0.5f);
     }
 
-    public synchronized void detachMark(TileView tileView) {
+    public void detachMark(TileView tileView) {
         isAttached = false;
         tileView.removeMarker(view);
         view = null;
