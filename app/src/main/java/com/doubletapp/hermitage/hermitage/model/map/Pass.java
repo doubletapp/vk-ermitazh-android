@@ -18,6 +18,11 @@ public class Pass {
         mRooms = new ArrayList<>();
     }
 
+    public Pass(Position position) {
+        mPosition = position;
+        mRooms = new ArrayList<>();
+    }
+
     public Position getPosition() {
         return mPosition;
     }

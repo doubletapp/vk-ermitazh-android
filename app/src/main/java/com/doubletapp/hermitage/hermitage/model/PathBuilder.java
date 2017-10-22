@@ -81,6 +81,15 @@ public class PathBuilder {
             }
         }
 
+        Pass startPass = new Pass(fromRoom.getPosition());
+        startPass.addRoom(fromRoom);
+
+        Pass endPass = new Pass(closetRoom.getPosition());
+        endPass.addRoom(closetRoom);
+
+        minDistancePasses.add(0, startPass);
+        minDistancePasses.add(endPass);
+
         Path path = new Path();
         path.addPasses(minDistancePasses);
 

@@ -271,11 +271,37 @@ public class MapFragment extends Fragment implements MarkerLayout.MarkerTapListe
 
         Room room = previousPass.getCommonRoom(nextPass);
         if (room != null) {
-            // Если противоположные стены, то расстояние до центра комнаты должно приблизительно совпадать
-            // Точки должны быть по разные стороны от центра
             Double eps = 10.0;
 
-            if (Math.abs(room.getStartY() - previousPass.getPosition().getY()) < eps
+            if (room.getPosition() == nextPass.getPosition()) {
+                if (Math.abs(previousPass.getPosition().getX() - room.getStartX()) < eps || Math.abs(previousPass.getPosition().getX() - (room.getStartX() + room.getWidth())) < eps ) {
+                    pathForDrawing.cubicTo(
+                            (float) nextPass.getPosition().getX(), (float) previousPass.getPosition().getY(),
+                            (float) nextPass.getPosition().getX(), (float) previousPass.getPosition().getY(),
+                            (float) nextPass.getPosition().getX(), (float) nextPass.getPosition().getY()
+                    );
+                } else {
+                    pathForDrawing.cubicTo(
+                            (float) previousPass.getPosition().getX(), (float) nextPass.getPosition().getY(),
+                            (float) previousPass.getPosition().getX(), (float) nextPass.getPosition().getY(),
+                            (float) nextPass.getPosition().getX(), (float) nextPass.getPosition().getY()
+                    );
+                }
+            } else if (room.getPosition() == previousPass.getPosition()) {
+                if (Math.abs(nextPass.getPosition().getX() - room.getStartX()) < eps || Math.abs(nextPass.getPosition().getX() - (room.getStartX() + room.getWidth())) < eps ) {
+                    pathForDrawing.cubicTo(
+                            (float) previousPass.getPosition().getX(), (float) nextPass.getPosition().getY(),
+                            (float) previousPass.getPosition().getX(), (float) nextPass.getPosition().getY(),
+                            (float) nextPass.getPosition().getX(), (float) nextPass.getPosition().getY()
+                    );
+                } else {
+                    pathForDrawing.cubicTo(
+                            (float) nextPass.getPosition().getX(), (float) previousPass.getPosition().getY(),
+                            (float) nextPass.getPosition().getX(), (float) previousPass.getPosition().getY(),
+                            (float) nextPass.getPosition().getX(), (float) nextPass.getPosition().getY()
+                    );
+                }
+            } else if (Math.abs(room.getStartY() - previousPass.getPosition().getY()) < eps
                     && Math.abs(room.getStartY() + room.getHeight() - nextPass.getPosition().getY()) < eps) {
                 Log.i("DRAWING LINE", "На противоположной стене горизонтально");
                 pathForDrawing.cubicTo(
