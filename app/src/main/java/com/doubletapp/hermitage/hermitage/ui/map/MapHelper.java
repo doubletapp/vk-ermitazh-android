@@ -145,7 +145,7 @@ public class MapHelper implements ZoomPanLayout.ZoomPanListener {
         boolean xOk = posX > x && posX < (x + getScaledScreenWidth());
         boolean yOk = posY > y && posY < (y + getScaledScreenHeight());
 
-        return xOk && yOk && scale > 1.5;
+        return xOk && yOk && scale > 0.9;
     }
 
     public boolean isRoomVisible(Room room) {
