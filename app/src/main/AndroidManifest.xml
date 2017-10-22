@@ -21,6 +21,7 @@
         <activity android:name=".MainActivity" />
         <activity android:name=".ui.home.HomeItemActivity" />
         <activity android:name=".ui.nav.NavItemActivity" android:theme="@style/NavDetailsTheme"/>
+        <activity android:name=".ui.exhibit.ExhibitActivity" android:theme="@style/NavDetailsTheme"/>
     </application>
 
 </manifest>

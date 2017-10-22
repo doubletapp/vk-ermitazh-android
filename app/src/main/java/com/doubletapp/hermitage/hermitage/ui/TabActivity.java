@@ -130,7 +130,7 @@ public class TabActivity extends AppCompatActivity implements OnTabSelectListene
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == CHANGE_TO_MAP_RESULT_CODE) {
+        if (requestCode == CHANGE_TO_MAP_RESULT_CODE && data != null) {
             String hallId = data.getStringExtra("hallId");
 
             Fragment fragment = createFragmentById(tab_map);

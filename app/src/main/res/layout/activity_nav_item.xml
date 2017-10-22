@@ -84,6 +84,18 @@
                 android:textColor="#242b2e"
                 android:lineSpacingExtra="2sp"
                 tools:text="@string/item_feed_description_long_0" />
+
+            <Button
+                android:id="@+id/nav_item_show_exhibits"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:background="@color/column_blue"
+                android:textColor="@color/colorPrimary"
+                android:text="@string/button_show_exhibits"/>
         </LinearLayout>
 
     </android.support.v4.widget.NestedScrollView>
