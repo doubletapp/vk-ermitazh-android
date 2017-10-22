@@ -89,10 +89,7 @@ public class TabActivity extends AppCompatActivity implements OnTabSelectListene
         super.onPostResume();
 
         if(tabToOpen != 0) {
-            onTabSelected(tabToOpen);
-            if (tabToOpen == tab_map) {
-                mBottomBar.selectTabAtPosition(2);
-            }
+            mBottomBar.findViewById(tabToOpen).performClick();
         }
     }
 
