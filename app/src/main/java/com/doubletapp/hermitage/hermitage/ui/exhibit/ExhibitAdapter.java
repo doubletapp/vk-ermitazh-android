@@ -49,8 +49,10 @@ public class ExhibitAdapter extends RecyclerView.Adapter<ExhibitAdapter.ExhibitV
     class ExhibitViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.exhibit_item_image)
         ImageView mImage;
-        @BindView(R.id.exhibit_item_title)
+        @BindView(R.id.item_exhibit_name)
         TextView mTitle;
+        @BindView(R.id.item_exhibit_subscription)
+        TextView mDescription;
 
         ExhibitViewHolder(View itemView) {
             super(itemView);
@@ -60,6 +62,7 @@ public class ExhibitAdapter extends RecyclerView.Adapter<ExhibitAdapter.ExhibitV
         public void bind(@NonNull Exhibit item) {
             mImage.setImageResource(item.getImageRes());
             mTitle.setText(item.getName());
+            mDescription.setText(item.getSubscription());
         }
     }
 }
