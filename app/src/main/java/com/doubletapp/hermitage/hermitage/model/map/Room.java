@@ -16,16 +16,41 @@ import java.util.Set;
 public class Room {
     private Position mPosition;
     private List<Pass> mPasses;
+    private double mStartX;
+    private double mStartY;
+    private double mWidth;
+    private double mHeight;
     @Nullable
     private Hall hall;
 
-    public Room(double x, double y, Pass... passes) {
-        mPosition = new Position(x, y);
+    public Room(double startX, double startY, double width, double height, Pass... passes) {
+        mStartX = startX;
+        mStartY = startY;
+        mWidth = width;
+        mHeight = height;
+
+        mPosition = new Position(startX + width / 2, startY + height / 2);
         mPasses = Arrays.asList(passes);
 
         for (Pass pass : passes) {
             pass.addRoom(this);
         }
+    }
+
+    public double getStartX() {
+        return mStartX;
+    }
+
+    public double getStartY() {
+        return mStartY;
+    }
+
+    public double getWidth() {
+        return mWidth;
+    }
+
+    public double getHeight() {
+        return mHeight;
     }
 
     public Position getPosition() {
@@ -83,18 +108,18 @@ public class Room {
         return hall;
     }
 
-    public static Builder build(int x, int y) {
-        return new Builder(x, y);
+    public static Builder build(double x, double y, double width, double height) {
+        return new Builder(x, y, width, height);
     }
 
     public static class Builder {
         private Room room;
 
-        private Builder(int x, int y) {
-            room = new Room(x, y);
+        private Builder(double x, double y, double width, double height) {
+            room = new Room(x, y, width, height);
         }
 
-        public Builder pass(int x, int y) {
+        public Builder pass(double x, double y) {
             room.mPasses.add(new Pass(x, y));
             return this;
         }
