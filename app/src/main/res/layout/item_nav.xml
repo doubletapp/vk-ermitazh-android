@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_marginTop="1dp"
+    android:layout_marginBottom="1dp"
+    android:layout_width="match_parent"
+    android:layout_height="224dp">
+
+    <ImageView
+        android:id="@+id/item_nav_image"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        tools:src="@drawable/item_nav_1"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="center"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/item_nav_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:textAllCaps="true"
+            android:fontFamily="sans-serif-light"
+            android:textColor="@android:color/white"
+            android:shadowColor="#80000000"
+            android:shadowDy="1"
+            android:shadowRadius="1"
+            android:textSize="32sp"
+            android:lineSpacingExtra="0sp"
+            android:gravity="center_horizontal"
+            tools:text="Базовый" />
+
+        <TextView
+            android:id="@+id/item_nav_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:fontFamily="sans-serif-light"
+            android:textColor="@android:color/white"
+            android:shadowColor="#80000000"
+            android:shadowDy="1"
+            android:shadowRadius="1"
+            android:textSize="16sp"
+            android:lineSpacingExtra="8sp"
+            android:gravity="center_horizontal"
+            tools:text="120 экспонатов Эрмитажа за 2 часа." />
+    </LinearLayout>
+
+
+    <FrameLayout
+        android:id="@+id/click_frame"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clickable="true"
+        android:background="@drawable/clickable_background"/>
+
+</FrameLayout>

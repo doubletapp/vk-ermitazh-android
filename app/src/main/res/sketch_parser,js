@@ -1,0 +1,127 @@
+var documentName = context.document.displayName();
+
+var selectedLayers = context.selection;
+var selectedCount = selectedLayers.count();
+
+var rectanglesLayer;
+var pointsLayer;
+
+for(var i = 0; i < selectedCount; i++) {
+  if (selectedLayers[i].name() == 'rectangles') {
+    rectanglesLayer = selectedLayers[i];
+  }
+  if (selectedLayers[i].name() == 'points') {
+    pointsLayer = selectedLayers[i];
+  }
+}
+
+var pointsSublayers = pointsLayer.layers();
+for(var i = 0; i < pointsSublayers.count(); i++) {
+    var x = pointsSublayers[i].center().x + pointsLayer.frame().x();
+    var y = pointsSublayers[i].center().y + pointsLayer.frame().y();
+    log('Pass point' + i + ' = new Pass(' + x + ', ' + y + '); // ' + pointsSublayers[i].name())
+}
+
+function frameContainsPoint(frame, point) {
+    var cnst = 10;
+    var points = [
+        {
+            "x": point.x - cnst,
+            "y": point.y - cnst
+        },
+        {
+            "x": point.x - cnst,
+            "y": point.y + cnst
+        },
+        {
+            "x": point.x + cnst,
+            "y": point.y - cnst
+        },
+        {
+            "x": point.x + cnst,
+            "y": point.y + cnst
+        }
+    ];
+    for(var i = 0; i < 4; i++) {
+        var p = points[i];
+        var frameX = frame.x() + rectanglesLayer.frame().x();
+        var frameY = frame.y() + rectanglesLayer.frame().y();
+        var frameWidth = frame.width();
+        var frameHeight = frame.height();
+        var pointX = p.x + pointsLayer.frame().x();
+        var pointY = p.y + pointsLayer.frame().y();
+        if (pointX > frameX && pointX < frameX + frameWidth && pointY > frameY && pointY < frameY + frameHeight) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+var rectangleSublayers = rectanglesLayer.layers();
+var halls = {};
+
+function isHall(layer) {
+   return layer.name().startsWith("Hall");
+}
+
+for (var i = 0; i < rectangleSublayers.count(); i++) {
+    var rectangleLayer = rectangleSublayers[i];
+    var rectangleFrame = rectangleLayer.frame();
+    var rectanglePoints = [];
+    for (var j = 0; j < pointsSublayers.count(); j++) {
+        var point = pointsSublayers[j].center();
+
+        if (frameContainsPoint(rectangleFrame, point)) {
+            rectanglePoints.push("point" + j);
+        }
+    }
+
+    var roomName = 'room' + i;
+
+    var roomStartX = rectanglesLayer.frame().x() + rectangleSublayers[i].frame().x();
+    var roomStartY = rectanglesLayer.frame().y() + rectangleSublayers[i].frame().y();
+    var roomWidth = rectangleSublayers[i].frame().width();
+    var roomHeight = rectangleSublayers[i].frame().height();
+
+    if (rectanglePoints.length > 0) {
+        var points = rectanglePoints.join(", ");
+        log('Room ' + roomName + ' = new Room(' + roomStartX + ', ' + roomStartY + ', ' + roomWidth + ', ' + roomHeight + ', '+ points + '); // ' + rectangleSublayers[i].name());
+    } else {
+        log('Room ' + roomName + ' = new Room(' + roomStartX + ', ' + roomStartY + ', ' + roomWidth + ', ' + roomHeight + '); // ' + rectangleSublayers[i].name());
+    }
+
+    if (isHall(rectangleLayer)) {
+        var hallId = rectangleLayer.name().split(" ")[1];
+        var hallName = 'hall' + hallId;
+        if (!(hallId in halls)) {
+            log('Hall ' + hallName + ' = new Hall();');
+            log(hallName + '.setId("' + hallId + '");');
+            halls[hallId] = hallName;
+        }
+
+        log(hallName + '.addRoom('+ roomName + ');');
+    }
+}
+
+
+var allPoints = [];
+for(var i = 0; i < pointsSublayers.count(); i++) {
+    allPoints.push("point" + i);
+}
+
+var allRooms = [];
+for(var i = 0; i < rectangleSublayers.count(); i++) {
+    allRooms.push("room" + i);
+}
+
+log('Pass[] allPasses = new Pass[] {' + allPoints.join(", ") + '};');
+log('Room[] allRooms = new Room[] {' + allRooms.join(", ") + '};');
+
+var hallNames = [];
+for (var hallId in halls) {
+    hallNames.push(halls[hallId]);
+}
+
+log('Hall[] allHalls = new Hall[] {' + hallNames.join(", ") + '};');
+

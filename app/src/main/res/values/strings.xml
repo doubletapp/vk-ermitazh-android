@@ -1,3 +1,61 @@
 <resources>
     <string name="app_name">Hermitage</string>
+    <string name="tab_activity_exhibit_tab">Экспонаты</string>
+    <string name="tab_activity_home_tab">Главная</string>
+    <string name="tab_activity_map_tab">Карта</string>
+    <string name="tab_activity_nav_tab">Туры</string>
+    <string name="tab_activity_ticket_tab">Билеты</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="buy_ticket_title">Купить билеты</string>
+    <string name="buy_ticket_count_text">Количество билетов</string>
+    <string name="buy_ticket_day_text">День посещения</string>
+    <string name="buy_ticket_time_text">Время посещения</string>
+    <string name="buy_ticket_calendar_add">Добавить в календарь</string>
+    <string name="buy_ticket_price_text">Стоимость</string>
+    <string name="buy_ticket_price">₽%1$s</string>
+    <string name="buy_ticket_button">Купить билеты</string>
+
+    <string name="tickets_empty_text">У вас пока нет купленных билетов</string>
+    <string name="tickets_empty_button">Купить билеты</string>
+
+    <string name="item_feed_title_0">Нефертари и Долина цариц</string>
+    <string name="item_feed_description_0">Из коллекции Египетского музея в Турине</string>
+    <string name="item_feed_description_long_0">С 16 июня 2017 года в Манеже Малого Эрмитажа будет открыта выставка «Нефертари и Долина цариц. Из Египетского музея в Турине», организованная Государственным Эрмитажем и Египетским музеем в Турине, при поддержке компании Lavazza. Выставка проходит в рамках проектов Фонда Эрмитаж-Италия, при посредничестве Villaggio Globale International.\n\nЕгипетский музей в Турине известен как одно из важнейших собраний за пределами Египта. Экспозиция состоит из пяти разделов и включает 255 памятников и полевые фотографии, которые дают возможность представить открытие гробницы царицы Нефертари.\n\nСобрание Египетского музея в Турине обязано своим формированием двум событиям: приобретению в 1824 году королем Сардинии и герцогом Пьемонта Карлом Феликсом первой коллекции Дроветти и раскопкам директора музея Эрнесто Скиапарелли в начале ХХ века.</string>
+    <string name="item_feed_title_1">В фокусе</string>
+    <string name="item_feed_description_1">Новый интернет-проект Государственного Эрмитажа</string>
+    <string name="item_feed_description_long_1">Интернет-проект «В фокусе», реализованный в рамках программы образовательных онлайн-ресурсов Государственного Эрмитажа, рассказывает о выдающихся произведениях искусства, культурных и исторических артефактах из коллекции музея, а также о работе музейных специалистов. «В фокусе» позволяет в деталях рассматривать великие творения прошлого из собрания Эрмитажа, погрузиться в культурный и исторический контекст, узнать скрытые от глаз посетителей секреты музейных экспонатов, заглянуть за обычно закрытые двери музейных хранилищ и реставрационных лабораторий.</string>
+    <string name="item_feed_title_2">Искусство Италии XVII века</string>
+    <string name="item_feed_description_2">Образовательная музейная онлайн-программа</string>
+    <string name="item_feed_title_3">Пальмира</string>
+    <string name="item_feed_description_3">Памятники Пальмиры в Эрмитаже</string>
+    <string name="item_feed_title_4">Сирия</string>
+    <string name="item_feed_description_4">Памятники Сирии в Эрмитаже</string>
+    <string name="item_feed_title_5">Иорданская лестница</string>
+    <string name="item_feed_description_5">Зимний дворец, этаж 1</string>
+    <string name="item_feed_title_6">Малахитовая гостиная</string>
+    <string name="item_feed_description_6">Зимний дворец, этаж 2, зал 189</string>
+    <string name="item_feed_title_7">Георгиевский зал</string>
+    <string name="item_feed_description_7">Зимний дворец, этаж 2, зал 198</string>
+    <string name="item_feed_title_8">Зал Рафаэля</string>
+    <string name="item_feed_description_8">Новый Эрмитаж, этаж 2, зал 229</string>
+    <string name="item_feed_title_9">Большой итальянский просвет</string>
+    <string name="item_feed_description_9">Новый Эрмитаж, этаж 2, зал 238</string>
+
+    <string name="item_nav_title_1">Базовый</string>
+    <string name="item_nav_description_1">120 экспонатов Эрмитажа за 2 часа</string>
+    <string name="item_nav_description_long_1">Базовый маршрут включает в себя основные достопримечательности Эрмитажа. Это наиболее сбалансированный маршрут, следуя которому вы сможете успеть буквально за два часа посмотреть более 120 экспонатов. И увидеть такие произведения искусства Мадонна с младенцем, Леонардо ДаВинчи, Данию, Тициана и многое другое.</string>
+    <string name="item_nav_title_2">Основной</string>
+    <string name="item_nav_description_2">240 экспонатов Эрмитажа за 3 часа</string>
+    <string name="item_nav_description_long_2">Средний по сложности маршрут, включает в себя основные достопримечательности Эрмитажа. Следуя этому маршруту вы сможете успеть буквально за три часа посмотреть более 240 экспонатов. И увидеть такие произведения искусства Мадонна с младенцем, Леонардо ДаВинчи, Данию, Тициана и многое другое.</string>
+    <string name="item_nav_title_3">Расширенный</string>
+    <string name="item_nav_description_3">320 экспонатов Эрмитажа за 4 часа</string>
+    <string name="item_nav_description_long_3">Расширенный включает в себя большинство достопримечательностей Эрмитажа. Это наиболее полный маршрут, следуя которому вы сможете успеть буквально за четыре часа посмотреть более 320 экспонатов. И увидеть такие произведения искусства Мадонна с младенцем, Леонардо ДаВинчи, Данию, Тициана и многое другое.</string>
+
+    <string name="search_title">Поиск</string>
+
+    <string name="button_show_exhibits">Список экспонатов</string>
+    <string name="exhibit_title">Экспонаты</string>
 </resources>

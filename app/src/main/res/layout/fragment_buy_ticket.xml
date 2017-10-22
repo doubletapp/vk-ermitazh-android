@@ -1,0 +1,212 @@
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="com.doubletapp.hermitage.hermitage.ui.ticket.BuyTicketFragment">
+
+    <View
+        android:id="@+id/separator1"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="15dp"
+        android:background="@color/line_separator"/>
+
+    <TextView
+        android:id="@+id/buy_ticket_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/separator1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:text="@string/buy_ticket_count_text"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="14dp"
+        android:textSize="14sp"
+        android:fontFamily="sans-serif-medium"
+        android:textStyle="normal"
+        android:textColor="#000000"/>
+    
+    <ImageView
+        android:id="@+id/buy_ticket_plus"
+        android:layout_width="42dp"
+        android:layout_height="0dp"
+        android:paddingLeft="14dp"
+        android:paddingRight="14dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/separator1"
+        app:layout_constraintBottom_toTopOf="@+id/separator2"
+        android:src="@drawable/ic_plus"/>
+
+    <TextView
+        android:id="@+id/buy_ticket_count"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:gravity="center_vertical"
+        app:layout_constraintTop_toBottomOf="@+id/separator1"
+        app:layout_constraintBottom_toTopOf="@+id/separator2"
+        app:layout_constraintRight_toLeftOf="@+id/buy_ticket_plus"
+        android:textSize="24sp"
+        android:fontFamily="sans-serif"
+        android:textStyle="bold"
+        android:textColor="@android:color/black"
+        android:text="1"/>
+
+    <ImageView
+        android:id="@+id/buy_ticket_minus"
+        android:layout_width="42dp"
+        android:layout_height="0dp"
+        android:paddingLeft="14dp"
+        android:paddingRight="14dp"
+        app:layout_constraintRight_toLeftOf="@id/buy_ticket_count"
+        app:layout_constraintTop_toBottomOf="@id/separator1"
+        app:layout_constraintBottom_toTopOf="@id/separator2"
+        android:src="@drawable/ic_minus"/>
+
+    <View
+        android:id="@+id/separator2"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/buy_ticket_text"
+        android:layout_marginTop="15dp"
+        android:background="@color/line_separator"/>
+
+    <TextView
+        android:id="@+id/day_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/separator2"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="19dp"
+        android:textAllCaps="true"
+        android:textSize="14sp"
+        android:textColor="@color/gray"
+        android:text="@string/buy_ticket_day_text"/>
+
+    <com.doubletapp.hermitage.hermitage.ui.views.TimePicker
+        android:id="@+id/day_picker"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="19dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/day_text"
+        app:pickerMode="day"/>
+
+    <TextView
+        android:id="@+id/time_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/day_picker"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="63dp"
+        android:textAllCaps="true"
+        android:textSize="14sp"
+        android:textColor="@color/gray"
+        android:text="@string/buy_ticket_time_text"/>
+
+    <com.doubletapp.hermitage.hermitage.ui.views.TimePicker
+        android:id="@+id/time_picker"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="19dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/time_text"
+        app:pickerMode="time"/>
+
+    <View
+        android:id="@+id/separator3"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/time_picker"
+        android:layout_marginTop="21dp"
+        android:background="@color/line_separator"/>
+
+    <CheckBox
+        android:id="@+id/buy_ticket_calendar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/separator3"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginTop="9dp"
+        android:layout_marginLeft="15dp"/>
+    
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="18dp"
+        app:layout_constraintTop_toTopOf="@id/buy_ticket_calendar"
+        app:layout_constraintBottom_toBottomOf="@id/buy_ticket_calendar"
+        app:layout_constraintLeft_toRightOf="@id/buy_ticket_calendar"
+        android:text="@string/buy_ticket_calendar_add"
+        android:textSize="14sp"
+        android:fontFamily="sans-serif-medium"
+        android:textStyle="normal"
+        android:textColor="@android:color/black"/>
+
+    <View
+        android:id="@+id/separator4"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/buy_ticket_calendar"
+        android:layout_marginTop="9dp"
+        android:background="@color/line_separator"/>
+
+    <TextView
+        android:id="@+id/buy_ticket_price_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/separator4"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginTop="14dp"
+        android:layout_marginLeft="16dp"
+        android:textAllCaps="true"
+        android:textSize="14sp"
+        android:fontFamily="sans-serif-medium"
+        android:textStyle="normal"
+        android:textColor="@color/gray"
+        android:text="@string/buy_ticket_price_text"/>
+
+    <TextView
+        android:id="@+id/buy_ticket_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/buy_ticket_price_text"
+        app:layout_constraintLeft_toLeftOf="@id/buy_ticket_price_text"
+        android:layout_marginTop="7dp"
+        android:textSize="26sp"
+        android:fontFamily="sans-serif"
+        android:textStyle="normal"
+        android:textColor="@android:color/black"
+        android:text="₽430"/>
+
+    <Button
+        android:id="@+id/buy_ticket_button"
+        android:layout_width="0dp"
+        android:layout_height="49dp"
+        android:layout_marginTop="9dp"
+        android:layout_marginBottom="24dp"
+        app:layout_constraintTop_toBottomOf="@id/buy_ticket_price"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:background="@drawable/blue_button"
+        android:text="@string/buy_ticket_button"
+        android:textColor="@android:color/white"/>
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="21dp"
+        app:layout_constraintTop_toBottomOf="@id/buy_ticket_button"/>
+
+</android.support.constraint.ConstraintLayout>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<tabs>
+    <tab
+        id="@+id/tab_home"
+        icon="@drawable/ic_home"
+        title="@string/tab_activity_home_tab" />
+    <tab
+        id="@+id/tab_ticket"
+        icon="@drawable/ic_ticket"
+        title="@string/tab_activity_ticket_tab" />
+    <tab
+        id="@+id/tab_map"
+        icon="@drawable/ic_map"
+        title="@string/tab_activity_map_tab" />
+    <tab
+        id="@+id/tab_nav"
+        icon="@drawable/ic_nav"
+        title="@string/tab_activity_nav_tab" />
+    <tab
+        id="@+id/tab_exhibit"
+        icon="@drawable/ic_exhibit"
+        title="@string/tab_activity_exhibit_tab" />
+</tabs>

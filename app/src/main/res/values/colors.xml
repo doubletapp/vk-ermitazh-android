@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorPrimary">@android:color/white</color>
+    <color name="colorPrimaryDark">#CCCCCC</color>
+    <color name="colorAccent">#03463E</color>
+    <color name="background">#F5F5F5</color>
+
+    <color name="tab_inactive">#72858C</color>
+    <color name="tab_active">#244855</color>
+
+    <color name="line_separator">#dddddd</color>
+
+    <color name="gray">#b6bcc8</color>
+    <color name="column_gray">#E3E9EC</color>
+    <color name="column_blue">#0294de</color>
+    <color name="column_blue_with_alpha">#a00294de</color>
+
+    <color name="black_30">#67000000</color>
 </resources>
