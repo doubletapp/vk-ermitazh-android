@@ -3,6 +3,7 @@ package com.doubletapp.hermitage.hermitage.ui.map;
 
 import android.graphics.Paint;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.res.ResourcesCompat;
 import android.util.Log;
@@ -77,7 +78,7 @@ public class MapFragment extends Fragment implements MarkerLayout.MarkerTapListe
 
         tileView.setSize(width, height);
         tileView.setScaleLimits(0, 4);
-        tileView.setScale(0);
+//        tileView.setScale(0);
         tileView.setShouldRenderWhilePanning(true);
 
         tileView.addDetailLevel(1f, "tiles/125/tile-%d-%d.png");
@@ -89,9 +90,12 @@ public class MapFragment extends Fragment implements MarkerLayout.MarkerTapListe
         tileView.post(new Runnable() {
             @Override
             public void run() {
-                helper = new MapHelper(tileView, width, height);
+                helper = MapHelper.newInstance(width, height, tileView.getWidth(), tileView.getHeight(), tileView.getScale());
+                tileView.setScale(helper.getScale());
+                helper.setTileView(tileView);
+//                frameTo(helper.getX(), helper.getY());
 
-                helper.getUpdateObservable().doOnSubscribe(new Action0() {
+                updateSubscription = helper.getUpdateObservable().doOnSubscribe(new Action0() {
                     @Override
                     public void call() {
                     }
@@ -118,6 +122,15 @@ public class MapFragment extends Fragment implements MarkerLayout.MarkerTapListe
         });
 
         return tileView;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+
+        if (updateSubscription != null) {
+            updateSubscription.unsubscribe();
+        }
     }
 
     @Override
@@ -212,8 +225,11 @@ public class MapFragment extends Fragment implements MarkerLayout.MarkerTapListe
 
     private void focusOnUser() {
         frameTo(userMark.getMarkPosition().getX(), userMark.getMarkPosition().getY());
-//        tileView.setScale(2f);
-//        updateMapViewState();
+        helper.setScale(1f);
+        tileView.setScale(1f);
+        helper.setX((int) userMark.getMarkPosition().getX() - helper.getScreenWidth() / 2);
+        helper.setY((int) userMark.getMarkPosition().getY() - helper.getScreenHeight() / 2);
+        updateMapViewState();
     }
 
     private void addPasses() {
