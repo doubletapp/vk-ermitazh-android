@@ -49,4 +49,9 @@
         <item name="colorAccent">#0083c5</item>
     </style>
 
+    <style name="MaterialSearchViewStyle">
+        <!-- Hint for edit text -->
+        <item name="android:hint">@string/search_title</item>
+    </style>
+
 </resources>

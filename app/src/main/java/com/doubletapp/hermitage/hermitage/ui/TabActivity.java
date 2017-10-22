@@ -42,12 +42,17 @@ public class TabActivity extends AppCompatActivity implements OnTabSelectListene
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.search_menu, menu);
+        if (mBottomBar.getCurrentTabId() == R.id.tab_map
+                || mBottomBar.getCurrentTabId() == R.id.tab_exhibit) {
 
-        MenuItem item = menu.findItem(R.id.action_search);
-        mSearchView.setMenuItem(item);
+            getMenuInflater().inflate(R.menu.search_menu, menu);
 
-        return true;
+            MenuItem item = menu.findItem(R.id.action_search);
+            mSearchView.setMenuItem(item);
+
+            return true;
+        }
+        return false;
     }
 
     @Override
@@ -76,6 +81,7 @@ public class TabActivity extends AppCompatActivity implements OnTabSelectListene
                             HomeFragment.newInstance(),
                             HomeFragment.TAG,
                             false);
+                    invalidateOptionsMenu();
                 }
                 break;
             case R.id.tab_exhibit:
@@ -85,6 +91,7 @@ public class TabActivity extends AppCompatActivity implements OnTabSelectListene
                             ExhibitFragment.newInstance(),
                             ExhibitFragment.TAG,
                             false);
+                    invalidateOptionsMenu();
                 }
                 break;
             case R.id.tab_map:
@@ -94,6 +101,7 @@ public class TabActivity extends AppCompatActivity implements OnTabSelectListene
                             MapFragment.newInstance(),
                             MapFragment.TAG,
                             false);
+                    invalidateOptionsMenu();
                 }
                 break;
             case R.id.tab_nav:
@@ -103,6 +111,7 @@ public class TabActivity extends AppCompatActivity implements OnTabSelectListene
                             NavFragment.newInstance(),
                             NavFragment.TAG,
                             false);
+                    invalidateOptionsMenu();
                 }
                 break;
             case R.id.tab_ticket:
@@ -112,6 +121,7 @@ public class TabActivity extends AppCompatActivity implements OnTabSelectListene
                             TicketsEmptyFragment.newInstance(),
                             TicketsEmptyFragment.TAG,
                             false);
+                    invalidateOptionsMenu();
                 }
                 break;
         }
