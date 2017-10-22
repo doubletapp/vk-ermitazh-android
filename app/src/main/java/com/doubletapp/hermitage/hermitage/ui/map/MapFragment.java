@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.doubletapp.hermitage.hermitage.R;
-import com.doubletapp.hermitage.hermitage.model.Exhibit;
 import com.doubletapp.hermitage.hermitage.model.Hall;
 import com.doubletapp.hermitage.hermitage.model.Intensity;
 import com.doubletapp.hermitage.hermitage.model.PathBuilder;
@@ -20,7 +19,6 @@ import com.doubletapp.hermitage.hermitage.model.map.Path;
 import com.doubletapp.hermitage.hermitage.model.map.Position;
 import com.doubletapp.hermitage.hermitage.model.map.Room;
 import com.doubletapp.hermitage.hermitage.model.map.User;
-import com.doubletapp.hermitage.hermitage.ui.map.mark.ExhibitMarker;
 import com.doubletapp.hermitage.hermitage.ui.map.mark.HallMarker;
 import com.doubletapp.hermitage.hermitage.ui.map.mark.MapMark;
 import com.doubletapp.hermitage.hermitage.ui.map.mark.RoomMarker;
@@ -127,7 +125,7 @@ public class MapFragment extends Fragment implements MarkerLayout.MarkerTapListe
         tileView.post(new Runnable() {
             @Override
             public void run() {
-                onUserRoomChanged(allHalls[5].getMainRoom());
+                onUserRoomChanged(userRoom());
                 focusOnUser();
                 Log.d("event_trace", "doOnSubscribe " + tileView.getScale());
             }
