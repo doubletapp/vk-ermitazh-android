@@ -85,6 +85,17 @@ public class TimePicker extends ConstraintLayout {
     int mGrayTextColor;
     int mSelectedPosition;
 
+    OnDayChanged mOnDayChangedListener;
+    OnTimeChanged mOnTimeChangedListener;
+
+    public interface OnDayChanged {
+        void onDayChange(int day);
+    }
+
+    public interface OnTimeChanged {
+        void onTimeChange(int time);
+    }
+
     public TimePicker(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         init(context, attrs);
@@ -108,6 +119,14 @@ public class TimePicker extends ConstraintLayout {
         } else {
             fillTimeData();
         }
+    }
+
+    public void setmOnDayChangedListener(OnDayChanged mOnDayChangedListener) {
+        this.mOnDayChangedListener = mOnDayChangedListener;
+    }
+
+    public void setmOnTimeChangedListener(OnTimeChanged mOnTimeChangedListener) {
+        this.mOnTimeChangedListener = mOnTimeChangedListener;
     }
 
     private void refresh() {
@@ -249,6 +268,15 @@ public class TimePicker extends ConstraintLayout {
                 timeStart0.setTextColor(mBlueColor);
                 timeEnd0.setTextColor(mBlueColor);
                 mSelectedPosition = 1;
+                if (mPickerMode == 0) {
+                    if (mOnDayChangedListener != null) {
+                        mOnDayChangedListener.onDayChange(index);
+                    }
+                } else {
+                    if (mOnTimeChangedListener != null) {
+                        mOnTimeChangedListener.onTimeChange(index);
+                    }
+                }
                 break;
             case 1:
                 chunk1Fill.setBackgroundColor(mBlueColor);
@@ -256,6 +284,15 @@ public class TimePicker extends ConstraintLayout {
                 timeStart1.setTextColor(mBlueColor);
                 timeEnd1.setTextColor(mBlueColor);
                 mSelectedPosition = 2;
+                if (mPickerMode == 0) {
+                    if (mOnDayChangedListener != null) {
+                        mOnDayChangedListener.onDayChange(index);
+                    }
+                } else {
+                    if (mOnTimeChangedListener != null) {
+                        mOnTimeChangedListener.onTimeChange(index);
+                    }
+                }
                 break;
             case 2:
                 chunk2Fill.setBackgroundColor(mBlueColor);
@@ -263,28 +300,60 @@ public class TimePicker extends ConstraintLayout {
                 timeStart2.setTextColor(mBlueColor);
                 timeEnd2.setTextColor(mBlueColor);
                 mSelectedPosition = 3;
-                break;
+                if (mPickerMode == 0) {
+                    if (mOnDayChangedListener != null) {
+                        mOnDayChangedListener.onDayChange(index);
+                    }
+                } else {
+                    if (mOnTimeChangedListener != null) {
+                        mOnTimeChangedListener.onTimeChange(index);
+                    }
+                }                break;
             case 3:
                 chunk3Fill.setBackgroundColor(mBlueColor);
                 day3.setTextColor(mBlueColor);
                 timeStart3.setTextColor(mBlueColor);
                 timeEnd3.setTextColor(mBlueColor);
                 mSelectedPosition = 4;
-                break;
+                if (mPickerMode == 0) {
+                    if (mOnDayChangedListener != null) {
+                        mOnDayChangedListener.onDayChange(index);
+                    }
+                } else {
+                    if (mOnTimeChangedListener != null) {
+                        mOnTimeChangedListener.onTimeChange(index);
+                    }
+                }                break;
             case 4:
                 chunk4Fill.setBackgroundColor(mBlueColor);
                 day4.setTextColor(mBlueColor);
                 timeStart4.setTextColor(mBlueColor);
                 timeEnd4.setTextColor(mBlueColor);
                 mSelectedPosition = 5;
-                break;
+                if (mPickerMode == 0) {
+                    if (mOnDayChangedListener != null) {
+                        mOnDayChangedListener.onDayChange(index);
+                    }
+                } else {
+                    if (mOnTimeChangedListener != null) {
+                        mOnTimeChangedListener.onTimeChange(index);
+                    }
+                }                break;
             case 5:
                 chunk5Fill.setBackgroundColor(mBlueColor);
                 day5.setTextColor(mBlueColor);
                 timeStart5.setTextColor(mBlueColor);
                 timeEnd5.setTextColor(mBlueColor);
                 mSelectedPosition = 6;
-                break;
+                if (mPickerMode == 0) {
+                    if (mOnDayChangedListener != null) {
+                        mOnDayChangedListener.onDayChange(index);
+                    }
+                } else {
+                    if (mOnTimeChangedListener != null) {
+                        mOnTimeChangedListener.onTimeChange(index);
+                    }
+                }                break;
         }
     }
 
