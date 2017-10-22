@@ -1,5 +1,6 @@
 package com.doubletapp.hermitage.hermitage.ui.map;
 
+import android.os.Bundle;
 import android.util.Log;
 
 import com.doubletapp.hermitage.hermitage.model.map.Position;
@@ -23,7 +24,6 @@ import rx.subjects.PublishSubject;
  */
 
 public class MapHelper implements ZoomPanLayout.ZoomPanListener {
-    private TileView tileView;
     private int x = 0;
     private int y = 0;
     private int mapWidth;
@@ -36,15 +36,25 @@ public class MapHelper implements ZoomPanLayout.ZoomPanListener {
     private PublishSubject<Float> mScaleSubject;
     private PublishSubject<Position> mPositionSubject;
 
-    public MapHelper(TileView tileView, int mapWidth, int mapHeight) {
-        this.tileView = tileView;
+    private static MapHelper sInstance = null;
+
+    public static MapHelper newInstance(int mapWidth, int mapHeight, int screenWidth, int screenHeight, float scale) {
+        if (sInstance == null) {
+            sInstance = new MapHelper(mapWidth, mapHeight, screenWidth, screenHeight, scale);
+        }
+        return sInstance;
+    }
+
+    public void setTileView(TileView tileView) {
+       tileView.addZoomPanListener(this);
+    }
+
+    private MapHelper(int mapWidth, int mapHeight, int screenWidth, int screenHeight, float scalex) {
         this.mapWidth = mapWidth;
         this.mapHeight = mapHeight;
-        this.screenWidth = tileView.getWidth();
-        this.screenHeight = tileView.getHeight();
-        scale = tileView.getScale();
-
-        tileView.addZoomPanListener(this);
+        this.screenWidth = screenWidth;
+        this.screenHeight = screenHeight;
+        this.scale = scalex;
 
         mScaleSubject = PublishSubject.create();
         mPositionSubject = PublishSubject.create();
@@ -130,6 +140,34 @@ public class MapHelper implements ZoomPanLayout.ZoomPanListener {
 
     public float getScale() {
         return scale;
+    }
+
+    public void setScale(float scale) {
+        this.scale = scale;
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
+    public int getScreenWidth() {
+        return screenWidth;
+    }
+
+    public int getScreenHeight() {
+        return screenHeight;
     }
 
     private int getScaledScreenWidth() {
