@@ -11,6 +11,7 @@ import android.widget.ImageView;
 
 import com.doubletapp.hermitage.hermitage.model.map.Position;
 import com.qozix.tileview.TileView;
+import com.qozix.tileview.markers.MarkerLayout;
 
 /**
  * Created by navi9 on 21.10.2017.
@@ -24,6 +25,7 @@ public abstract class MapMark {
     private int mSize;
     private View view;
     private boolean isAttached = false;
+    private float scale;
 
     public MapMark(Context context, @DrawableRes int res, int size) {
         mContext = context;
@@ -31,9 +33,12 @@ public abstract class MapMark {
         mSize = size;
     }
 
-    public View getView() {
+    public View createView() {
         ImageView imageView = new ImageView(getContext());
-        imageView.setImageBitmap(Bitmap.createScaledBitmap(getBitmapFromVectorDrawable(mRes), mSize, mSize, false));
+        imageView.setImageBitmap(Bitmap.createScaledBitmap(getBitmapFromVectorDrawable(mRes),
+                getScaledSize(),
+                getScaledSize(),
+                false));
 
         return imageView;
     }
@@ -50,21 +55,37 @@ public abstract class MapMark {
         return bitmap;
     }
 
-    public void invalidate() {
+    public void invalidate(TileView tileView) {
+        final double eps = 0.2;
+
+        if (Math.abs(scale - tileView.getScale()) < eps) {
+            return;
+        }
+
+        scale = tileView.getScale();
         if (isAttached) {
-            onInvalidate();
+            onInvalidate(tileView);
         }
     }
 
-    protected abstract void onInvalidate();
+    protected void onInvalidate(TileView tileView) {
+        ((ImageView) getView()).setImageBitmap(Bitmap.createScaledBitmap(getBitmapFromVectorDrawable(mRes),
+                getScaledSize(),
+                getScaledSize(),
+                false));
+    }
 
-    public synchronized void attachMark(TileView tileView) {
+    public void attachMark(TileView tileView) {
+        scale = tileView.getScale();
         isAttached = true;
-        view = getView();
+        view = createView();
         tileView.addMarker(view, getMarkPosition().getX(), getMarkPosition().getY(), -0.5f, -0.5f);
     }
 
-    public synchronized void detachMark(TileView tileView) {
+    public void detachMark(TileView tileView) {
+        if (!isAttached) {
+            return;
+        }
         isAttached = false;
         tileView.removeMarker(view);
         view = null;
@@ -80,11 +101,37 @@ public abstract class MapMark {
         return mContext;
     }
 
-    public @DrawableRes int getRes() {
+    public
+    @DrawableRes
+    int getRes() {
         return mRes;
     }
 
     public int getSize() {
         return mSize;
+    }
+
+    public int getScaledSize() {
+        return (int) (scale * mSize);
+    }
+
+    public float getMinimumScaleForShow() {
+        return 0.9f;
+    }
+
+    public void setSize(int size) {
+        mSize = size;
+    }
+
+    public void setScale(float scale) {
+        this.scale = scale;
+    }
+
+    public float getScale() {
+        return scale;
+    }
+
+    public View getView() {
+        return view;
     }
 }

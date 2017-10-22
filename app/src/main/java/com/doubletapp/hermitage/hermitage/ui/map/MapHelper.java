@@ -5,6 +5,7 @@ import android.util.Log;
 import com.doubletapp.hermitage.hermitage.model.map.Position;
 import com.doubletapp.hermitage.hermitage.model.map.Room;
 import com.doubletapp.hermitage.hermitage.ui.map.mark.HallMarker;
+import com.doubletapp.hermitage.hermitage.ui.map.mark.MapMark;
 import com.doubletapp.hermitage.hermitage.ui.map.mark.RoomMarker;
 import com.qozix.tileview.TileView;
 import com.qozix.tileview.widgets.ZoomPanLayout;
@@ -35,7 +36,6 @@ public class MapHelper implements ZoomPanLayout.ZoomPanListener {
     private PublishSubject<Float> mScaleSubject;
     private PublishSubject<Position> mPositionSubject;
 
-
     public MapHelper(TileView tileView, int mapWidth, int mapHeight) {
         this.tileView = tileView;
         this.mapWidth = mapWidth;
@@ -50,7 +50,7 @@ public class MapHelper implements ZoomPanLayout.ZoomPanListener {
         mPositionSubject = PublishSubject.create();
         mUpdateSubject = PublishSubject.create();
 
-        mScaleSubject.onBackpressureBuffer().debounce(150, TimeUnit.MILLISECONDS).subscribe(new Subscriber<Float>() {
+        mScaleSubject.onBackpressureBuffer().debounce(30, TimeUnit.MILLISECONDS).subscribe(new Subscriber<Float>() {
             @Override
             public void onCompleted() {
 
@@ -69,7 +69,7 @@ public class MapHelper implements ZoomPanLayout.ZoomPanListener {
                 mUpdateSubject.onNext(true);
             }
         });
-        mPositionSubject.onBackpressureBuffer().subscribe(new Subscriber<Position>() {
+        mPositionSubject.onBackpressureBuffer().debounce(50, TimeUnit.MILLISECONDS).subscribe(new Subscriber<Position>() {
             @Override
             public void onCompleted() {
 
@@ -92,7 +92,7 @@ public class MapHelper implements ZoomPanLayout.ZoomPanListener {
     }
 
     public Observable<Boolean> getUpdateObservable() {
-        return mUpdateSubject.onBackpressureBuffer().debounce(150, TimeUnit.MILLISECONDS).observeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
+        return mUpdateSubject.onBackpressureBuffer().observeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
     }
 
     @Override
@@ -146,7 +146,11 @@ public class MapHelper implements ZoomPanLayout.ZoomPanListener {
         boolean xOk = posX > x && posX < (x + getScaledScreenWidth());
         boolean yOk = posY > y && posY < (y + getScaledScreenHeight());
 
-        return xOk && yOk && scale > 1.5;
+        return xOk && yOk;
+    }
+
+    public boolean isMapMarkVisible(MapMark mark) {
+        return isPositionVisible(mark.getMarkPosition()) && scale > mark.getMinimumScaleForShow();
     }
 
     public boolean isRoomVisible(Room room) {

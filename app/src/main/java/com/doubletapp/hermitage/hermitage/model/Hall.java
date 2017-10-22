@@ -1,5 +1,6 @@
 package com.doubletapp.hermitage.hermitage.model;
 
+import com.doubletapp.hermitage.hermitage.model.map.Position;
 import com.doubletapp.hermitage.hermitage.model.map.Room;
 
 import java.util.ArrayList;
@@ -54,6 +55,10 @@ public class Hall {
 
     public Room getMainRoom() {
         return mRooms.get(0);
+    }
+
+    public boolean isMyPosition(Position position) {
+        return getMainRoom().getPosition().equals(position);
     }
 
     public void addRoom(Room room) {

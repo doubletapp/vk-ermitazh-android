@@ -6,6 +6,7 @@ import android.view.View;
 import com.doubletapp.hermitage.hermitage.R;
 import com.doubletapp.hermitage.hermitage.model.map.Position;
 import com.doubletapp.hermitage.hermitage.model.map.Room;
+import com.qozix.tileview.TileView;
 
 /**
  * Created by navi9 on 22.10.2017.
@@ -22,7 +23,7 @@ public class RoomMarker extends MapMark {
     }
 
     @Override
-    protected void onInvalidate() {
+    protected void onInvalidate(TileView tileView) {
 
     }
 
