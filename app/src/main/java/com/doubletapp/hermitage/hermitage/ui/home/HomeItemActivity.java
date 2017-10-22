@@ -71,10 +71,7 @@ public class HomeItemActivity extends AppCompatActivity {
     private void setData() {
         HomeItem item = (HomeItem) getIntent().getSerializableExtra(ARGS_HOME_ITEM);
         if (item != null) {
-            ActionBar appBar = getSupportActionBar();
-            if (appBar != null) {
-                appBar.setTitle(item.mTitle);
-            }
+            mCollapsing.setTitle(item.mTitle);
             mDescription.setText(item.mDescription);
             mLongDescription.setText(item.mLongDescription);
             mImage.setImageResource(item.mImage);

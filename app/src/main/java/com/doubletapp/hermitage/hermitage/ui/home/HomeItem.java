@@ -12,10 +12,11 @@ public class HomeItem implements Serializable {
     String mLongDescription;
     int mImage;
 
-    public HomeItem(String mTitle, String mDescription, int mImage) {
+    public HomeItem(String mTitle, String mDescription, String mLongDescription, int mImage) {
         this.mTitle = mTitle;
         this.mDescription = mDescription;
         this.mImage = mImage;
+        this.mLongDescription = mLongDescription;
     }
 
     public String getmTitle() {
@@ -28,5 +29,9 @@ public class HomeItem implements Serializable {
 
     public int getmImage() {
         return mImage;
+    }
+
+    public String getmLongDescription() {
+        return mLongDescription;
     }
 }

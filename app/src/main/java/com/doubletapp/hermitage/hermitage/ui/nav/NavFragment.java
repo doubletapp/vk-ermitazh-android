@@ -54,12 +54,15 @@ public class NavFragment extends Fragment implements NavAdapter.OnItemClick {
         List<NavItem> list = new ArrayList<>();
         list.add(new NavItem(getString(R.string.item_nav_title_1),
                 getString(R.string.item_nav_description_1),
+                getString(R.string.item_nav_description_long_1),
                 R.drawable.item_nav_1));
         list.add(new NavItem(getString(R.string.item_nav_title_2),
                 getString(R.string.item_nav_description_2),
+                getString(R.string.item_nav_description_long_2),
                 R.drawable.item_nav_2));
         list.add(new NavItem(getString(R.string.item_nav_title_3),
                 getString(R.string.item_nav_description_3),
+                getString(R.string.item_nav_description_long_3),
                 R.drawable.item_nav_3));
         return list;
     }
@@ -72,6 +75,6 @@ public class NavFragment extends Fragment implements NavAdapter.OnItemClick {
 
     @Override
     public void onClick(@NonNull NavItem item) {
-        Log.d(TAG, "onClick: " + item.getTitle());
+        NavItemActivity.start(getContext(), item);
     }
 }

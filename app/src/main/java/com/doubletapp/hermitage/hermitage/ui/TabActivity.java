@@ -5,8 +5,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.ImageView;
-import android.widget.Toolbar;
+import android.support.v7.widget.Toolbar;
 
 import com.doubletapp.hermitage.hermitage.R;
 import com.doubletapp.hermitage.hermitage.ui.exhibit.ExhibitFragment;
@@ -15,6 +17,7 @@ import com.doubletapp.hermitage.hermitage.ui.map.MapFragment;
 import com.doubletapp.hermitage.hermitage.ui.nav.NavFragment;
 import com.doubletapp.hermitage.hermitage.ui.ticket.TicketsEmptyFragment;
 import com.doubletapp.hermitage.hermitage.utils.ActivityUtils;
+import com.miguelcatalan.materialsearchview.MaterialSearchView;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnTabSelectListener;
 
@@ -29,10 +32,27 @@ public class TabActivity extends AppCompatActivity implements OnTabSelectListene
     Toolbar mToolbar;
     @BindView(R.id.bottom_bar)
     BottomBar mBottomBar;
+    @BindView(R.id.search_view)
+    MaterialSearchView mSearchView;
 
     public static void start(Context context) {
         Intent starter = new Intent(context, TabActivity.class);
         context.startActivity(starter);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        if (mBottomBar.getCurrentTabId() == R.id.tab_map
+                || mBottomBar.getCurrentTabId() == R.id.tab_exhibit) {
+
+            getMenuInflater().inflate(R.menu.search_menu, menu);
+
+            MenuItem item = menu.findItem(R.id.action_search);
+            mSearchView.setMenuItem(item);
+
+            return true;
+        }
+        return false;
     }
 
     @Override
@@ -46,6 +66,8 @@ public class TabActivity extends AppCompatActivity implements OnTabSelectListene
     }
 
     private void init() {
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setTitle("");
         mBottomBar.setOnTabSelectListener(this);
     }
 
@@ -59,6 +81,7 @@ public class TabActivity extends AppCompatActivity implements OnTabSelectListene
                             HomeFragment.newInstance(),
                             HomeFragment.TAG,
                             false);
+                    invalidateOptionsMenu();
                 }
                 break;
             case R.id.tab_exhibit:
@@ -68,6 +91,7 @@ public class TabActivity extends AppCompatActivity implements OnTabSelectListene
                             ExhibitFragment.newInstance(),
                             ExhibitFragment.TAG,
                             false);
+                    invalidateOptionsMenu();
                 }
                 break;
             case R.id.tab_map:
@@ -77,6 +101,7 @@ public class TabActivity extends AppCompatActivity implements OnTabSelectListene
                             MapFragment.newInstance(),
                             MapFragment.TAG,
                             false);
+                    invalidateOptionsMenu();
                 }
                 break;
             case R.id.tab_nav:
@@ -86,6 +111,7 @@ public class TabActivity extends AppCompatActivity implements OnTabSelectListene
                             NavFragment.newInstance(),
                             NavFragment.TAG,
                             false);
+                    invalidateOptionsMenu();
                 }
                 break;
             case R.id.tab_ticket:
@@ -95,6 +121,7 @@ public class TabActivity extends AppCompatActivity implements OnTabSelectListene
                             TicketsEmptyFragment.newInstance(),
                             TicketsEmptyFragment.TAG,
                             false);
+                    invalidateOptionsMenu();
                 }
                 break;
         }

@@ -9,6 +9,10 @@
         <item name="android:windowBackground">@color/background</item>
     </style>
 
+    <style name="NoTitleTheme" parent="AppTheme">
+        <item name="android:title">@null</item>
+    </style>
+
     <style name="timePickerMainText">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
@@ -39,6 +43,15 @@
         <item name="android:fontFamily">sans-serif-light</item>
         <item name="android:textStyle">normal</item>
         <item name="android:lineSpacingExtra">0sp</item>
+    </style>
+
+    <style name="NavDetailsTheme" parent="AppTheme">
+        <item name="colorAccent">#0083c5</item>
+    </style>
+
+    <style name="MaterialSearchViewStyle">
+        <!-- Hint for edit text -->
+        <item name="android:hint">@string/search_title</item>
     </style>
 
 </resources>

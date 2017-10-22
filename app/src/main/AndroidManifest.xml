@@ -16,10 +16,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.TabActivity" />
+        <activity android:name=".ui.TabActivity" android:theme="@style/NoTitleTheme" />
         <activity android:name=".ui.ticket.BuyTicketActivity" />
         <activity android:name=".MainActivity" />
-        <activity android:name=".ui.home.HomeItemActivity"></activity>
+        <activity android:name=".ui.home.HomeItemActivity" />
+        <activity android:name=".ui.nav.NavItemActivity" android:theme="@style/NavDetailsTheme"/>
     </application>
 
 </manifest>
