@@ -1,6 +1,7 @@
 package com.doubletapp.hermitage.hermitage.ui.ticket;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -16,13 +17,15 @@ import com.doubletapp.hermitage.hermitage.ui.views.TimePicker;
 import com.doubletapp.hermitage.hermitage.ui.views.TimePickerData;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Random;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 
-public class BuyTicketFragment extends Fragment {
+public class BuyTicketFragment extends Fragment implements TimePicker.OnDayChanged, TimePicker.OnTimeChanged {
 
     public static final String TAG = "BuyTicketFragment";
     @BindView(R.id.day_picker)
@@ -70,6 +73,7 @@ public class BuyTicketFragment extends Fragment {
     private void init() {
         count = 1;
         mCount.setText("1");
+        mCalendar.setChecked(true);
         ArrayList<String> days = new ArrayList<>();
         days.add("ВТ");
         days.add("СР");
@@ -78,13 +82,20 @@ public class BuyTicketFragment extends Fragment {
         days.add("СБ");
         days.add("ВС");
         ArrayList<Float> percentages = new ArrayList<>();
-        percentages.add(0.23f);
-        percentages.add(0.47f);
-        percentages.add(0.51f);
-        percentages.add(0.11f);
-        percentages.add(0.85f);
-        percentages.add(0.66f);
+        Random rnd = new Random();
+        percentages.add(rnd.nextFloat());
+        percentages.add(rnd.nextFloat());
+        percentages.add(rnd.nextFloat());
+        percentages.add(rnd.nextFloat());
+        percentages.add(rnd.nextFloat());
+        percentages.add(rnd.nextFloat());
         mDayPicker.swapData(new TimePickerData(days, percentages));
+        mDayPicker.setmOnDayChangedListener(this);
+        setTimeData();
+        mTimePicker.setmOnTimeChangedListener(this);
+    }
+
+    private void setTimeData() {
         ArrayList<String> timesStart = new ArrayList<>();
         timesStart.add("10:30");
         timesStart.add("12:00");
@@ -100,12 +111,13 @@ public class BuyTicketFragment extends Fragment {
         timesEnd.add("20:00");
         timesEnd.add("21:00");
         ArrayList<Float> percentages2 = new ArrayList<>();
-        percentages2.add(0.53f);
-        percentages2.add(0.88f);
-        percentages2.add(0.10f);
-        percentages2.add(0.38f);
-        percentages2.add(0.21f);
-        percentages2.add(0.50f);
+        Random rnd = new Random();
+        percentages2.add(rnd.nextFloat());
+        percentages2.add(rnd.nextFloat());
+        percentages2.add(rnd.nextFloat());
+        percentages2.add(rnd.nextFloat());
+        percentages2.add(rnd.nextFloat());
+        percentages2.add(rnd.nextFloat());
         mTimePicker.swapData(new TimePickerData(timesStart, timesEnd, percentages2));
     }
 
@@ -117,7 +129,63 @@ public class BuyTicketFragment extends Fragment {
 
     @OnClick(R.id.buy_ticket_button)
     public void onViewClicked() {
+        if (mCalendar.isChecked()) {
+            Calendar beginTime = Calendar.getInstance();
+            beginTime.set(2017, 9, 24, 10, 0);
+            Calendar endTime = Calendar.getInstance();
+            endTime.set(2017, 9, 24, 12, 0);
+            switch (mDayPicker.getSelectedPosition()) {
+                case 2:
+                    beginTime.add(Calendar.DAY_OF_WEEK, 1);
+                    endTime.add(Calendar.DAY_OF_WEEK, 1);
+                    break;
+                case 3:
+                    beginTime.add(Calendar.DAY_OF_WEEK, 2);
+                    endTime.add(Calendar.DAY_OF_WEEK, 2);
+                    break;
+                case 4:
+                    beginTime.add(Calendar.DAY_OF_WEEK, 3);
+                    endTime.add(Calendar.DAY_OF_WEEK, 3);
+                    break;
+                case 5:
+                    beginTime.add(Calendar.DAY_OF_WEEK, 4);
+                    endTime.add(Calendar.DAY_OF_WEEK, 4);
+                    break;
+                case 6:
+                    beginTime.add(Calendar.DAY_OF_WEEK, 5);
+                    endTime.add(Calendar.DAY_OF_WEEK, 5);
+                    break;
+            }
+            switch (mTimePicker.getSelectedPosition()) {
+                case 2:
+                    beginTime.add(Calendar.HOUR, 2);
+                    endTime.add(Calendar.HOUR, 2);
+                    break;
+                case 3:
+                    beginTime.add(Calendar.HOUR, 4);
+                    endTime.add(Calendar.HOUR, 4);
+                    break;
+                case 4:
+                    beginTime.add(Calendar.HOUR, 6);
+                    endTime.add(Calendar.HOUR, 6);
+                    break;
+                case 5:
+                    beginTime.add(Calendar.HOUR, 8);
+                    endTime.add(Calendar.HOUR, 8);
+                    break;
+                case 6:
+                    beginTime.add(Calendar.HOUR, 10);
+                    endTime.add(Calendar.HOUR, 10);
+                    break;
+            }
 
+            Intent intent = new Intent(Intent.ACTION_EDIT);
+            intent.setType("vnd.android.cursor.item/event");
+            intent.putExtra("title", "Посещение Эрмитажа");
+            intent.putExtra("beginTime", beginTime.getTimeInMillis());
+            intent.putExtra("endTime", endTime.getTimeInMillis());
+            startActivity(intent);
+        }
     }
 
     @OnClick(R.id.buy_ticket_plus)
@@ -134,5 +202,15 @@ public class BuyTicketFragment extends Fragment {
             count--;
             mCount.setText(String.valueOf(count));
         }
+    }
+
+    @Override
+    public void onDayChange(int day) {
+        setTimeData();
+    }
+
+    @Override
+    public void onTimeChange(int time) {
+
     }
 }
