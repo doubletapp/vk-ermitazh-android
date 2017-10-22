@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.doubletapp.hermitage.hermitage.R;
-import com.doubletapp.hermitage.hermitage.model.Exhibit;
 import com.doubletapp.hermitage.hermitage.model.Hall;
 import com.doubletapp.hermitage.hermitage.model.Intensity;
 import com.doubletapp.hermitage.hermitage.model.PathBuilder;
@@ -20,7 +19,6 @@ import com.doubletapp.hermitage.hermitage.model.map.Path;
 import com.doubletapp.hermitage.hermitage.model.map.Position;
 import com.doubletapp.hermitage.hermitage.model.map.Room;
 import com.doubletapp.hermitage.hermitage.model.map.User;
-import com.doubletapp.hermitage.hermitage.ui.map.mark.ExhibitMarker;
 import com.doubletapp.hermitage.hermitage.ui.map.mark.HallMarker;
 import com.doubletapp.hermitage.hermitage.ui.map.mark.MapMark;
 import com.doubletapp.hermitage.hermitage.ui.map.mark.RoomMarker;
@@ -85,7 +83,7 @@ public class MapFragment extends Fragment implements MarkerLayout.MarkerTapListe
 
         initData();
 //        drawRooms();
-//        addPasses();
+        addPasses();
 
         return tileView;
     }
@@ -120,7 +118,7 @@ public class MapFragment extends Fragment implements MarkerLayout.MarkerTapListe
 
                 tileView.setMarkerTapListener(MapFragment.this);
 
-                onUserRoomChanged(allHalls[5].getMainRoom());
+                onUserRoomChanged(userRoom());
             }
         });
     }
@@ -171,16 +169,14 @@ public class MapFragment extends Fragment implements MarkerLayout.MarkerTapListe
         userMark.attachMark(tileView);
     }
 
+    private Room userRoom() {
+        return roomWithId("14");
+    }
+
     private void addPasses() {
         PathBuilder pathBuilder = new PathBuilder(allRooms);
 
-        Room startRoom = allRooms[0];
-        for (Hall hall : allHalls) {
-            if (hall.getId().equals("14")) {
-                startRoom = hall.getRooms().get(0);
-                break;
-            }
-        }
+        Room startRoom = userRoom();
 
         drawPaths(pathBuilder.getPaths(startRoom, Arrays.asList(
                 roomWithId("29"),
