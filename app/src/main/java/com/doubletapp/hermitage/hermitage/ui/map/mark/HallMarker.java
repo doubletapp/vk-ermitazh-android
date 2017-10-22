@@ -42,6 +42,19 @@ public class HallMarker extends MapMark {
         return imageView;
     }
 
+    @Override
+    public int getRes() {
+        switch (hall.getIntensity()) {
+            case LOW:
+                return R.drawable.ic_hall_gray_20px;
+            case MEDIUM:
+                return R.drawable.ic_hall_yellow_20px;
+            case HIGH:
+                return R.drawable.ic_hall_red_20px;
+        }
+        return R.drawable.ic_hall_gray_20px;
+    }
+
     private Bitmap getBitmapFromVectorDrawable(int drawableId) {
         Drawable drawable = ContextCompat.getDrawable(getContext(), drawableId);
 
