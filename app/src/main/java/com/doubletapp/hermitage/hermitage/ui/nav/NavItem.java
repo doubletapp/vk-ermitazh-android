@@ -10,13 +10,15 @@ public class NavItem implements Serializable {
     String mTitle;
     String mDescription;
     String mLongDescription;
+    String mHallId;
     int mImage;
 
-    public NavItem(String mTitle, String mDescription, String mLongDescription, int mImage) {
+    public NavItem(String mTitle, String mDescription, String mLongDescription, int mImage, String hallId) {
         this.mTitle = mTitle;
         this.mDescription = mDescription;
         this.mImage = mImage;
         this.mLongDescription = mLongDescription;
+        this.mHallId = hallId;
     }
 
     public String getTitle() {

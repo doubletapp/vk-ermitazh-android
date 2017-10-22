@@ -1,11 +1,11 @@
 package com.doubletapp.hermitage.hermitage.ui.nav;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +18,8 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+
+import static com.doubletapp.hermitage.hermitage.ui.nav.NavItemActivity.CHANGE_TO_MAP_RESULT_CODE;
 
 public class NavFragment extends Fragment implements NavAdapter.OnItemClick {
 
@@ -55,15 +57,18 @@ public class NavFragment extends Fragment implements NavAdapter.OnItemClick {
         list.add(new NavItem(getString(R.string.item_nav_title_1),
                 getString(R.string.item_nav_description_1),
                 getString(R.string.item_nav_description_long_1),
-                R.drawable.item_nav_1));
+                R.drawable.item_nav_1,
+                "26"));
         list.add(new NavItem(getString(R.string.item_nav_title_2),
                 getString(R.string.item_nav_description_2),
                 getString(R.string.item_nav_description_long_2),
-                R.drawable.item_nav_2));
+                R.drawable.item_nav_2,
+                "48"));
         list.add(new NavItem(getString(R.string.item_nav_title_3),
                 getString(R.string.item_nav_description_3),
                 getString(R.string.item_nav_description_long_3),
-                R.drawable.item_nav_3));
+                R.drawable.item_nav_3,
+                "63"));
         return list;
     }
 

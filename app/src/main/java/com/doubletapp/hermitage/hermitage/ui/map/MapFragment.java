@@ -57,6 +57,8 @@ public class MapFragment extends Fragment implements MarkerLayout.MarkerTapListe
     private MapHelper helper;
     private Subscription updateSubscription;
 
+    String hallId;
+
     public static MapFragment newInstance() {
 
         Bundle args = new Bundle();
@@ -74,6 +76,12 @@ public class MapFragment extends Fragment implements MarkerLayout.MarkerTapListe
         tileView = new TileView(getActivity());
 //        int width = MetricsConverter.convertDpToPixel(1127, getActivity());
 //        int height = MetricsConverter.convertDpToPixel(542, getActivity());
+
+
+        Bundle bundle = getArguments();
+        if (bundle.getString("hallId") != null) {
+            hallId = bundle.getString("hallId");
+        }
 
         tileView.setSize(width, height);
         tileView.setScaleLimits(0, 4);
@@ -219,14 +227,20 @@ public class MapFragment extends Fragment implements MarkerLayout.MarkerTapListe
     private void addPasses() {
         PathBuilder pathBuilder = new PathBuilder(allRooms);
 
-        drawPaths(pathBuilder.getPaths(userRoom(), Arrays.asList(
-                roomWithId("29"),
-                roomWithId("57"),
-                roomWithId("50"),
-                roomWithId("40"),
-                roomWithId("18"),
-                roomWithId("11")
-        ), null));
+        if (hallId != null) {
+            drawPaths(pathBuilder.getPaths(userRoom(), Arrays.asList(
+                    roomWithId(hallId)
+            ), null));
+        } else {
+            drawPaths(pathBuilder.getPaths(userRoom(), Arrays.asList(
+                    roomWithId("29"),
+                    roomWithId("57"),
+                    roomWithId("50"),
+                    roomWithId("40"),
+                    roomWithId("18"),
+                    roomWithId("11")
+            ), null));
+        }
     }
 
     private Room roomWithId(String id) {

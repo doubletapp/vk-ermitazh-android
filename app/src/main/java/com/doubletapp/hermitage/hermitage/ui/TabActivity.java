@@ -28,6 +28,9 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.doubletapp.hermitage.hermitage.R.id.tab_map;
+import static com.doubletapp.hermitage.hermitage.ui.nav.NavItemActivity.CHANGE_TO_MAP_RESULT_CODE;
+
 public class TabActivity extends AppCompatActivity implements OnTabSelectListener {
 
     @BindView(R.id.title_logo)
@@ -39,6 +42,8 @@ public class TabActivity extends AppCompatActivity implements OnTabSelectListene
     @BindView(R.id.search_view)
     MaterialSearchView mSearchView;
 
+    int tabToOpen = 0;
+
     private Map<Integer, Fragment> mFragmentMap;
 
     public static void start(Context context) {
@@ -48,7 +53,7 @@ public class TabActivity extends AppCompatActivity implements OnTabSelectListene
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        if (mBottomBar.getCurrentTabId() == R.id.tab_map
+        if (mBottomBar.getCurrentTabId() == tab_map
                 || mBottomBar.getCurrentTabId() == R.id.tab_exhibit) {
 
             getMenuInflater().inflate(R.menu.search_menu, menu);
@@ -70,12 +75,23 @@ public class TabActivity extends AppCompatActivity implements OnTabSelectListene
         mFragmentMap = new HashMap<>();
         addFragmentToMap(R.id.tab_home);
         addFragmentToMap(R.id.tab_exhibit);
-        addFragmentToMap(R.id.tab_map);
+        addFragmentToMap(tab_map);
         addFragmentToMap(R.id.tab_nav);
         addFragmentToMap(R.id.tab_ticket);
 
         init();
-//        test();
+    }
+
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+
+        if(tabToOpen != 0) {
+            onTabSelected(tabToOpen);
+            if (tabToOpen == tab_map) {
+                mBottomBar.selectTabAtPosition(2);
+            }
+        }
     }
 
     private void init() {
@@ -95,7 +111,7 @@ public class TabActivity extends AppCompatActivity implements OnTabSelectListene
                 return HomeFragment.newInstance();
             case R.id.tab_exhibit:
                 return ExhibitFragment.newInstance();
-            case R.id.tab_map:
+            case tab_map:
                 return MapFragment.newInstance();
             case R.id.tab_nav:
                 return NavFragment.newInstance();
@@ -106,13 +122,28 @@ public class TabActivity extends AppCompatActivity implements OnTabSelectListene
         }
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == CHANGE_TO_MAP_RESULT_CODE) {
+            String hallId = data.getStringExtra("hallId");
+
+            Fragment fragment = createFragmentById(tab_map);
+            Bundle bundle = fragment.getArguments();
+            bundle.putString("hallId", hallId);
+            mFragmentMap.put(tab_map, fragment);
+            tabToOpen = tab_map;
+        }
+    }
+
+
+
     private String getFragmentTagtById(int id) {
         switch (id) {
             case R.id.tab_home:
                 return HomeFragment.TAG;
             case R.id.tab_exhibit:
                 return ExhibitFragment.TAG;
-            case R.id.tab_map:
+            case tab_map:
                 return MapFragment.TAG;
             case R.id.tab_nav:
                 return NavFragment.TAG;

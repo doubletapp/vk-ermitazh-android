@@ -6,20 +6,23 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.doubletapp.hermitage.hermitage.R;
-import com.doubletapp.hermitage.hermitage.ui.home.HomeItem;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class NavItemActivity extends AppCompatActivity {
+
+    public static int CHANGE_TO_MAP_RESULT_CODE;
 
     private static final String ARGS_NAV_ITEM = "NAV_ITEM";
     @BindView(R.id.nav_item_image)
@@ -34,11 +37,15 @@ public class NavItemActivity extends AppCompatActivity {
     TextView mDescription;
     @BindView(R.id.nav_item_long_description)
     TextView mLongDescription;
+    @BindView(R.id.nav_item_navigation_button)
+    FloatingActionButton navigationActionButton;
+
+    String mHallId;
 
     public static void start(Context context, @NonNull NavItem item) {
         Intent starter = new Intent(context, NavItemActivity.class);
         starter.putExtra(ARGS_NAV_ITEM, item);
-        context.startActivity(starter);
+        ((AppCompatActivity)context).startActivityForResult(starter, CHANGE_TO_MAP_RESULT_CODE);
     }
 
     @Override
@@ -65,6 +72,16 @@ public class NavItemActivity extends AppCompatActivity {
             }
         });
         setData();
+
+        navigationActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent();
+                intent.putExtra("hallId", mHallId);
+                setResult(RESULT_OK, intent);
+                finish();
+            }
+        });
     }
 
     private void setData() {
@@ -74,6 +91,7 @@ public class NavItemActivity extends AppCompatActivity {
             mDescription.setText(item.getDescription());
             mLongDescription.setText(item.getmLongDescription());
             mImage.setImageResource(item.getImage());
+            mHallId = item.mHallId;
         }
     }
 
