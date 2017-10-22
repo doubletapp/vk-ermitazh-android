@@ -12,10 +12,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.doubletapp.hermitage.hermitage.R;
+import com.doubletapp.hermitage.hermitage.ui.exhibit.ExhibitActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -39,6 +41,8 @@ public class NavItemActivity extends AppCompatActivity {
     TextView mLongDescription;
     @BindView(R.id.nav_item_navigation_button)
     FloatingActionButton navigationActionButton;
+    @BindView(R.id.nav_item_show_exhibits)
+    Button showExhibitsButton;
 
     String mHallId;
 
@@ -80,6 +84,13 @@ public class NavItemActivity extends AppCompatActivity {
                 intent.putExtra("hallId", mHallId);
                 setResult(RESULT_OK, intent);
                 finish();
+            }
+        });
+        final Context context = this;
+        showExhibitsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ExhibitActivity.start(context);
             }
         });
     }
