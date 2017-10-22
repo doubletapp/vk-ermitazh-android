@@ -48,6 +48,8 @@ public class MapFragment extends Fragment implements MarkerLayout.MarkerTapListe
     List<MapMark> mapMarks = new ArrayList<>();
     UserMark userMark;
 
+    List<CompositePathView.DrawablePath> activePaths = new ArrayList<>();
+
     final int width = 4972;
     final int height = 2568;
 
@@ -67,6 +69,7 @@ public class MapFragment extends Fragment implements MarkerLayout.MarkerTapListe
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         // Inflate the layout for this fragment
         tileView = new TileView(getActivity());
 //        int width = MetricsConverter.convertDpToPixel(1127, getActivity());
@@ -142,6 +145,17 @@ public class MapFragment extends Fragment implements MarkerLayout.MarkerTapListe
     public void onMarkerTap(View view, int x, int y) {
         for (MapMark mapMark : mapMarks) {
             if (mapMark.getView() != null && mapMark.getView().equals(view)) {
+                if(mapMark instanceof  HallMarker) {
+                    for(CompositePathView.DrawablePath path: activePaths) {
+                        tileView.removePath(path);
+                    }
+
+                    PathBuilder pathBuilder = new PathBuilder(allRooms);
+
+                    drawPaths(pathBuilder.getPaths(userRoom(), Arrays.asList(
+                            ((HallMarker)mapMark).getHall().getMainRoom()
+                    ), null));
+                }
                 Log.d("event_trace", "Click by ");
             }
         }
@@ -205,9 +219,7 @@ public class MapFragment extends Fragment implements MarkerLayout.MarkerTapListe
     private void addPasses() {
         PathBuilder pathBuilder = new PathBuilder(allRooms);
 
-        Room startRoom = userRoom();
-
-        drawPaths(pathBuilder.getPaths(startRoom, Arrays.asList(
+        drawPaths(pathBuilder.getPaths(userRoom(), Arrays.asList(
                 roomWithId("29"),
                 roomWithId("57"),
                 roomWithId("50"),
@@ -251,6 +263,7 @@ public class MapFragment extends Fragment implements MarkerLayout.MarkerTapListe
             CompositePathView.DrawablePath drawablePath = new CompositePathView.DrawablePath();
             drawablePath.path = pathForDrawing;
             drawablePath.paint = paint;
+            activePaths.add(drawablePath);
             tileView.drawPath(drawablePath);
         }
     }
@@ -642,6 +655,9 @@ public class MapFragment extends Fragment implements MarkerLayout.MarkerTapListe
         hall58.setIntensity(Intensity.HIGH);
         hall59.setIntensity(Intensity.HIGH);
         hall60.setIntensity(Intensity.HIGH);
+        hall60.setIntensity(Intensity.MEDIUM);
+        hall22.setIntensity(Intensity.MEDIUM);
+        hall17.setIntensity(Intensity.MEDIUM);
 
         this.allHalls = allHalls;
         this.allPasses = allPasses;
