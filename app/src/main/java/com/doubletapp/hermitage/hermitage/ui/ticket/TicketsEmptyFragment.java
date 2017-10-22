@@ -44,6 +44,6 @@ public class TicketsEmptyFragment extends Fragment {
 
     @OnClick(R.id.tickets_empty_button)
     public void onViewClicked() {
-        BuyTicketActivity.start(getContext());
+        BuyTicketActivity.start(getActivity());
     }
 }

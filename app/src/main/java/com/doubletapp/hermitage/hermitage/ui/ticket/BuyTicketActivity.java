@@ -1,5 +1,6 @@
 package com.doubletapp.hermitage.hermitage.ui.ticket;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,12 +17,14 @@ import butterknife.ButterKnife;
 
 public class BuyTicketActivity extends AppCompatActivity {
 
+    public static final int BUY_TICKET_REQUEST_CODE = 777;
+
     @BindView(R.id.buy_ticket_toolbar)
     Toolbar mToolbar;
 
-    public static void start(@NonNull Context context) {
+    public static void start(@NonNull Activity context) {
         Intent starter = new Intent(context, BuyTicketActivity.class);
-        context.startActivity(starter);
+        context.startActivityForResult(starter, BUY_TICKET_REQUEST_CODE);
     }
 
     @Override

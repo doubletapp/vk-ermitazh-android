@@ -16,6 +16,7 @@ import com.doubletapp.hermitage.hermitage.ui.exhibit.ExhibitFragment;
 import com.doubletapp.hermitage.hermitage.ui.home.HomeFragment;
 import com.doubletapp.hermitage.hermitage.ui.map.MapFragment;
 import com.doubletapp.hermitage.hermitage.ui.nav.NavFragment;
+import com.doubletapp.hermitage.hermitage.ui.ticket.BuyTicketActivity;
 import com.doubletapp.hermitage.hermitage.ui.ticket.TicketsEmptyFragment;
 import com.doubletapp.hermitage.hermitage.ui.ticket.TicketsFragment;
 import com.doubletapp.hermitage.hermitage.utils.ActivityUtils;
@@ -45,6 +46,7 @@ public class TabActivity extends AppCompatActivity implements OnTabSelectListene
     MaterialSearchView mSearchView;
 
     int tabToOpen = 0;
+    boolean requestBuyTicket = false;
 
     private Map<Integer, Fragment> mFragmentMap;
 
@@ -90,6 +92,12 @@ public class TabActivity extends AppCompatActivity implements OnTabSelectListene
 
         if(tabToOpen != 0) {
             mBottomBar.findViewById(tabToOpen).performClick();
+            tabToOpen = 0;
+        }
+
+        if (requestBuyTicket) {
+            requestBuyTicket = false;
+            onTabSelected(R.id.tab_ticket);
         }
     }
 
@@ -135,6 +143,8 @@ public class TabActivity extends AppCompatActivity implements OnTabSelectListene
             bundle.putString("hallId", hallId);
             mFragmentMap.put(tab_map, fragment);
             tabToOpen = tab_map;
+        } else if (requestCode == BuyTicketActivity.BUY_TICKET_REQUEST_CODE) {
+            requestBuyTicket = true;
         }
     }
 

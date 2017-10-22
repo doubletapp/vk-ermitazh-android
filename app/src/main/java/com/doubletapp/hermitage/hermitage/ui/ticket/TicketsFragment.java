@@ -66,6 +66,6 @@ public class TicketsFragment extends Fragment {
 
     @OnClick(R.id.one_more)
     public void onOneMoreClicked() {
-        BuyTicketActivity.start(getContext());
+        BuyTicketActivity.start(getActivity());
     }
 }

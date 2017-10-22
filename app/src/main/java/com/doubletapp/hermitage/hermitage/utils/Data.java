@@ -15,5 +15,5 @@ import java.util.List;
 public final class Data {
     public static List<Art> arts;
     public static List<Exhibit> exhibits;
-    public static List<Ticket> tickets = new ArrayList<>(Arrays.asList(new Ticket("20-10-2017", "12:00 - 14:00" , "H32SM21TV"), new Ticket("2q-10-2017", "19:00 - 20:00" , "H22SM10TV")));
+    public static List<Ticket> tickets = new ArrayList<>();
 }
