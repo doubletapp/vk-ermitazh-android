@@ -182,8 +182,8 @@ public class BuyTicketFragment extends Fragment implements TimePicker.OnDayChang
                 break;
         }
 
-        SimpleDateFormat format = new SimpleDateFormat("dd-mm-yyyy", Locale.getDefault());
-        SimpleDateFormat formatTime = new SimpleDateFormat("hh:mm", Locale.getDefault());
+        SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
+        SimpleDateFormat formatTime = new SimpleDateFormat("HH:mm", Locale.getDefault());
         for (int i = 0; i < count; i++) {
             Data.tickets.add(new Ticket(format.format(beginTime.getTime()),
                     formatTime.format(beginTime.getTime()) + " - " + formatTime.format(endTime.getTime()),
@@ -198,6 +198,7 @@ public class BuyTicketFragment extends Fragment implements TimePicker.OnDayChang
             intent.putExtra("endTime", endTime.getTimeInMillis());
             startActivity(intent);
         }
+        getActivity().finish();
     }
 
     @OnClick(R.id.buy_ticket_plus)
