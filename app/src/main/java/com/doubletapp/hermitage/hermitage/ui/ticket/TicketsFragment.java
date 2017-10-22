@@ -26,6 +26,7 @@ public class TicketsFragment extends Fragment {
     ViewPager viewPager;
 
     Unbinder unbinder;
+    TicketFragmentAdapter adapter;
 
     public static TicketsFragment newInstance() {
         Bundle args = new Bundle();
@@ -41,10 +42,19 @@ public class TicketsFragment extends Fragment {
         View view = inflater.inflate(R.layout.f_tickets, container, false);
         unbinder = ButterKnife.bind(this, view);
 
-        TicketFragmentAdapter adapter = new TicketFragmentAdapter(getChildFragmentManager());
+        adapter = new TicketFragmentAdapter(getChildFragmentManager());
         viewPager.setAdapter(adapter);
 
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        if (adapter != null) {
+            adapter.notifyDataSetChanged();
+        }
     }
 
     @Override
