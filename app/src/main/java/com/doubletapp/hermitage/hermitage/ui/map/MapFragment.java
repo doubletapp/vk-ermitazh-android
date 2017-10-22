@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.doubletapp.hermitage.hermitage.R;
+import com.doubletapp.hermitage.hermitage.model.Exhibit;
 import com.doubletapp.hermitage.hermitage.model.Hall;
 import com.doubletapp.hermitage.hermitage.model.Intensity;
 import com.doubletapp.hermitage.hermitage.model.PathBuilder;
@@ -19,6 +20,7 @@ import com.doubletapp.hermitage.hermitage.model.map.Path;
 import com.doubletapp.hermitage.hermitage.model.map.Position;
 import com.doubletapp.hermitage.hermitage.model.map.Room;
 import com.doubletapp.hermitage.hermitage.model.map.User;
+import com.doubletapp.hermitage.hermitage.ui.map.mark.ExhibitMarker;
 import com.doubletapp.hermitage.hermitage.ui.map.mark.HallMarker;
 import com.doubletapp.hermitage.hermitage.ui.map.mark.MapMark;
 import com.doubletapp.hermitage.hermitage.ui.map.mark.RoomMarker;
@@ -33,6 +35,7 @@ import java.util.List;
 
 import rx.Subscriber;
 import rx.Subscription;
+import rx.functions.Action0;
 
 public class MapFragment extends Fragment implements MarkerLayout.MarkerTapListener {
 
@@ -71,9 +74,6 @@ public class MapFragment extends Fragment implements MarkerLayout.MarkerTapListe
 //        int width = MetricsConverter.convertDpToPixel(1127, getActivity());
 //        int height = MetricsConverter.convertDpToPixel(542, getActivity());
 
-        int width = 4972;
-        int height = 2568;
-
         tileView.setSize(width, height);
         tileView.setScaleLimits(0, 4);
         tileView.setScale(0);
@@ -85,20 +85,16 @@ public class MapFragment extends Fragment implements MarkerLayout.MarkerTapListe
 //        drawRooms();
         addPasses();
 
-        return tileView;
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        tileView.resume();
-
         tileView.post(new Runnable() {
             @Override
             public void run() {
                 helper = new MapHelper(tileView, width, height);
 
-                helper.getUpdateObservable().subscribe(new Subscriber<Boolean>() {
+                helper.getUpdateObservable().doOnSubscribe(new Action0() {
+                    @Override
+                    public void call() {
+                    }
+                }).subscribe(new Subscriber<Boolean>() {
                     @Override
                     public void onCompleted() {
                         Log.d("event_trace", "compete");
@@ -117,8 +113,23 @@ public class MapFragment extends Fragment implements MarkerLayout.MarkerTapListe
                 });
 
                 tileView.setMarkerTapListener(MapFragment.this);
+            }
+        });
 
-                onUserRoomChanged(userRoom());
+        return tileView;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        tileView.resume();
+
+        tileView.post(new Runnable() {
+            @Override
+            public void run() {
+                onUserRoomChanged(allHalls[5].getMainRoom());
+                focusOnUser();
+                Log.d("event_trace", "doOnSubscribe " + tileView.getScale());
             }
         });
     }
@@ -139,13 +150,27 @@ public class MapFragment extends Fragment implements MarkerLayout.MarkerTapListe
     }
 
     private void updateMapMarkAttachment(MapMark mark) {
-        if (helper.isMapMarkVisible(mark) && !mark.isAttached()) {
+        if (helper.isMapMarkVisible(mark) && !mark.isAttached() && !isHallWithUser(mark)) {
             mark.attachMark(tileView);
-        } else if (!helper.isMapMarkVisible(mark) && mark.isAttached()) {
+        } else if (!helper.isMapMarkVisible(mark) && mark.isAttached() || isHallWithUser(mark)) {
             mark.detachMark(tileView);
         } else {
             mark.invalidate(tileView);
         }
+    }
+
+    private boolean isHallWithUser(MapMark mark) {
+        if (mark instanceof HallMarker) {
+            HallMarker hallMarker = (HallMarker) mark;
+
+            for (Room room : hallMarker.getHall().getRooms()) {
+                if (room.equals(user.getRoom())) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 
     @Override
@@ -171,6 +196,12 @@ public class MapFragment extends Fragment implements MarkerLayout.MarkerTapListe
 
     private Room userRoom() {
         return roomWithId("14");
+    }
+
+    private void focusOnUser() {
+        frameTo(userMark.getMarkPosition().getX(), userMark.getMarkPosition().getY());
+//        tileView.setScale(2f);
+//        updateMapViewState();
     }
 
     private void addPasses() {
@@ -631,5 +662,14 @@ public class MapFragment extends Fragment implements MarkerLayout.MarkerTapListe
         user = new User();
         userMark = new UserMark(getActivity(), user);
         mapMarks.add(userMark);
+    }
+
+    public void frameTo(final double x, final double y) {
+        tileView.post(new Runnable() {
+            @Override
+            public void run() {
+                tileView.scrollToAndCenter(x, y);
+            }
+        });
     }
 }

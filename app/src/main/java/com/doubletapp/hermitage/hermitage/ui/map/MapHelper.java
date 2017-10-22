@@ -24,8 +24,8 @@ import rx.subjects.PublishSubject;
 
 public class MapHelper implements ZoomPanLayout.ZoomPanListener {
     private TileView tileView;
-    private int x;
-    private int y;
+    private int x = 0;
+    private int y = 0;
     private int mapWidth;
     private int mapHeight;
     private int screenWidth;

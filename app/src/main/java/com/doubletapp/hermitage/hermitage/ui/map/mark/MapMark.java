@@ -56,6 +56,10 @@ public abstract class MapMark {
     }
 
     public void invalidate(TileView tileView) {
+        if (!isAttached) {
+            return;
+        }
+
         final double eps = 0.2;
 
         if (Math.abs(scale - tileView.getScale()) < eps) {
@@ -63,9 +67,7 @@ public abstract class MapMark {
         }
 
         scale = tileView.getScale();
-        if (isAttached) {
-            onInvalidate(tileView);
-        }
+        onInvalidate(tileView);
     }
 
     protected void onInvalidate(TileView tileView) {
