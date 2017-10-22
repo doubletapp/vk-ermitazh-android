@@ -68,7 +68,12 @@ public abstract class MapMark {
         }
     }
 
-    protected abstract void onInvalidate(TileView tileView);
+    protected void onInvalidate(TileView tileView) {
+        ((ImageView) getView()).setImageBitmap(Bitmap.createScaledBitmap(getBitmapFromVectorDrawable(mRes),
+                getScaledSize(),
+                getScaledSize(),
+                false));
+    }
 
     public void attachMark(TileView tileView) {
         scale = tileView.getScale();
@@ -78,6 +83,9 @@ public abstract class MapMark {
     }
 
     public void detachMark(TileView tileView) {
+        if (!isAttached) {
+            return;
+        }
         isAttached = false;
         tileView.removeMarker(view);
         view = null;
@@ -105,6 +113,10 @@ public abstract class MapMark {
 
     public int getScaledSize() {
         return (int) (scale * mSize);
+    }
+
+    public float getMinimumScaleForShow() {
+        return 0.9f;
     }
 
     public void setSize(int size) {

@@ -4,20 +4,21 @@ import android.content.Context;
 import android.support.annotation.DrawableRes;
 
 import com.doubletapp.hermitage.hermitage.R;
+import com.doubletapp.hermitage.hermitage.model.Exhibit;
 import com.doubletapp.hermitage.hermitage.model.map.Position;
-import com.doubletapp.hermitage.hermitage.model.map.User;
 import com.qozix.tileview.TileView;
 
 /**
  * Created by navi9 on 22.10.2017.
  */
 
-public class UserMark extends MapMark {
-    private User user;
+public class ExhibitMarker extends MapMark {
+    private Exhibit exhibit;
 
-    public UserMark(Context context, User user) {
-        super(context, R.drawable.ic_user_blue_20px, 40);
-        this.user = user;
+    public ExhibitMarker(Context context, Exhibit exhibit) {
+        super(context, R.drawable.ic_exhibit_black_20px, 30);
+
+        this.exhibit = exhibit;
     }
 
     @Override
@@ -27,15 +28,10 @@ public class UserMark extends MapMark {
 
     @Override
     public Position getMarkPosition() {
-        return user.getRoom().getPosition();
+        return exhibit.getPosition();
     }
 
-    public User getUser() {
-        return user;
-    }
-
-    @Override
-    public float getMinimumScaleForShow() {
-        return 0f;
+    public Exhibit getExhibit() {
+        return exhibit;
     }
 }

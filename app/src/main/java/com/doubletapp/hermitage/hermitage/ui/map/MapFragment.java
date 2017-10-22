@@ -1,30 +1,30 @@
 package com.doubletapp.hermitage.hermitage.ui.map;
 
 
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.content.res.ResourcesCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
 import com.doubletapp.hermitage.hermitage.R;
+import com.doubletapp.hermitage.hermitage.model.Exhibit;
 import com.doubletapp.hermitage.hermitage.model.Hall;
 import com.doubletapp.hermitage.hermitage.model.Intensity;
 import com.doubletapp.hermitage.hermitage.model.PathBuilder;
 import com.doubletapp.hermitage.hermitage.model.map.Pass;
 import com.doubletapp.hermitage.hermitage.model.map.Path;
+import com.doubletapp.hermitage.hermitage.model.map.Position;
 import com.doubletapp.hermitage.hermitage.model.map.Room;
+import com.doubletapp.hermitage.hermitage.model.map.User;
+import com.doubletapp.hermitage.hermitage.ui.map.mark.ExhibitMarker;
 import com.doubletapp.hermitage.hermitage.ui.map.mark.HallMarker;
 import com.doubletapp.hermitage.hermitage.ui.map.mark.MapMark;
 import com.doubletapp.hermitage.hermitage.ui.map.mark.RoomMarker;
+import com.doubletapp.hermitage.hermitage.ui.map.mark.UserMark;
 import com.qozix.tileview.TileView;
 import com.qozix.tileview.markers.MarkerLayout;
 import com.qozix.tileview.paths.CompositePathView;
@@ -34,6 +34,7 @@ import java.util.Collections;
 import java.util.List;
 
 import rx.Subscriber;
+import rx.Subscription;
 
 public class MapFragment extends Fragment implements MarkerLayout.MarkerTapListener {
 
@@ -41,17 +42,19 @@ public class MapFragment extends Fragment implements MarkerLayout.MarkerTapListe
     Pass[] allPasses;
     Room[] allRooms;
     Hall[] allHalls;
+    User user;
 
     List<RoomMarker> roomMarkers = new ArrayList<>();
     List<HallMarker> hallMarks = new ArrayList<>();
+    List<MapMark> mapMarks = new ArrayList<>();
+    UserMark userMark;
 
-    private static final int USER_SIZE_PX = 20;
-
-    int width = 4972;
-    int height = 2568;
+    final int width = 4972;
+    final int height = 2568;
 
     private TileView tileView;
     private MapHelper helper;
+    private Subscription updateSubscription;
 
     public static MapFragment newInstance() {
 
@@ -80,7 +83,6 @@ public class MapFragment extends Fragment implements MarkerLayout.MarkerTapListe
 
         tileView.addDetailLevel(1f, "tiles/125/tile-%d-%d.png");
 
-
         initData();
 //        drawRooms();
 //        addPasses();
@@ -96,57 +98,52 @@ public class MapFragment extends Fragment implements MarkerLayout.MarkerTapListe
         tileView.post(new Runnable() {
             @Override
             public void run() {
-                initHelper();
+                helper = new MapHelper(tileView, width, height);
+
+                helper.getUpdateObservable().subscribe(new Subscriber<Boolean>() {
+                    @Override
+                    public void onCompleted() {
+                        Log.d("event_trace", "compete");
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.d("event_trace", "error");
+                    }
+
+                    @Override
+                    public void onNext(Boolean aVoid) {
+                        Log.d("event_trace", "update");
+                        updateMapViewState();
+                    }
+                });
+
+                tileView.setMarkerTapListener(MapFragment.this);
+
+                onUserRoomChanged(allHalls[5].getMainRoom());
             }
         });
     }
 
     private void updateMapViewState() {
-        for (HallMarker hallMark : hallMarks) {
-            updateMapMarkAttachment(hallMark);
+        for (MapMark mapMark : mapMarks) {
+            updateMapMarkAttachment(mapMark);
         }
     }
 
-    private void initHelper() {
-        helper = new MapHelper(tileView, width, height);
-
-        helper.getUpdateObservable().subscribe(new Subscriber<Boolean>() {
-            @Override
-            public void onCompleted() {
-                Log.d("event_trace", "compete");
-            }
-
-            @Override
-            public void onError(Throwable e) {
-                Log.d("event_trace", "error");
-            }
-
-            @Override
-            public void onNext(Boolean aVoid) {
-                Log.d("event_trace", "update");
-                updateMapViewState();
-            }
-        });
-
-        tileView.setMarkerTapListener(this);
-    }
-
-
-
     @Override
     public void onMarkerTap(View view, int x, int y) {
-
-        for (HallMarker hallMark : hallMarks) {
-            if (hallMark.getView() != null && hallMark.getView().equals(view)) {
-                Log.d("event_trace", "Click by " + hallMark.getHall().getId());
+        for (MapMark mapMark : mapMarks) {
+            if (mapMark.getView() != null && mapMark.getView().equals(view)) {
+                Log.d("event_trace", "Click by ");
             }
         }
     }
 
     private void updateMapMarkAttachment(MapMark mark) {
-        if (helper.isPositionVisible(mark.getMarkPosition()) && !mark.isAttached()) {
+        if (helper.isMapMarkVisible(mark) && !mark.isAttached()) {
             mark.attachMark(tileView);
-        } else if (!helper.isPositionVisible(mark.getMarkPosition()) && mark.isAttached()) {
+        } else if (!helper.isMapMarkVisible(mark) && mark.isAttached()) {
             mark.detachMark(tileView);
         } else {
             mark.invalidate(tileView);
@@ -168,30 +165,10 @@ public class MapFragment extends Fragment implements MarkerLayout.MarkerTapListe
         tileView = null;
     }
 
-    private void drawRooms() {
-        for (Room room : allRooms) {
-            ImageView imageView = new ImageView(getActivity());
-            imageView.setImageBitmap(Bitmap.createScaledBitmap(getBitmapFromVectorDrawable(R.drawable.ic_user_blue_20px), 20, 20, false));
-            tileView.addMarker(imageView, room.getPosition().getX(), room.getPosition().getY(), (float) -0.5, (float) -0.5);
-        }
-    }
-
-    private void addUser(double x, double y) {
-        ImageView imageView = new ImageView(getActivity());
-        imageView.setImageBitmap(Bitmap.createScaledBitmap(getBitmapFromVectorDrawable(R.drawable.ic_user_blue_20px), 20, 20, false));
-        tileView.addMarker(imageView, x, y, null, null);
-    }
-
-    private Bitmap getBitmapFromVectorDrawable(int drawableId) {
-        Drawable drawable = ContextCompat.getDrawable(getActivity(), drawableId);
-
-        Bitmap bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(),
-                drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
-        Canvas canvas = new Canvas(bitmap);
-        drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
-        drawable.draw(canvas);
-
-        return bitmap;
+    private void onUserRoomChanged(Room room) {
+        user.setRoom(room);
+        userMark.detachMark(tileView);
+        userMark.attachMark(tileView);
     }
 
     private void addPasses() {
@@ -252,13 +229,13 @@ public class MapFragment extends Fragment implements MarkerLayout.MarkerTapListe
 
             if (Math.abs(Math.abs(room.getPosition().getX() - previousPass.getPosition().getX()) - Math.abs(room.getPosition().getX() - nextPass.getPosition().getX())) < eps
                     && Math.abs(Math.abs(room.getPosition().getX() - previousPass.getPosition().getX())
-                        + Math.abs(room.getPosition().getX() - nextPass.getPosition().getX()))
-                            - Math.abs(previousPass.getPosition().getX() - nextPass.getPosition().getX()) < eps) {
+                    + Math.abs(room.getPosition().getX() - nextPass.getPosition().getX()))
+                    - Math.abs(previousPass.getPosition().getX() - nextPass.getPosition().getX()) < eps) {
                 Log.i("DRAWING LINE", "Противоположные стены горизонтально");
             } else if (Math.abs(Math.abs(room.getPosition().getY() - previousPass.getPosition().getY()) - Math.abs(room.getPosition().getY() - nextPass.getPosition().getY())) < eps
                     && Math.abs(Math.abs(room.getPosition().getY() - previousPass.getPosition().getY())
-                        + Math.abs(room.getPosition().getY() - nextPass.getPosition().getY()))
-                            - Math.abs(previousPass.getPosition().getY() - nextPass.getPosition().getY()) < eps) {
+                    + Math.abs(room.getPosition().getY() - nextPass.getPosition().getY()))
+                    - Math.abs(previousPass.getPosition().getY() - nextPass.getPosition().getY()) < eps) {
                 Log.i("DRAWING LINE", "Противоположные стены вертикально");
             } else if (Math.abs(previousPass.getPosition().getX() - nextPass.getPosition().getX()) < 10) {
                 Log.i("DRAWING LINE", "На одной стене вертикально");
@@ -564,7 +541,13 @@ public class MapFragment extends Fragment implements MarkerLayout.MarkerTapListe
         }
 
         for (Hall hall : allHalls) {
-            hallMarks.add(new HallMarker(getActivity(), hall));
+            HallMarker hallMarker = new HallMarker(getActivity(), hall);
+            hallMarks.add(hallMarker);
+            mapMarks.add(hallMarker);
         }
+
+        user = new User();
+        userMark = new UserMark(getActivity(), user);
+        mapMarks.add(userMark);
     }
 }

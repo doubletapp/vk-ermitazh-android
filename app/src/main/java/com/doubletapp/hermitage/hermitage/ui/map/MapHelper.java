@@ -5,6 +5,7 @@ import android.util.Log;
 import com.doubletapp.hermitage.hermitage.model.map.Position;
 import com.doubletapp.hermitage.hermitage.model.map.Room;
 import com.doubletapp.hermitage.hermitage.ui.map.mark.HallMarker;
+import com.doubletapp.hermitage.hermitage.ui.map.mark.MapMark;
 import com.doubletapp.hermitage.hermitage.ui.map.mark.RoomMarker;
 import com.qozix.tileview.TileView;
 import com.qozix.tileview.widgets.ZoomPanLayout;
@@ -145,7 +146,11 @@ public class MapHelper implements ZoomPanLayout.ZoomPanListener {
         boolean xOk = posX > x && posX < (x + getScaledScreenWidth());
         boolean yOk = posY > y && posY < (y + getScaledScreenHeight());
 
-        return xOk && yOk && scale > 0.9;
+        return xOk && yOk;
+    }
+
+    public boolean isMapMarkVisible(MapMark mark) {
+        return isPositionVisible(mark.getMarkPosition()) && scale > mark.getMinimumScaleForShow();
     }
 
     public boolean isRoomVisible(Room room) {
