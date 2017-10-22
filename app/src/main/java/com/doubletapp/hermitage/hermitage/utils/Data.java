@@ -2,7 +2,9 @@ package com.doubletapp.hermitage.hermitage.utils;
 
 import com.doubletapp.hermitage.hermitage.model.Art;
 import com.doubletapp.hermitage.hermitage.model.Exhibit;
+import com.doubletapp.hermitage.hermitage.model.Ticket;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -12,4 +14,5 @@ import java.util.List;
 public final class Data {
     public static List<Art> arts;
     public static List<Exhibit> exhibits;
+    public static List<Ticket> tickets = new ArrayList<>();
 }
