@@ -101,6 +101,12 @@ public class MapFragment extends Fragment implements MarkerLayout.MarkerTapListe
         });
     }
 
+    private void updateMapViewState() {
+        for (HallMarker hallMark : hallMarks) {
+            updateMapMarkAttachment(hallMark);
+        }
+    }
+
     private void initHelper() {
         helper = new MapHelper(tileView, width, height);
 
@@ -118,15 +124,14 @@ public class MapFragment extends Fragment implements MarkerLayout.MarkerTapListe
             @Override
             public void onNext(Boolean aVoid) {
                 Log.d("event_trace", "update");
-
-                for (HallMarker hallMark : hallMarks) {
-                    updateMapMarkAttachment(hallMark);
-                }
+                updateMapViewState();
             }
         });
 
         tileView.setMarkerTapListener(this);
     }
+
+
 
     @Override
     public void onMarkerTap(View view, int x, int y) {

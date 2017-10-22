@@ -23,7 +23,7 @@ public class HallMarker extends MapMark {
     private Hall hall;
 
     public HallMarker(Context context, Hall hall) {
-        super(context, R.drawable.ic_user_blue_20px, 40);
+        super(context, R.drawable.ic_hall_gray_20px, 40);
 
         this.hall = hall;
     }
