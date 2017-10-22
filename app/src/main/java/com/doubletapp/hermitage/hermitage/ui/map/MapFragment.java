@@ -69,6 +69,7 @@ public class MapFragment extends Fragment implements MarkerLayout.MarkerTapListe
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         // Inflate the layout for this fragment
         tileView = new TileView(getActivity());
 //        int width = MetricsConverter.convertDpToPixel(1127, getActivity());

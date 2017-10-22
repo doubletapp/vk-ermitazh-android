@@ -7,6 +7,9 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.doubletapp.hermitage.hermitage.R;
 import com.doubletapp.hermitage.hermitage.ui.views.TimePicker;
@@ -16,6 +19,7 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 
 public class BuyTicketFragment extends Fragment {
@@ -26,6 +30,18 @@ public class BuyTicketFragment extends Fragment {
     Unbinder unbinder;
     @BindView(R.id.time_picker)
     TimePicker mTimePicker;
+    @BindView(R.id.buy_ticket_plus)
+    ImageView mPlus;
+    @BindView(R.id.buy_ticket_count)
+    TextView mCount;
+    @BindView(R.id.buy_ticket_minus)
+    ImageView mMinus;
+    @BindView(R.id.buy_ticket_calendar)
+    CheckBox mCalendar;
+    @BindView(R.id.buy_ticket_price)
+    TextView mPrice;
+
+    int count = 1;
 
     public static BuyTicketFragment newInstance() {
 
@@ -52,6 +68,8 @@ public class BuyTicketFragment extends Fragment {
     }
 
     private void init() {
+        count = 1;
+        mCount.setText("1");
         ArrayList<String> days = new ArrayList<>();
         days.add("ВТ");
         days.add("СР");
@@ -95,5 +113,26 @@ public class BuyTicketFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+    }
+
+    @OnClick(R.id.buy_ticket_button)
+    public void onViewClicked() {
+
+    }
+
+    @OnClick(R.id.buy_ticket_plus)
+    public void onPlusClicked() {
+        if (count < 9) {
+            count++;
+            mCount.setText(String.valueOf(count));
+        }
+    }
+
+    @OnClick(R.id.buy_ticket_minus)
+    public void onMinusClicked() {
+        if (count > 1) {
+            count--;
+            mCount.setText(String.valueOf(count));
+        }
     }
 }
