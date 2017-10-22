@@ -39,8 +39,20 @@ public class Exhibit {
         return mArt;
     }
 
+    public Room getRoom() {
+        return room;
+    }
+
+    public Position getPosition() {
+        return position;
+    }
+
     public static Builder build() {
         return new Builder();
+    }
+
+    public @DrawableRes int getImageRes() {
+        return imageRes;
     }
 
     public static class Builder {
@@ -67,6 +79,16 @@ public class Exhibit {
 
         public Builder setImage(@DrawableRes int imageRes) {
             exhibit.imageRes = imageRes;
+            return this;
+        }
+
+        public Builder setRoom(Room room) {
+            exhibit.room = room;
+            return this;
+        }
+
+        public Builder setPosition(Position position) {
+            exhibit.position = position;
             return this;
         }
 
