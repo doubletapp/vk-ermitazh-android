@@ -31,6 +31,7 @@ import com.qozix.tileview.paths.CompositePathView;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 
 import rx.Subscriber;
 import rx.Subscription;
