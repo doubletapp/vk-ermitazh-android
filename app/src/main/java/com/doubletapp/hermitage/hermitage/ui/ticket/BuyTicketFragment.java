@@ -13,11 +13,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.doubletapp.hermitage.hermitage.R;
+import com.doubletapp.hermitage.hermitage.model.Ticket;
 import com.doubletapp.hermitage.hermitage.ui.views.TimePicker;
 import com.doubletapp.hermitage.hermitage.ui.views.TimePickerData;
+import com.doubletapp.hermitage.hermitage.utils.Data;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Locale;
 import java.util.Random;
 
 import butterknife.BindView;
@@ -129,56 +133,64 @@ public class BuyTicketFragment extends Fragment implements TimePicker.OnDayChang
 
     @OnClick(R.id.buy_ticket_button)
     public void onViewClicked() {
-        if (mCalendar.isChecked()) {
-            Calendar beginTime = Calendar.getInstance();
-            beginTime.set(2017, 9, 24, 10, 0);
-            Calendar endTime = Calendar.getInstance();
-            endTime.set(2017, 9, 24, 12, 0);
-            switch (mDayPicker.getSelectedPosition()) {
-                case 2:
-                    beginTime.add(Calendar.DAY_OF_WEEK, 1);
-                    endTime.add(Calendar.DAY_OF_WEEK, 1);
-                    break;
-                case 3:
-                    beginTime.add(Calendar.DAY_OF_WEEK, 2);
-                    endTime.add(Calendar.DAY_OF_WEEK, 2);
-                    break;
-                case 4:
-                    beginTime.add(Calendar.DAY_OF_WEEK, 3);
-                    endTime.add(Calendar.DAY_OF_WEEK, 3);
-                    break;
-                case 5:
-                    beginTime.add(Calendar.DAY_OF_WEEK, 4);
-                    endTime.add(Calendar.DAY_OF_WEEK, 4);
-                    break;
-                case 6:
-                    beginTime.add(Calendar.DAY_OF_WEEK, 5);
-                    endTime.add(Calendar.DAY_OF_WEEK, 5);
-                    break;
-            }
-            switch (mTimePicker.getSelectedPosition()) {
-                case 2:
-                    beginTime.add(Calendar.HOUR, 2);
-                    endTime.add(Calendar.HOUR, 2);
-                    break;
-                case 3:
-                    beginTime.add(Calendar.HOUR, 4);
-                    endTime.add(Calendar.HOUR, 4);
-                    break;
-                case 4:
-                    beginTime.add(Calendar.HOUR, 6);
-                    endTime.add(Calendar.HOUR, 6);
-                    break;
-                case 5:
-                    beginTime.add(Calendar.HOUR, 8);
-                    endTime.add(Calendar.HOUR, 8);
-                    break;
-                case 6:
-                    beginTime.add(Calendar.HOUR, 10);
-                    endTime.add(Calendar.HOUR, 10);
-                    break;
-            }
+        Calendar beginTime = Calendar.getInstance();
+        beginTime.set(2017, 9, 24, 10, 0);
+        Calendar endTime = Calendar.getInstance();
+        endTime.set(2017, 9, 24, 12, 0);
+        switch (mDayPicker.getSelectedPosition()) {
+            case 2:
+                beginTime.add(Calendar.DAY_OF_WEEK, 1);
+                endTime.add(Calendar.DAY_OF_WEEK, 1);
+                break;
+            case 3:
+                beginTime.add(Calendar.DAY_OF_WEEK, 2);
+                endTime.add(Calendar.DAY_OF_WEEK, 2);
+                break;
+            case 4:
+                beginTime.add(Calendar.DAY_OF_WEEK, 3);
+                endTime.add(Calendar.DAY_OF_WEEK, 3);
+                break;
+            case 5:
+                beginTime.add(Calendar.DAY_OF_WEEK, 4);
+                endTime.add(Calendar.DAY_OF_WEEK, 4);
+                break;
+            case 6:
+                beginTime.add(Calendar.DAY_OF_WEEK, 5);
+                endTime.add(Calendar.DAY_OF_WEEK, 5);
+                break;
+        }
+        switch (mTimePicker.getSelectedPosition()) {
+            case 2:
+                beginTime.add(Calendar.HOUR, 2);
+                endTime.add(Calendar.HOUR, 2);
+                break;
+            case 3:
+                beginTime.add(Calendar.HOUR, 4);
+                endTime.add(Calendar.HOUR, 4);
+                break;
+            case 4:
+                beginTime.add(Calendar.HOUR, 6);
+                endTime.add(Calendar.HOUR, 6);
+                break;
+            case 5:
+                beginTime.add(Calendar.HOUR, 8);
+                endTime.add(Calendar.HOUR, 8);
+                break;
+            case 6:
+                beginTime.add(Calendar.HOUR, 10);
+                endTime.add(Calendar.HOUR, 10);
+                break;
+        }
 
+        SimpleDateFormat format = new SimpleDateFormat("dd-mm-yyyy", Locale.getDefault());
+        SimpleDateFormat formatTime = new SimpleDateFormat("hh:mm", Locale.getDefault());
+        for (int i = 0; i < count; i++) {
+            Data.tickets.add(new Ticket(format.format(beginTime.getTime()),
+                    formatTime.format(beginTime.getTime()) + " - " + formatTime.format(endTime.getTime()),
+                    "H32SM21TV"));
+        }
+
+        if (mCalendar.isChecked()) {
             Intent intent = new Intent(Intent.ACTION_EDIT);
             intent.setType("vnd.android.cursor.item/event");
             intent.putExtra("title", "Посещение Эрмитажа");
