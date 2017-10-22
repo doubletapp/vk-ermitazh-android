@@ -17,7 +17,9 @@ import com.doubletapp.hermitage.hermitage.ui.home.HomeFragment;
 import com.doubletapp.hermitage.hermitage.ui.map.MapFragment;
 import com.doubletapp.hermitage.hermitage.ui.nav.NavFragment;
 import com.doubletapp.hermitage.hermitage.ui.ticket.TicketsEmptyFragment;
+import com.doubletapp.hermitage.hermitage.ui.ticket.TicketsFragment;
 import com.doubletapp.hermitage.hermitage.utils.ActivityUtils;
+import com.doubletapp.hermitage.hermitage.utils.Data;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnTabSelectListener;
@@ -116,7 +118,11 @@ public class TabActivity extends AppCompatActivity implements OnTabSelectListene
             case R.id.tab_nav:
                 return NavFragment.newInstance();
             case R.id.tab_ticket:
-                return TicketsEmptyFragment.newInstance();
+                if (Data.tickets.isEmpty()) {
+                    return TicketsEmptyFragment.newInstance();
+                } else {
+                    return TicketsFragment.newInstance();
+                }
             default:
                 return null;
         }
@@ -159,7 +165,7 @@ public class TabActivity extends AppCompatActivity implements OnTabSelectListene
     public void onTabSelected(@IdRes int tabId) {
         ActivityUtils.replaceFragment(getSupportFragmentManager(),
                 R.id.fragment_container,
-                mFragmentMap.get(tabId),
+                createFragmentById(tabId),
                 getFragmentTagtById(tabId),
                 false);
         invalidateOptionsMenu();
